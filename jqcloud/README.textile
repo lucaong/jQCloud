@@ -1,0 +1,42 @@
+h1. jQCloud: beautiful word clouds with jQuery
+
+jQCloud is a jQuery plugin that draws pure HTML and CSS word clouds shaped like a cloud (otherwise, why would we call them word clouds?). Words can optionally be linked to URLs.
+
+h2. Installation
+
+As with any jQuery plugin, installation is extremely simple:
+
+# Make sure that you have the jQuery library and that you imported its .js file in your HTML code.
+# Download the jQCloud files. Place jqcloud.js (or the minified version jqcloud.min.js) and jqcloud.css somewhere in your project and import them in your HTML code.
+# You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
+
+h2. Usage
+
+Once you imported the .js an .css files, drawing a cloud is as simple as this:
+<pre><code>
+<div id="wordcloud" style="width: 750px; height: 500px; position: relative;"></div>
+<script type="text/javascript">
+  // Create an array of word objects to be passed to jQCloud, specifying for each word in the cloud the following attributes:
+  // text: [mandatory] string containing the word(s)
+  // weight: [mandatory] number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary.
+  // url: [optional] a URL to which the word must be linked
+  var word_list = new Array(
+      {text: "Lorem", weight: 15},
+      {text: "Ipsum", weight: 9, url: "http://jquery.com/"},
+      {text: "Dolor", weight: 6},
+      {text: "Sit", weight: 7},
+      {text: "Amet", weight: 5}
+      // ...other words
+    );
+  // Call jQCloud on a jQuery wrapper passing the word list as argument. Chainability of methods is maintained.
+  $("#wordcloud").jQCloud(word_list);
+</script>
+</code></pre>
+
+
+h2. Custom CSS guidelines
+
+The CSS file jqcloud.css is intended as an example or as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. Writing your custom CSS is as simple as:
+
+* Specify the style of the container element. IMPORTANT: the CSS attribute 'position' must be explicitly declared and different from 'static'.
+* Specify the style of the words (color, font, dimension, etc.). Words will be wrapped in <pre><code><span></code></pre> tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. See the file jqcloud.css for reference.
