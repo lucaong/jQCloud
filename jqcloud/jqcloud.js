@@ -1,3 +1,11 @@
+/*!
+ * jQCloud Plugin for jQuery
+ *
+ * Copyright 2011, Luca Ongaro
+ * Licensed under the MIT license.
+ *
+ * Date: Wed Feb 02 11:12:34 2011 +0100
+ */
 (function( $ ){
   $.fn.jQCloud = function(word_array) {
     // Reference to the container element
