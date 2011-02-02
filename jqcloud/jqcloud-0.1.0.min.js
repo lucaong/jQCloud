@@ -1,6 +1,8 @@
 /*!
  * jQCloud Plugin for jQuery
  *
+ * Version 0.1.0
+ *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *

@@ -1,13 +1,13 @@
 h1. jQCloud: beautiful word clouds with jQuery
 
-jQCloud is a jQuery plugin that builds pure HTML and CSS word clouds shaped like a cloud (otherwise, why would we call them word clouds?). Words can optionally be linked to URLs.
+jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds that are actually shaped like a cloud (otherwise, why would we call them 'word clouds'?).
 
 h2. Installation
 
 As with any jQuery plugin, installation is extremely simple:
 
 # Make sure that you have the jQuery library and that you imported its .js file in your HTML code.
-# Download the jQCloud files. Place jqcloud.js (or the minified version jqcloud.min.js) and jqcloud.css somewhere in your project and import them in your HTML code.
+# Download the jQCloud files. Place jqcloud-0.1.0.js (or the minified version jqcloud-0.1.0.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
 # You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
 h2. Usage
@@ -36,10 +36,13 @@ bc. <div id="wordcloud" style="width: 750px; height: 500px; position: relative;"
   $("#wordcloud").jQCloud(word_list);
 </script>
 
-
 h2. Custom CSS guidelines
 
 The CSS file jqcloud.css is intended as an example or as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. Writing your custom CSS is as simple as:
 
 * Specify the style of the container element. IMPORTANT: the CSS attribute 'position' must be explicitly declared and different from 'static'.
 * Specify the style of the words (color, font, dimension, etc.). Words will be wrapped in @<span>@ tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. See the file jqcloud.css for reference.
+
+h2. Examples
+
+Just have a look at the example directory provided in the project, it should be rather self explanatory. If you happen to use jQCloud in your projects, you can make me know (for example on "my website":http://www.lucaongaro.eu) and I can link your website in a 'gallery' section, so that other people can take inspiration.
