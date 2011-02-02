@@ -13,8 +13,8 @@ As with any jQuery plugin, installation is extremely simple:
 h2. Usage
 
 Once you imported the .js an .css files, drawing a cloud is as simple as this:
-<pre><code>
-\\
+
+bc..
 <div id="wordcloud" style="width: 750px; height: 500px; position: relative;"></div>
 <script type="text/javascript">
   /*!
@@ -36,8 +36,6 @@ Once you imported the .js an .css files, drawing a cloud is as simple as this:
   // Call jQCloud on a jQuery wrapper passing the word list as argument. Chainability of methods is maintained.
   $("#wordcloud").jQCloud(word_list);
 </script>
-\\
-</code></pre>
 
 
 h2. Custom CSS guidelines
