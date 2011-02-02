@@ -45,4 +45,4 @@ The CSS file jqcloud.css is intended as an example or as a base on which to deve
 
 h2. Examples
 
-Just have a look at the example directory provided in the project, it should be rather self explanatory. If you happen to use jQCloud in your projects, you can make me know (for example on "my website":http://www.lucaongaro.eu) and I can link your website in a 'gallery' section, so that other people can take inspiration.
+Just have a look at the examples directory provided in the project, it should be rather self explanatory. If you happen to use jQCloud in your projects, you can make me know (for example contact me on "my website":http://www.lucaongaro.eu) and I can link your website in a 'gallery' section, so that other people can take inspiration.
