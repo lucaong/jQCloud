@@ -14,7 +14,7 @@ h2. Usage
 
 Once you imported the .js an .css files, drawing a cloud is as simple as this:
 
-bc.. <div id="wordcloud" style="width: 750px; height: 500px; position: relative;"></div>
+bc. <div id="wordcloud" style="width: 750px; height: 500px; position: relative;"></div>
 <script type="text/javascript">
   /*!
    * Create an array of word objects to be passed to jQCloud, specifying for each word in the cloud the following attributes:
