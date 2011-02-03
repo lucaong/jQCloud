@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
   <head>
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="../jqcloud/jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="../jqcloud/jqcloud-0.1.1.js"></script>
+    <script type="text/javascript" src="../jqcloud/jqcloud-0.1.1.min.js"></script>
     <script type="text/javascript">
       var word_list = new Array(
         {text: "Lorem", weight: 13, url: "https://github.com/DukeLeNoir/jQCloud"},
@@ -50,13 +50,13 @@
         {text: "et nulla", weight: 1},
         {text: "Sed", weight: 1}
       );
+      $(document).ready(function() {
+        $("#wordcloud").jQCloud(word_list);
+      });
     </script>
   </head>
   <body>
     <h1>jQCloud Example</h1>
     <div id="wordcloud" style="width: 500px; height: 300px; border: 1px solid #ccc;"></div>
-    <script type="text/javascript">
-      $("#wordcloud").jQCloud(word_list);
-    </script>
   </body>
 </html>
