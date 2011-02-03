@@ -15,7 +15,7 @@ div#wordcloud a:hover {
   color: #0cf;
 }
 div#wordcloud span {
-  padding: 1px;
+  padding: 0;
 }
 div#wordcloud span.w10 {
   font-size: 54px;

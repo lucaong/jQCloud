@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.1.0
+ * Version 0.1.1
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Feb 02 11:12:34 2011 +0100
+ * Date: Wed Feb 03 12:05:50 2011 +0100
  */
 (function( $ ){
   $.fn.jQCloud = function(word_array) {
@@ -45,13 +45,14 @@
       var step = 2.0;
       var already_placed_words = [];
       var aspect_ratio = $this.width() / $this.height();
+      var origin_x = $this.width() / 2.0;
+      var origin_y = $this.height() / 2.0;
 
       // Move each word in spiral until it finds a suitable empty place
       $.each(word_array, function(index, word) {
-        var origin_x = $this.width() / 2.0;
-        var origin_y = $this.height() / 2.0;
         var angle = 6.28 * Math.random();
         var radius = 0.0;
+        // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
         if (word.url !== undefined) {
@@ -60,8 +61,10 @@
           $this.append("<span id='word_" + index + "' class='w" + weight + "'>" + word.text + "</span>");
         }
 
-        var left = origin_x - $("#word_" + index).width() / 2.0;
-        var top = origin_y - $("#word_" + index).height() / 2.0;
+        var width = $("#word_" + index).width();
+        var height = $("#word_" + index).height();
+        var left = origin_x - width / 2.0;
+        var top = origin_y - height / 2.0;
         $('#word_'+index).css("position", "absolute");
         $('#word_'+index).css("left", left + "px");
         $('#word_'+index).css("top", top + "px");
@@ -70,8 +73,8 @@
           radius += step;
           angle += (index % 2 === 0 ? 1 : -1)*step;
 
-          left = origin_x + (radius*Math.cos(angle) - ($('#word_' + index).width() / 2.0)) * aspect_ratio;
-          top = origin_y + radius*Math.sin(angle) - ($('#word_' + index).height() / 2.0);
+          left = origin_x + (radius*Math.cos(angle) - (width / 2.0)) * aspect_ratio;
+          top = origin_y + radius*Math.sin(angle) - (height / 2.0);
 
           $('#word_' + index).css('left', left + "px");
           $('#word_' + index).css('top', top + "px");
@@ -80,7 +83,7 @@
       });
     };
 
-    // Delay execution so the browser can render the page before computatively intensive word cloud drawing
+    // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
     setTimeout(function(){drawWordCloud();}, 100);
     return this;
   };

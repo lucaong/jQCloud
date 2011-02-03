@@ -14,14 +14,15 @@ h2. Usage
 
 Once you imported the .js an .css files, drawing a cloud is as simple as this:
 
-bc. <div id="wordcloud" style="width: 750px; height: 500px; position: relative;"></div>
+bc. <div id="wordcloud" style="width: 500px; height: 300px; position: relative;"></div>
 <script type="text/javascript">
   /*!
    * Create an array of word objects to be passed to jQCloud, specifying for each word in the cloud the following attributes:
    *
    * text: [mandatory] string containing the word(s)
    * weight: [mandatory] number (integer or float) defining the relative importance of the word
-   *         (such as the number of occurrencies, etc.). The range of values is arbitrary.
+   *         (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will
+   *         be linearly mapped to a discrete scale from 1 to 10.
    * url: [optional] a URL to which the word must be linked. It will be used as the href attribute of an HTML anchor.
    */
   var word_list = new Array(
