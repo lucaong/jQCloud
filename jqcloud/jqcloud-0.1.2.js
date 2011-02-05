@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.1.1
+ * Version 0.1.2
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Feb 03 12:05:50 2011 +0100
+ * Date: Wed Feb 05 14:13:23 2011 +0100
  */
 (function( $ ){
   $.fn.jQCloud = function(word_array) {
@@ -18,13 +18,9 @@
       var hitTest = function(elem, other_elems){
         // Pairwise overlap detection
         var overlapping = function(a, b){
-          if(b.offsetLeft <= (a.offsetLeft + a.offsetWidth)) {
-            if(a.offsetLeft <= (b.offsetLeft + b.offsetWidth)){
-              if(b.offsetTop <= (a.offsetTop + a.offsetHeight)) {
-                if(a.offsetTop <= (b.offsetTop + b.offsetHeight)) {
-                  return true;
-                }
-              }
+          if (Math.abs(2.0*a.offsetLeft + a.offsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth) {
+            if (Math.abs(2.0*a.offsetTop + a.offsetHeight - 2.0*b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) {
+              return true;
             }
           }
           return false;
