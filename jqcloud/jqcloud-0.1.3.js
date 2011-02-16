@@ -1,15 +1,15 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.1.2
+ * Version 0.1.3
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Feb 05 14:13:23 2011 +0100
+ * Date: Wed Feb 16 11:41:32 2011 +0100
  */
 (function( $ ){
-  $.fn.jQCloud = function(word_array) {
+  $.fn.jQCloud = function(word_array, callback_function) {
     // Reference to the container element
     var $this = this;
 
@@ -51,11 +51,8 @@
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
-        if (word.url !== undefined) {
-          $this.append("<span id='word_" + index + "' class='w" + weight + "'><a href='" + word.url + "'>" + word.text + "</a></span>");
-        } else {
-          $this.append("<span id='word_" + index + "' class='w" + weight + "'>" + word.text + "</span>");
-        }
+        var inner_html = word.url !== undefined ? "<a href='" + word.url + "'>" + word.text + "</a></span>" : word.text;
+        $this.append("<span id='word_" + index + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
 
         var width = $("#word_" + index).width();
         var height = $("#word_" + index).height();
@@ -77,10 +74,14 @@
         }
         already_placed_words.push(document.getElementById("word_"+index));
       });
+
+      if (typeof callback_function === 'function') {
+        callback_function.call(this);
+      }
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
     setTimeout(function(){drawWordCloud();}, 100);
     return this;
   };
-})( jQuery );
+})(jQuery);

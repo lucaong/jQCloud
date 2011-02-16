@@ -7,7 +7,7 @@ h2. Installation
 Installing jQCloud is extremely simple:
 
 # Make sure to import jQuery library.
-# Download the jQCloud files. Place jqcloud-0.1.2.js (or the minified version jqcloud-0.1.2.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
+# Download the jQCloud files. Place jqcloud-0.1.3.js (or the minified version jqcloud-0.1.3.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -15,27 +15,31 @@ h2. Usage
 
 Once you imported the .js an .css files, drawing a cloud is as simple as this:
 
-bc. <!doctype html>
+bc. <!DOCTYPE html>
 <html>
   <head>
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.1.2.js"></script>
+    <script type="text/javascript" src="jqcloud-0.1.3.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
-       * the following attributes:
+       * the following mandatory attributes:
        *
-       * text: [mandatory] a string containing the word(s)
-       * weight: [mandatory] a number (integer or float) defining the relative importance of the word
+       * text: a string containing the word(s)
+       * weight: a number (integer or float) defining the relative importance of the word
        *         (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will
        *         be linearly mapped to a discrete scale from 1 to 10.
-       * url: [optional] a URL that the word must link. It will be used as the href attribute of an HTML anchor.
+       *
+       * You can also specify the following optional attributes:
+       *
+       * url: a URL that the word must link. It will be used as the href attribute of an HTML anchor.
+       * title: an html title for the <span> that will contain the word(s)
        */
       var word_list = [
           {text: "Lorem", weight: 15},
-          {text: "Ipsum", weight: 9, url: "http://jquery.com/"},
+          {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "jQuery Rocks!"},
           {text: "Dolor", weight: 6},
           {text: "Sit", weight: 7},
           {text: "Amet", weight: 5}
@@ -53,6 +57,14 @@ bc. <!doctype html>
   </body>
 </html>
 
+h3. Note:
+
+Since drawing the cloud is rather computationally intensive, the drawing function isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can pass to jQCloud a callback function:
+
+bc. $("#wordcloud").jQCloud(word_list, function(){
+  // This code executes after the cloud is fully rendered
+});
+
 h2. Custom CSS guidelines
 
 The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
@@ -69,4 +81,6 @@ If you happen to use jQCloud in your projects, you can make me know (just contac
 
 h2. Changelog
 
-I just started this tiny project, only minor improvements and optimization happened from version 0.1.0 to 0.1.2.
+0.1.3 Added possibility to define a callback and to specify a custom title attribute for each word in the cloud
+
+0.1.0 -> 0.1.2 I just started this tiny project, only minor improvements and optimization happened
