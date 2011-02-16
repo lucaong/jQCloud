@@ -2,6 +2,8 @@ h1. jQCloud: beautiful word clouds with jQuery
 
 jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds and tag clouds that are actually shaped like a cloud (otherwise, why would we call them 'word clouds'?).
 
+You can see a "demo here":http://www.lucaongaro.eu/demos/jqcloud/
+
 h2. Installation
 
 Installing jQCloud is extremely simple:
