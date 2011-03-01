@@ -49,13 +49,13 @@ bc. <!DOCTYPE html>
       ];
       $(document).ready(function() {
         // Call jQCloud on a jQuery object passing the word list as argument. Chainability of methods is maintained.
-        $("#wordcloud").jQCloud(word_list);
+        $("#example").jQCloud(word_list);
       });
     </script>
   </head>
   <body>
     <!-- You must explicitly specify the dimensions of the container element -->
-    <div id="wordcloud" style="width: 550px; height: 350px; position: relative;"></div>
+    <div id="example" style="width: 550px; height: 350px; position: relative;"></div>
   </body>
 </html>
 
@@ -63,15 +63,15 @@ h3. Note:
 
 Since drawing the cloud is rather computationally intensive, the drawing function isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can pass to jQCloud a callback function:
 
-bc. $("#wordcloud").jQCloud(word_list, function(){
+bc. $("#example").jQCloud(word_list, function(){
   // This code executes after the cloud is fully rendered
 });
 
 h2. Custom CSS guidelines
 
-The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
+The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call ("#container").jQCloud(...), the containing element is given a CSS class of "wordcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
-* Always specify the dimensions of the container element (div#wordcloud in jqcloud.css).
+* Always specify the dimensions of the container element (div.wordcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in @<span>@ tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 

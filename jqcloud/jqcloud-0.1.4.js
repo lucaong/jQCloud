@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Fri Feb 25 14:29:19 -0800 2011
+ * Date: Mon Feb 28 19:30:59 -0800 2011
  */ 
  
 (function( $ ){
@@ -15,6 +15,9 @@
     var $this = this;
     // Reference to the ID of the container element
     var container_id = $this.attr('id');
+    
+    // Add the "wordcloud" class to the container for easy CSS styling
+    $this.addClass("wordcloud");
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
