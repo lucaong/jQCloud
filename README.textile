@@ -69,9 +69,9 @@ bc. $("#example").jQCloud(word_list, function(){
 
 h2. Custom CSS guidelines
 
-The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call ("#container").jQCloud(...), the containing element is given a CSS class of "wordcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
+The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call ("#container").jQCloud(...), the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
-* Always specify the dimensions of the container element (div.wordcloud in jqcloud.css).
+* Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in @<span>@ tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
@@ -82,6 +82,8 @@ Just have a look at the examples directory provided in the project, it should be
 If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can link your website in a 'gallery' section, so that other people can take inspiration from it.
 
 h2. Changelog
+
+0.1.5 Apply CSS style to a "jqcloud" class, automatically added (previously an id was used. Again, thanks to "seanahrens":https://github.com/seanahrens)
 
 0.1.4 Fix bug with multiple clouds on the same page (kudos to "seanahrens":https://github.com/seanahrens)
 

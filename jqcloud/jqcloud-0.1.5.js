@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.1.4
+ * Version 0.1.5
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Mon Feb 28 19:30:59 -0800 2011
+ * Date: Tue Mar 1 11:09:37 +0100 2011
  */ 
  
 (function( $ ){
@@ -16,8 +16,8 @@
     // Reference to the ID of the container element
     var container_id = $this.attr('id');
     
-    // Add the "wordcloud" class to the container for easy CSS styling
-    $this.addClass("wordcloud");
+    // Add the "jqcloud" class to the container for easy CSS styling
+    $this.addClass("jqcloud");
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
