@@ -10,12 +10,14 @@
  */ 
  
 (function( $ ){
-  $.fn.jQCloud = function(word_array, callback_function) {
+  $.fn.jQCloud = function(word_array, callback_function, config) {
     // Reference to the container element
     var $this = this;
     // Reference to the ID of the container element
     var container_id = $this.attr('id');
-    
+
+    config = (!config ? {} : config);   
+ 
     // Add the "jqcloud" class to the container for easy CSS styling
     $this.addClass("jqcloud");
 
@@ -48,11 +50,14 @@
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
+      var cloud_width = typeof(config['width']) === 'number' ? config['width'] : $this.width();
+      var cloud_height = typeof(config['height']) === 'number' ? config['height'] : $this.height();
+
       var step = 2.0;
       var already_placed_words = [];
-      var aspect_ratio = $this.width() / $this.height();
-      var origin_x = $this.width() / 2.0;
-      var origin_y = $this.height() / 2.0;
+      var aspect_ratio = cloud_width / cloud_height;
+      var origin_x = cloud_width / 2.0;
+      var origin_y = cloud_height / 2.0;
 
       // Move each word in spiral until it finds a suitable empty place
       $.each(word_array, function(index, word) {
