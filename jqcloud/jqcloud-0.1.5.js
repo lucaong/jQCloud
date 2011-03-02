@@ -19,6 +19,10 @@
     // Add the "jqcloud" class to the container for easy CSS styling
     $this.addClass("jqcloud");
 
+    var commaize = function(number) {
+	return String(number).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    };
+ 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
       var hitTest = function(elem, other_elems){
@@ -62,12 +66,12 @@
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
-        var inner_html = word.url !== undefined ? "<a href='" + word.url + "'>" + word.text + "</a></span>" : word.text;
-        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
+        var inner_html = word.url !== undefined ? "<a href='" + word.url + "' target='_blank'>" + word.text + "</a></span>" : word.text;
+        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || commaize(word.weight) || "") + "'>" + inner_html + "</span>");
 
         var width = $(word_selector).width();
         var height = $(word_selector).height();
-        var left = origin_x - width / 2.0;
+        var left = Math.max(0, origin_x - width / 2.0);
         var top = origin_y - height / 2.0;
         $(word_selector).css("position", "absolute");
         $(word_selector).css("left", left + "px");
@@ -77,7 +81,7 @@
           radius += step;
           angle += (index % 2 === 0 ? 1 : -1)*step;
 
-          left = origin_x + (radius*Math.cos(angle) - (width / 2.0)) * aspect_ratio;
+          left = Math.max(0, origin_x + (radius*Math.cos(angle) - (width / 2.0)) * aspect_ratio);
           top = origin_y + radius*Math.sin(angle) - (height / 2.0);
 
           $(word_selector).css('left', left + "px");
