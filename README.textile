@@ -69,7 +69,7 @@ bc. $("#example").jQCloud(word_list, function(){
 
 h2. Custom CSS guidelines
 
-The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call ("#container").jQCloud(...), the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
+The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call $("#container").jQCloud(...), the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
 * Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
