@@ -41,6 +41,11 @@
         return false;
       };
 
+      // Make sure every weight is a number before sorting
+      for (i = 0; i < word_array.length; i++) {
+        word_array[i].weight = parseFloat(word_array[i].weight, 10);
+      }
+      
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
