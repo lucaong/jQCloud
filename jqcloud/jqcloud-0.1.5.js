@@ -62,7 +62,7 @@
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
-        var inner_html = word.url !== undefined ? "<a href='" + word.url + "'>" + word.text + "</a></span>" : word.text;
+        var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a></span>" : word.text;
         $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
 
         var width = $(word_selector).width();
