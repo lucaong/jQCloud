@@ -8,14 +8,14 @@ h2. Installation
 
 Installing jQCloud is extremely simple:
 
-# Make sure to import the jQuery library.
+# Make sure to import the jQuery library in your project.
 # Download the jQCloud files. Place jqcloud-0.1.6.js (or the minified version jqcloud-0.1.6.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
 h2. Usage
 
-Once you imported the .js an .css files, drawing a cloud is as simple as this:
+Once you imported the .js and .css files, drawing a cloud is as simple as this:
 
 bc. <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@ bc. <!DOCTYPE html>
        *
        * You can also specify the following optional attributes:
        *
-       * url: a URL that the word must link. It will be used as the href attribute of an HTML anchor.
+       * url: a URL to which the word will be linked. It will be used as the href attribute of an HTML anchor.
        * title: an HTML title for the <span> that will contain the word(s)
        */
       var word_list = [
@@ -48,7 +48,7 @@ bc. <!DOCTYPE html>
           // ...other words
       ];
       $(document).ready(function() {
-        // Call jQCloud on a jQuery object passing the word list as argument. Chainability of methods is maintained.
+        // Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
         $("#example").jQCloud(word_list);
       });
     </script>
@@ -61,7 +61,7 @@ bc. <!DOCTYPE html>
 
 h3. Note:
 
-Since drawing the cloud is rather computationally intensive, the drawing function isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can pass to jQCloud a callback function:
+Since drawing the cloud is rather computationally intensive, cloud rendering isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can pass to jQCloud a callback function:
 
 bc. $("#example").jQCloud(word_list, function(){
   // This code executes after the cloud is fully rendered
@@ -69,7 +69,7 @@ bc. $("#example").jQCloud(word_list, function(){
 
 h2. Custom CSS guidelines
 
-The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call $("#container").jQCloud(...), the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
+The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call $("#example").jQCloud(...), the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file jqcloud.css is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
 * Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
@@ -77,13 +77,13 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 
 h2. Examples
 
-Just have a look at the examples directory provided in the project, it should be rather self explanatory, or you can watch a "demo here":http://www.lucaongaro.eu/demos/jqcloud/.
+Just have a look at the examples directory provided in the project or see a "demo here":http://www.lucaongaro.eu/demos/jqcloud/.
 
-If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can link your website in a 'gallery' section, so that other people can take inspiration from it.
+If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
 
 h2. Changelog
 
-0.1.6 JavaScript friendly URL escape of 'url' option; Typecast of 'weight' option to float (thanks to "nudesign":https://github.com/nudesign)
+0.1.6 JavaScript-friendly URL encode 'url' option; Typecast 'weight' option to float (thanks to "nudesign":https://github.com/nudesign)
 
 0.1.5 Apply CSS style to a "jqcloud" class, automatically added (previously an id was used. Again, thanks to "seanahrens":https://github.com/seanahrens)
 

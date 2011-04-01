@@ -15,7 +15,7 @@
     var $this = this;
     // Reference to the ID of the container element
     var container_id = $this.attr('id');
-    
+
     // Add the "jqcloud" class to the container for easy CSS styling
     $this.addClass("jqcloud");
 
@@ -57,13 +57,14 @@
 
       // Move each word in spiral until it finds a suitable empty place
       $.each(word_array, function(index, word) {
-        
-        // Define the ID element of the span that will wrap the word, and the associated jquery selector string
+
+        // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
         var word_selector = "#" + word_id;
-        
+
         var angle = 6.28 * Math.random();
         var radius = 0.0;
+
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
