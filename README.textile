@@ -83,7 +83,7 @@ If you happen to use jQCloud in your projects, you can make me know (just contac
 
 h2. Changelog
 
-0.1.7 Remove duplicated @</span>@ when word has an URL
+0.1.7 Remove duplicated @</span>@ when word has an URL (thanks to "rbrancher":https://github.com/rbrancher)
 
 0.1.6 JavaScript-friendly URL encode 'url' option; Typecast 'weight' option to float (thanks to "nudesign":https://github.com/nudesign)
 
