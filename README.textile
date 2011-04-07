@@ -9,7 +9,7 @@ h2. Installation
 Installing jQCloud is extremely simple:
 
 # Make sure to import the jQuery library in your project.
-# Download the jQCloud files. Place jqcloud-0.1.6.js (or the minified version jqcloud-0.1.6.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
+# Download the jQCloud files. Place jqcloud-0.1.7.js (or the minified version jqcloud-0.1.7.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -23,7 +23,7 @@ bc. <!DOCTYPE html>
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.1.6.js"></script>
+    <script type="text/javascript" src="jqcloud-0.1.7.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
@@ -82,6 +82,8 @@ Just have a look at the examples directory provided in the project or see a "dem
 If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
 
 h2. Changelog
+
+0.1.7 Remove duplicated @</span>@ when word has an URL
 
 0.1.6 JavaScript-friendly URL encode 'url' option; Typecast 'weight' option to float (thanks to "nudesign":https://github.com/nudesign)
 
