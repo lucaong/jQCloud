@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.1.7
+ * Version 0.1.8
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Thu Apr 7 12:59:25 +0100 2011
+ * Date: Fri Apr 8 10:24:15 +0100 2011
  */ 
  
 (function( $ ){
@@ -83,7 +83,7 @@
           radius += step;
           angle += (index % 2 === 0 ? 1 : -1)*step;
 
-          left = origin_x + (radius*Math.cos(angle) - (width / 2.0)) * aspect_ratio;
+          left = origin_x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
           top = origin_y + radius*Math.sin(angle) - (height / 2.0);
 
           $(word_selector).css('left', left + "px");
