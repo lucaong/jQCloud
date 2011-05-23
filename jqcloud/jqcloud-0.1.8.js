@@ -10,7 +10,7 @@
  */ 
  
 (function( $ ){
-  $.fn.jQCloud = function(word_array, callback_function) {
+  $.fn.jQCloud = function(word_array, callback_function, placement_interval) {
     // Reference to the container element
     var $this = this;
     // Reference to the ID of the container element
@@ -45,7 +45,7 @@
       for (i = 0; i < word_array.length; i++) {
         word_array[i].weight = parseFloat(word_array[i].weight, 10);
       }
-      
+
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
@@ -56,7 +56,7 @@
       var origin_y = $this.height() / 2.0;
 
       // Move each word in spiral until it finds a suitable empty place
-      $.each(word_array, function(index, word) {
+      var place_one_word = function(index, word) {
 
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
@@ -90,11 +90,36 @@
           $(word_selector).css('top', top + "px");
         }
         already_placed_words.push(document.getElementById(word_id));
-      });
+      };
 
-      if (typeof callback_function === 'function') {
-        callback_function.call(this);
+      var interval = 0;
+      if (placement_interval && (interval = parseInt(placement_interval))) {
+        if(word_array.length > 0){
+          var place_words_one_by_one = function(index, word){
+            place_one_word(index, word);
+
+            if (typeof callback_function === 'function') {
+              callback_function.call(this, index, word);
+            }
+
+            var next_index = index + 1;
+            if(next_index < word_array.length){
+              setTimeout(function(){place_words_one_by_one(next_index, word_array[next_index]);}, interval);
+            }
+          }
+
+          place_words_one_by_one(0, word_array[0]);
+        }
+      } else {
+        $.each(word_array, function(index, word) {
+          place_one_word(index, word);
+        });
+
+        if (typeof callback_function === 'function') {
+          callback_function.call(this);
+        }
       }
+
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
