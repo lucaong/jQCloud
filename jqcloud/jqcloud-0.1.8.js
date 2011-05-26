@@ -57,7 +57,6 @@
 
       // Move each word in spiral until it finds a suitable empty place
       var place_one_word = function(index, word) {
-
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
         var word_selector = "#" + word_id;
@@ -99,7 +98,7 @@
             place_one_word(index, word);
 
             if (typeof callback_function === 'function') {
-              callback_function.call(this, index, word);
+              callback_function.call($this, index, word);
             }
 
             var next_index = index + 1;
@@ -116,7 +115,7 @@
         });
 
         if (typeof callback_function === 'function') {
-          callback_function.call(this);
+          callback_function.call($this);
         }
       }
 
