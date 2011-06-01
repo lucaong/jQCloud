@@ -10,7 +10,7 @@
  */ 
  
 (function( $ ){
-  $.fn.jQCloud = function(word_array, callback_function, placement_interval) {
+  $.fn.jQCloud = function(word_array, callback_function, config) {
     // Reference to the container element
     var $this = this;
     // Reference to the ID of the container element
@@ -18,6 +18,10 @@
 
     // Add the "jqcloud" class to the container for easy CSS styling
     $this.addClass("jqcloud");
+
+    config = (!config ? {} : config);
+    var placement_interval = config['placement_interval'];
+    var random_colors = config['random_colors'];
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
@@ -57,6 +61,7 @@
 
       // Move each word in spiral until it finds a suitable empty place
       var place_one_word = function(index, word) {
+
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
         var word_selector = "#" + word_id;
@@ -67,8 +72,25 @@
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
+        var isArray = function(value){
+          var s = typeof value;
+          if (s === 'object') {
+            if (value) {
+              if (value instanceof Array) {
+                return true;
+              }
+            }
+          }
+          return false;
+        };
+        var color_style = "";
+        if(random_colors && isArray(random_colors)){
+          var random_color = random_colors[Math.floor(Math.random()*random_colors.length)];
+          color_style = " style='color:" + random_color + "'";
+        }
+
         var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
-        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
+        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'" + color_style + ">" + inner_html + "</span>");
 
         var width = $(word_selector).width();
         var height = $(word_selector).height();
@@ -98,7 +120,7 @@
             place_one_word(index, word);
 
             if (typeof callback_function === 'function') {
-              callback_function.call($this, index, word);
+              callback_function.call(this, index, word);
             }
 
             var next_index = index + 1;
@@ -115,7 +137,7 @@
         });
 
         if (typeof callback_function === 'function') {
-          callback_function.call($this);
+          callback_function.call(this);
         }
       }
 
