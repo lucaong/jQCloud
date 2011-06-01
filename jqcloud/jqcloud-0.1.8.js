@@ -22,6 +22,8 @@
     config = (!config ? {} : config);
     var placement_interval = config['placement_interval'];
     var random_colors = config['random_colors'];
+    var min_font_size = config['min_font_size'];
+    var max_font_size = config['max_font_size'];
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
@@ -83,14 +85,22 @@
           }
           return false;
         };
-        var color_style = "";
+        var style_vals = "";
         if(random_colors && isArray(random_colors)){
           var random_color = random_colors[Math.floor(Math.random()*random_colors.length)];
-          color_style = " style='color:" + random_color + "'";
+          style_vals += "color:" + random_color + ";";
+        }
+        if(min_font_size && max_font_size){
+          var font_size = Math.round(
+              (word.weight - word_array[word_array.length - 1].weight) / 
+              ((word_array[0].weight - word_array[word_array.length - 1].weight) * 1.0) * 
+              (max_font_size - min_font_size)
+          ) + min_font_size;
+          style_vals += "font-size:" + font_size + "px;";
         }
 
         var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
-        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'" + color_style + ">" + inner_html + "</span>");
+        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "' style='" + style_vals + "'>" + inner_html + "</span>");
 
         var width = $(word_selector).width();
         var height = $(word_selector).height();
