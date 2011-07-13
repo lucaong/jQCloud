@@ -1,7 +1,7 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version <%= @version %>
+ * Version <%= version %>
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
@@ -27,7 +27,7 @@
       delayed_mode: word_array.length > 50
     };
 
-    // Maintain backward compatibility with old API, where the second argument of jQCloud was a callback function
+    // Maintain backward compatibility with old API (pre 0.2.0), where the second argument of jQCloud was a callback function
     if (typeof options === 'function') {
       options = { callback: options }
     }

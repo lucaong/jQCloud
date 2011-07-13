@@ -1,18 +1,38 @@
 version = File.new("version.txt", "r").read.chomp
 
+task :clean do
+  puts "Deleting old files"
+  Dir.glob(File.join("jqcloud", "jqcloud-*.js")) do |filename|
+    puts "...deleting #{filename}"
+    File.delete filename
+  end
+end
+
 task :compile do
   require 'erb'
   
-  File.open("jqcloud/jqcloud-#{version}.js", "w") do |f|
-    f.write ERB.new("src/jqcloud/jqcloud.js.erb").result
+  puts "Compiling jqcloud/jqcloud-#{version}.js"
+  File.open(File.join("jqcloud", "jqcloud-#{version}.js"), "w") do |f|
+    f.write ERB.new(File.new(File.join("src", "jqcloud", "jqcloud.js.erb"), "r").read).result(binding)
   end
   
+  puts "Compiling README.textile"
   File.open("README.textile", "w") do |f|
-    f.write ERB.new("src/README.textile.erb").result
+    f.write ERB.new(File.new(File.join("src", "README.textile.erb"), "r").read).result(binding)
   end
   
-  File.open("examples/index.html", "w") do |f|
-    f.write ERB.new("src/examples/index.html.erb").result
+  puts "Compiling examples"
+  Dir.glob(File.join("src", "examples", "*")) do |filename|
+    basename = File.basename(filename, ".erb")
+    puts "...compiling examples/#{basename}"
+    File.open("examples/#{basename}", "w") do |f|
+      f.write ERB.new(File.new(filename, "r").read).result(binding)
+    end
+  end
+  
+  puts "Compiling test/index.html"
+  File.open(File.join("test", "index.html"), "w") do |f|
+    f.write ERB.new(File.new(File.join("src", "test", "index.html.erb"), "r").read).result(binding)
   end
 end
 
@@ -20,11 +40,15 @@ task :compress do
   require 'rubygems'
   require 'uglifier'
   
-  File.open("jqcloud/jqcloud-#{version}.min.js", "w") do |f|
-    f.write Uglifier.compile(File.read("jqcloud/jqcloud-#{version}.js"))
+  puts "Minifying jqcloud/jqcloud-#{version}.js into jqcloud/jqcloud-#{version}.min.js"
+  File.open(File.join("jqcloud", "jqcloud-#{version}.min.js"), "w") do |f|
+    f.write Uglifier.compile(File.read(File.join("jqcloud", "jqcloud-#{version}.js")))
   end
 end
 
-task :build => [:compile, :compress] do
-  puts "Built version #{version}"
+task :build => [:clean, :compile, :compress] do
+  puts
+  puts "Version #{version} successfully built!"
 end
+
+task :default => 'build'

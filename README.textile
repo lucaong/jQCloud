@@ -9,7 +9,7 @@ h2. Installation
 Installing jQCloud is extremely simple:
 
 # Make sure to import the jQuery library in your project.
-# Download the jQCloud files. Place jqcloud-0.2.0.js (or the minified version jqcloud-0.2.0.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
+# Download the jQCloud files. Place "jqcloud-0.2.0.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.0.js (or the minified version "jqcloud-0.2.0.min.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.0.min.js) and "jqcloud.css":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 

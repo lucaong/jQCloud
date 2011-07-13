@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Jul 13 13:48:05 +0100 2011
+ * Date: Wed Jul 13 19:06:38 +0200 2011
  */ 
  
 (function( $ ){
@@ -27,7 +27,7 @@
       delayed_mode: word_array.length > 50
     };
 
-    // Maintain backward compatibility with old API, where the second argument of jQCloud was a callback function
+    // Maintain backward compatibility with old API (pre 0.2.0), where the second argument of jQCloud was a callback function
     if (typeof options === 'function') {
       options = { callback: options }
     }
