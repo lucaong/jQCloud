@@ -1,20 +1,38 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.1.8
+ * Version 0.2.0
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Fri Apr 8 10:24:15 +0100 2011
+ * Date: Wed Jul 13 13:48:05 +0100 2011
  */ 
  
 (function( $ ){
-  $.fn.jQCloud = function(word_array, callback_function) {
+  $.fn.jQCloud = function(word_array, options) {
     // Reference to the container element
     var $this = this;
     // Reference to the ID of the container element
     var container_id = $this.attr('id');
+
+    // Default options value
+    var default_options = {
+      width: $this.width(),
+      height: $this.height(),
+      center: {
+        x: $this.width() / 2.0,
+        y: $this.height() / 2.0
+      },
+      delayed_mode: word_array.length > 50
+    };
+
+    // Maintain backward compatibility with old API, where the second argument of jQCloud was a callback function
+    if (typeof options === 'function') {
+      options = { callback: options }
+    }
+
+    options = $.extend(default_options, options || {});
 
     // Add the "jqcloud" class to the container for easy CSS styling
     $this.addClass("jqcloud");
@@ -51,13 +69,10 @@
 
       var step = 2.0;
       var already_placed_words = [];
-      var aspect_ratio = $this.width() / $this.height();
-      var origin_x = $this.width() / 2.0;
-      var origin_y = $this.height() / 2.0;
+      var aspect_ratio = options.width / options.height;
 
-      // Move each word in spiral until it finds a suitable empty place
-      $.each(word_array, function(index, word) {
-
+      // Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
+      var drawOneWord = function(index, word) {
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
         var word_selector = "#" + word_id;
@@ -73,8 +88,8 @@
 
         var width = $(word_selector).width();
         var height = $(word_selector).height();
-        var left = origin_x - width / 2.0;
-        var top = origin_y - height / 2.0;
+        var left = options.center.x - width / 2.0;
+        var top = options.center.y - height / 2.0;
         $(word_selector).css("position", "absolute");
         $(word_selector).css("left", left + "px");
         $(word_selector).css("top", top + "px");
@@ -83,22 +98,38 @@
           radius += step;
           angle += (index % 2 === 0 ? 1 : -1)*step;
 
-          left = origin_x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
-          top = origin_y + radius*Math.sin(angle) - (height / 2.0);
+          left = options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
+          top = options.center.y + radius*Math.sin(angle) - (height / 2.0);
 
           $(word_selector).css('left', left + "px");
           $(word_selector).css('top', top + "px");
         }
         already_placed_words.push(document.getElementById(word_id));
-      });
+      }
 
-      if (typeof callback_function === 'function') {
-        callback_function.call(this);
+      var drawOneWordDelayed = function(index) {
+        index = index || 0;
+        if (index < word_array.length) {
+          drawOneWord(index, word_array[index]);
+          setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);
+        }
+      }
+
+      // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayed_mode is true or false)
+      if (options.delayed_mode){
+        drawOneWordDelayed();
+      }
+      else {
+        $.each(word_array, drawOneWord);
+      }
+
+      if (typeof options.callback === 'function') {
+        options.callback.call(this);
       }
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
-    setTimeout(function(){drawWordCloud();}, 100);
+    setTimeout(function(){drawWordCloud();}, 10);
     return this;
   };
 })(jQuery);

@@ -9,7 +9,7 @@ h2. Installation
 Installing jQCloud is extremely simple:
 
 # Make sure to import the jQuery library in your project.
-# Download the jQCloud files. Place jqcloud-0.1.8.js (or the minified version jqcloud-0.1.8.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
+# Download the jQCloud files. Place jqcloud-0.2.0.js (or the minified version jqcloud-0.2.0.min.js) and jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -23,7 +23,7 @@ bc. <!DOCTYPE html>
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.1.8.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.0.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
@@ -59,13 +59,36 @@ bc. <!DOCTYPE html>
   </body>
 </html>
 
+h3. Options:
+
+Since version 0.2.0, jQCloud accepts an object containing configuration options as the second argument:
+
+bc. $("#example").jQCloud(word_list, {
+  width: 300,
+  height: 200
+});
+
+The full list of available options is the following:
+
+* *width* (number): The width of the word cloud. Defaults to the width of the container element.
+* *height* (number): The height of the word cloud. Defaults to the height of the container element.
+* *center* (object): The x and y coordinates of the center of the word cloud (e.g.: {x: 300, y: 150}). Defaults to the center of the container element.
+* *callback* (function): A callback function to be called after the cloud is fully rendered. Undefined by default.
+* *delayed_mode* (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayed_mode is true when there are more than 50 words.
+
 h3. Note:
 
-Since drawing the cloud is rather computationally intensive, cloud rendering isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can pass to jQCloud a callback function:
+Since drawing the cloud is rather computationally intensive, cloud rendering isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can specify in the options a callback function:
 
-bc. $("#example").jQCloud(word_list, function(){
-  // This code executes after the cloud is fully rendered
+bc. $("#example").jQCloud(word_list, {
+  callback: function() {
+    // This code executes after the cloud is fully rendered
+  }
 });
+
+h4. Deprecation warning:
+
+Before version 0.2.0 jQCloud used to accept a callback function as the second argument. This way of specifying the callback function is deprecated and, although version 0.2.0 maintains backward compatibility, it will be removed in newer versions. If you need a callback function, use the 'callback' configuration option instead.
 
 h2. Custom CSS guidelines
 
@@ -82,6 +105,8 @@ Just have a look at the examples directory provided in the project or see a "dem
 If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
 
 h2. Changelog
+
+0.2.0 Add configuration options, passed as the second argument of jQCloud (include ideas proposed by "mindscratch":https://github.com/mindscratch and "aaaa0441":https://github.com/aaaa0441)
 
 0.1.8 Fix bug in the algorithm causing sometimes unbalanced layouts (thanks to "isamochernov":https://github.com/isamochernov)
 
