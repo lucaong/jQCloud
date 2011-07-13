@@ -10,7 +10,7 @@
  */ 
  
 (function( $ ){
-  $.fn.jQCloud = function(word_array, callback_function) {
+  $.fn.jQCloud = function(word_array, callback_function, config) {
     // Reference to the container element
     var $this = this;
     // Reference to the ID of the container element
@@ -18,6 +18,12 @@
 
     // Add the "jqcloud" class to the container for easy CSS styling
     $this.addClass("jqcloud");
+
+    config = (!config ? {} : config);
+    var placement_interval = config['placement_interval'];
+    var random_colors = config['random_colors'];
+    var min_font_size = config['min_font_size'];
+    var max_font_size = config['max_font_size'];
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
@@ -45,7 +51,7 @@
       for (i = 0; i < word_array.length; i++) {
         word_array[i].weight = parseFloat(word_array[i].weight, 10);
       }
-      
+
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
@@ -56,7 +62,7 @@
       var origin_y = $this.height() / 2.0;
 
       // Move each word in spiral until it finds a suitable empty place
-      $.each(word_array, function(index, word) {
+      var place_one_word = function(index, word) {
 
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
@@ -68,8 +74,33 @@
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
+        var isArray = function(value){
+          var s = typeof value;
+          if (s === 'object') {
+            if (value) {
+              if (value instanceof Array) {
+                return true;
+              }
+            }
+          }
+          return false;
+        };
+        var style_vals = "";
+        if(random_colors && isArray(random_colors)){
+          var random_color = random_colors[Math.floor(Math.random()*random_colors.length)];
+          style_vals += "color:" + random_color + ";";
+        }
+        if(min_font_size && max_font_size){
+          var font_size = Math.round(
+              (word.weight - word_array[word_array.length - 1].weight) / 
+              ((word_array[0].weight - word_array[word_array.length - 1].weight) * 1.0) * 
+              (max_font_size - min_font_size)
+          ) + min_font_size;
+          style_vals += "font-size:" + font_size + "px;";
+        }
+
         var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
-        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
+        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "' style='" + style_vals + "'>" + inner_html + "</span>");
 
         var width = $(word_selector).width();
         var height = $(word_selector).height();
@@ -90,11 +121,36 @@
           $(word_selector).css('top', top + "px");
         }
         already_placed_words.push(document.getElementById(word_id));
-      });
+      };
 
-      if (typeof callback_function === 'function') {
-        callback_function.call(this);
+      var interval = 0;
+      if (placement_interval && (interval = parseInt(placement_interval))) {
+        if(word_array.length > 0){
+          var place_words_one_by_one = function(index, word){
+            place_one_word(index, word);
+
+            if (typeof callback_function === 'function') {
+              callback_function.call(this, index, word);
+            }
+
+            var next_index = index + 1;
+            if(next_index < word_array.length){
+              setTimeout(function(){place_words_one_by_one(next_index, word_array[next_index]);}, interval);
+            }
+          }
+
+          place_words_one_by_one(0, word_array[0]);
+        }
+      } else {
+        $.each(word_array, function(index, word) {
+          place_one_word(index, word);
+        });
+
+        if (typeof callback_function === 'function') {
+          callback_function.call(this);
+        }
       }
+
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
