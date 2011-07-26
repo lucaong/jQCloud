@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.0
+ * Version 0.2.1
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Jul 13 19:06:38 +0200 2011
+ * Date: Tue Jul 26 20:02:40 +0200 2011
  */ 
  
 (function( $ ){
@@ -86,13 +86,19 @@
         var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
         $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
 
-        var width = $(word_selector).width();
-        var height = $(word_selector).height();
+        // Search for the word span only once, and within the context of the container, for better performance
+        var word_span = $(word_selector, $this);
+
+        var width = word_span.width();
+        var height = word_span.height();
         var left = options.center.x - width / 2.0;
         var top = options.center.y - height / 2.0;
-        $(word_selector).css("position", "absolute");
-        $(word_selector).css("left", left + "px");
-        $(word_selector).css("top", top + "px");
+
+        // Save a reference to the style property, for better performance
+        var word_style = word_span[0].style;
+        word_style.position = "absolute";
+        word_style.left = left + "px";
+        word_style.top = top + "px";
 
         while(hitTest(document.getElementById(word_id), already_placed_words)) {
           radius += step;
@@ -101,8 +107,8 @@
           left = options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
           top = options.center.y + radius*Math.sin(angle) - (height / 2.0);
 
-          $(word_selector).css('left', left + "px");
-          $(word_selector).css('top', top + "px");
+          word_style.left = left + "px";
+          word_style.top = top + "px";
         }
         already_placed_words.push(document.getElementById(word_id));
       }

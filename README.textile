@@ -9,7 +9,7 @@ h2. Installation
 Installing jQCloud is extremely simple:
 
 # Make sure to import the jQuery library in your project.
-# Download the jQCloud files. Place "jqcloud-0.2.0.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.0.js (or the minified version "jqcloud-0.2.0.min.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.0.min.js) and "jqcloud.css":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css somewhere in your project and import both of them in your HTML code.
+# Download the jQCloud files. Place "jqcloud-0.2.1.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.1.js (or the minified version "jqcloud-0.2.1.min.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.1.min.js) and "jqcloud.css":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -23,7 +23,7 @@ bc. <!DOCTYPE html>
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.2.0.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.1.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
@@ -105,6 +105,8 @@ Just have a look at the examples directory provided in the project or see a "dem
 If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
 
 h2. Changelog
+
+0.2.1 Optimization and performance improvements (making 0.2.1 around 25% faster than 0.2.0)
 
 0.2.0 Add configuration options, passed as the second argument of jQCloud (include ideas proposed by "mindscratch":https://github.com/mindscratch and "aaaa0441":https://github.com/aaaa0441)
 
