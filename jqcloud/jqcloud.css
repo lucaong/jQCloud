@@ -6,6 +6,7 @@ div.jqcloud {
 }
 div.jqcloud a {
   color: inherit;
+  font-size: inherit;
   text-decoration: none;
 }
 div.jqcloud a:hover {

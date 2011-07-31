@@ -104,7 +104,19 @@ Just have a look at the examples directory provided in the project or see a "dem
 
 If you happen to use jQCloud in your projects, you can make me know (just contact me on "my website":http://www.lucaongaro.eu) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
 
+h2. Contribute
+
+Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the @rake@ and @erb@ gems. Then, to build jQCloud, run:
+
+bc. rake build
+
+The newly-built distribution files will be put in the @jqcloud@ subdirectory.
+
+If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the @src@ subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
+
 h2. Changelog
+
+0.2.2 CSS improvements (as suggested by "NomikOS":https://github.com/NomikOS)
 
 0.2.1 Optimization and performance improvements (making 0.2.1 around 25% faster than 0.2.0)
 
