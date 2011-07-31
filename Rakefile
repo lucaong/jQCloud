@@ -42,7 +42,7 @@ task :compress do
   
   puts "Minifying jqcloud/jqcloud-#{version}.js into jqcloud/jqcloud-#{version}.min.js"
   File.open(File.join("jqcloud", "jqcloud-#{version}.min.js"), "w") do |f|
-    f.write Uglifier.compile(File.read(File.join("jqcloud", "jqcloud-#{version}.js")))
+    f.write Uglifier.compile(File.new(File.join("jqcloud", "jqcloud-#{version}.js"), "r").read)
   end
 end
 
