@@ -24,7 +24,8 @@
         x: $this.width() / 2.0,
         y: $this.height() / 2.0
       },
-      delayed_mode: word_array.length > 50
+      delayedMode: word_array.length > 50,
+      randomClasses: 0
     };
 
     // Maintain backward compatibility with old API (pre 0.2.0), where the second argument of jQCloud was a callback function
@@ -76,6 +77,11 @@
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = container_id + "_word_" + index;
         var word_selector = "#" + word_id;
+        
+        // If the option randomClasses is higer than 0, generate also a random class for this word
+        var random_class = (typeof options.randomClasses === "number" && options.randomClasses > 0)
+          ? " r" + Math.ceil(Math.random()*options.randomClasses)
+          : "";
 
         var angle = 6.28 * Math.random();
         var radius = 0.0;
@@ -84,7 +90,7 @@
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
         var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
-        $this.append("<span id='" + word_id + "' class='w" + weight + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
+        $this.append("<span id='" + word_id + "' class='w" + weight + random_class + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
 
         // Search for the word span only once, and within the context of the container, for better performance
         var word_span = $(word_selector, $this);
@@ -125,8 +131,8 @@
         }
       }
 
-      // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayed_mode is true or false)
-      if (options.delayed_mode){
+      // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayedMode is true or false)
+      if (options.delayedMode || options.delayed_mode){
         drawOneWordDelayed();
       }
       else {

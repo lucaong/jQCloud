@@ -43,7 +43,7 @@ $(document).ready(function() {
     
   }});
   
-  $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, callback: function() {
+  $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: 2, callback: function() {
     
     test('Multiple word clouds rendering, also with delayed_mode: true', function() {
       var text = $("#container2").text();
@@ -51,6 +51,10 @@ $(document).ready(function() {
       ok(text.search(/Def/) >= 0, "'Def' is in the second cloud");
       ok(text.search(/Ghi/) >= 0, "'Ghi' is in the second cloud");
       ok(text.search(/Zero/) < 0, "'Zero' is not in the second cloud");
+    });
+    
+    test("Option randomClasses", function() {
+      ok($("#container2 span.w1").hasClass("r1") || $("#container2 span.w1").hasClass("r2"), "Since randomClasses = 2, each word should be assigned randomly to class 'r1' or 'r2'");
     });
     
   }});
