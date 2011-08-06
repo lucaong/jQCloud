@@ -74,7 +74,8 @@ The full list of available options is the following:
 * *height* (number): The height of the word cloud. Defaults to the height of the container element.
 * *center* (object): The x and y coordinates of the center of the word cloud (e.g.: {x: 300, y: 150}). Defaults to the center of the container element.
 * *callback* (function): A callback function to be called after the cloud is fully rendered. Undefined by default.
-* *delayed_mode* (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayed_mode is true when there are more than 50 words.
+* *delayedMode* (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
+* *randomClasses* (number): If higher than 0, each word will be assigned randomly to a class of kind @r1@, @r2@, ..., @rN@ with N = randomClasses. This random class can be used for random CSS styling of words, for example to set a random color or random orientation (see @examples/vertical_words.html@).
 
 h3. Note:
 
