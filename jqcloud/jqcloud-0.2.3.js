@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Sat Aug 06 15:34:43 +0200 2011
+ * Date: Sat Aug 13 23:42:13 +0200 2011
  */ 
  
 (function( $ ){
@@ -78,10 +78,14 @@
         var word_id = container_id + "_word_" + index;
         var word_selector = "#" + word_id;
         
-        // If the option randomClasses is higer than 0, generate also a random class for this word
+        // If the option randomClasses is a number, and higher than 0, assign this word randomly to a class
+        // of the kind 'r1', 'r2', 'rN' with N = randomClasses
+        // If option randomClasses is an array, assign this word randomly to one of the classes in the array
         var random_class = (typeof options.randomClasses === "number" && options.randomClasses > 0)
           ? " r" + Math.ceil(Math.random()*options.randomClasses)
-          : "";
+          : (($.isArray(options.randomClasses) && options.randomClasses.length > 0)
+            ? " " + options.randomClasses[ Math.floor(Math.random()*options.randomClasses.length) ]
+            : "");
 
         var angle = 6.28 * Math.random();
         var radius = 0.0;

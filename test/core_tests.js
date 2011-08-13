@@ -54,8 +54,18 @@ $(document).ready(function() {
     });
     
     test("Option randomClasses", function() {
-      ok($("#container2 span.w1").hasClass("r1") || $("#container2 span.w1").hasClass("r2"), "Since randomClasses = 2, each word should be assigned randomly to class 'r1' or 'r2'");
+      ok($("#container2 span.w1").hasClass("r1") || $("#container2 span.w1").hasClass("r2"), "Since randomClasses = 2, each word should be assigned randomly either to class 'r1' or 'r2'");
     });
+    
+    $("#container2").html(""); // Clean container2
+    
+    $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: [true, false], callback: function() {
+      
+      test("Option randomClasses with array", function() {
+        ok($("#container2 span.w1").hasClass("true") || $("#container2 span.w1").hasClass("false"), "Since randomClasses = [true, false], each word should be assigned randomly either to class 'true' or 'false'");
+      });
+      
+    }});
     
   }});
 });
