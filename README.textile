@@ -9,7 +9,7 @@ h2. Installation
 Installing jQCloud is extremely simple:
 
 # Make sure to import the jQuery library in your project.
-# Download the jQCloud files. Place "jqcloud-0.2.3.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.3.js (or the minified version "jqcloud-0.2.3.min.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.3.min.js) and "jqcloud.css":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css somewhere in your project and import both of them in your HTML code.
+# Download the jQCloud files. Place "jqcloud-0.2.4.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.4.js (or the minified version "jqcloud-0.2.4.min.js":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.4.min.js) and "jqcloud.css":https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -23,7 +23,7 @@ bc. <!DOCTYPE html>
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.2.3.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.4.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
@@ -75,7 +75,7 @@ The full list of available options is the following:
 * *center* (object): The x and y coordinates of the center of the word cloud (e.g.: {x: 300, y: 150}). Defaults to the center of the container element.
 * *callback* (function): A callback function to be called after the cloud is fully rendered. Undefined by default.
 * *delayedMode* (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
-* *randomClasses* (number): If higher than 0, each word will be assigned randomly to a class of kind @r1@, @r2@, ..., @rN@ with N = randomClasses. This random class can be used for random CSS styling of words, for example to set a random color or random orientation (see @examples/vertical_words.html@).
+* *randomClasses* (number or array): If it's a number and higher than 0, each word will be assigned randomly to a class of kind @r1@, @r2@, ..., @rN@ with N = randomClasses. If it is an array of classes, each word will be assigned randomly to one of the classes in the array. This random class can be used for random CSS styling of words, for example to set a random color or random orientation (see @examples/vertical_words.html@).
 
 h3. Note:
 
@@ -116,6 +116,8 @@ The newly-built distribution files will be put in the @jqcloud@ subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the @src@ subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 h2. Changelog
+
+0.2.4 Option randomClasses can be an array of classes among which a random class is selected for each word
 
 0.2.3 Add option randomClasses, allowing for random CSS styling (inspired by issue about vertical words opened by "tttp":https://github.com/tttp)
 
