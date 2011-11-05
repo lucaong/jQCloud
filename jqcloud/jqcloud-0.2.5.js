@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.4
+ * Version 0.2.5
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Sun Aug 14 00:09:07 +0200 2011
+ * Date: Sat Nov 05 15:50:40 +0100 2011
  */ 
  
 (function( $ ){
@@ -92,20 +92,23 @@
 
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
-		
-		var outer_html = $('<span>').attr('id',word_id).attr('class','w' + weight).attr('title', word.title || word.text || '');
-        
-        if(word.handlers) {
-        	var inner_html = $('<a>').attr('href','#').text(word.text);
-        	for (var prop in word.handlers) {
-				$(inner_html).bind(prop, word.handlers[prop]);
-        	}  	
+
+        var outer_html = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || '');
+
+        // Bind handlers to words
+        if (!!word.handlers) {
+          var inner_html = $('<a>').attr('href','#').text(word.text);
+          for (var prop in word.handlers) {
+            if (word.handlers.hasOwnProperty(prop) && typeof word.handlers[prop] === 'function') {
+              $(inner_html).bind(prop, word.handlers[prop]);
+            }
+          }
         } else {
-        	var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
+          var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
         }
-        
+
         $this.append($(outer_html).append(inner_html));
-        
+
         // Search for the word span only once, and within the context of the container, for better performance
         var word_span = $(word_selector, $this);
 

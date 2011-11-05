@@ -2,7 +2,7 @@ var some_words = [
   {text: 'Zero', weight: 0},
   {text: 'Minus three', weight: -3},
   {text: 'Minus zero point fiftyfive', weight: -0.55},
-  {text: 'Two', weight: '2.0', url: '#'}
+  {text: 'Two', weight: '2.0', url: '#', handlers: { click: function() { $(this).data("testHandler", "Handler works!"); } } }
 ];
 
 var some_other_words = [
@@ -39,7 +39,12 @@ $(document).ready(function() {
     
     test('links into word cloud', function() {
       ok($("#container span:contains('Two') a[href=#]").length == 1, "If 'url' parameter is specified, an html anchor pointing to that URL is created.");
-    })
+    });
+    
+    test('Event handlers for words', function() {
+      $("#container span:contains('Two') a").trigger("click");
+      equal($("#container span:contains('Two') a").data("testHandler"), "Handler works!", "Event handlers should be triggered.");
+    });
     
   }});
   

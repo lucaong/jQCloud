@@ -93,8 +93,21 @@
         // Linearly map the original weight to a discrete scale from 1 to 10
         var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
 
-        var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
-        $this.append("<span id='" + word_id + "' class='w" + weight + random_class + "' title='" + (word.title || "") + "'>" + inner_html + "</span>");
+        var outer_html = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || '');
+
+        // Bind handlers to words
+        if (!!word.handlers) {
+          var inner_html = $('<a>').attr('href','#').text(word.text);
+          for (var prop in word.handlers) {
+            if (word.handlers.hasOwnProperty(prop) && typeof word.handlers[prop] === 'function') {
+              $(inner_html).bind(prop, word.handlers[prop]);
+            }
+          }
+        } else {
+          var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
+        }
+
+        $this.append($(outer_html).append(inner_html));
 
         // Search for the word span only once, and within the context of the container, for better performance
         var word_span = $(word_selector, $this);
