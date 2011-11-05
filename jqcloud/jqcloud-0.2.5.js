@@ -6,10 +6,11 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Sat Nov 05 15:50:40 +0100 2011
- */ 
- 
-(function( $ ){
+ * Date: Sat Nov 05 18:14:54 +0100 2011
+*/ 
+
+(function( $ ) {
+  "use strict";
   $.fn.jQCloud = function(word_array, options) {
     // Reference to the container element
     var $this = this;
@@ -30,7 +31,7 @@
 
     // Maintain backward compatibility with old API (pre 0.2.0), where the second argument of jQCloud was a callback function
     if (typeof options === 'function') {
-      options = { callback: options }
+      options = { callback: options };
     }
 
     options = $.extend(default_options, options || {});
@@ -61,7 +62,7 @@
       };
 
       // Make sure every weight is a number before sorting
-      for (i = 0; i < word_array.length; i++) {
+      for (var i = 0; i < word_array.length; i++) {
         word_array[i].weight = parseFloat(word_array[i].weight, 10);
       }
       
@@ -75,36 +76,37 @@
       // Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
       var drawOneWord = function(index, word) {
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
-        var word_id = container_id + "_word_" + index;
-        var word_selector = "#" + word_id;
-        
-        // If the option randomClasses is a number, and higher than 0, assign this word randomly to a class
-        // of the kind 'r1', 'r2', 'rN' with N = randomClasses
-        // If option randomClasses is an array, assign this word randomly to one of the classes in the array
-        var random_class = (typeof options.randomClasses === "number" && options.randomClasses > 0)
-          ? " r" + Math.ceil(Math.random()*options.randomClasses)
-          : (($.isArray(options.randomClasses) && options.randomClasses.length > 0)
-            ? " " + options.randomClasses[ Math.floor(Math.random()*options.randomClasses.length) ]
-            : "");
+        var word_id = container_id + "_word_" + index,
+            word_selector = "#" + word_id,
 
-        var angle = 6.28 * Math.random();
-        var radius = 0.0;
+            // If the option randomClasses is a number, and higher than 0, assign this word randomly to a class
+            // of the kind 'r1', 'r2', 'rN' with N = randomClasses
+            // If option randomClasses is an array, assign this word randomly to one of the classes in the array
+            random_class = (typeof options.randomClasses === "number" && options.randomClasses > 0) ?
+          " r" + Math.ceil(Math.random()*options.randomClasses) :
+          (($.isArray(options.randomClasses) && options.randomClasses.length > 0) ?
+            " " + options.randomClasses[ Math.floor(Math.random()*options.randomClasses.length) ] :
+            ""),
 
-        // Linearly map the original weight to a discrete scale from 1 to 10
-        var weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
+            angle = 6.28 * Math.random(),
+            radius = 0.0,
 
-        var outer_html = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || '');
+            // Linearly map the original weight to a discrete scale from 1 to 10
+            weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1,
+
+            outer_html = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || ''),
+            inner_html = "";
 
         // Bind handlers to words
         if (!!word.handlers) {
-          var inner_html = $('<a>').attr('href','#').text(word.text);
+          inner_html = $('<a>').attr('href','#').text(word.text);
           for (var prop in word.handlers) {
             if (word.handlers.hasOwnProperty(prop) && typeof word.handlers[prop] === 'function') {
               $(inner_html).bind(prop, word.handlers[prop]);
             }
           }
         } else {
-          var inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
+          inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
         }
 
         $this.append($(outer_html).append(inner_html));
@@ -112,10 +114,10 @@
         // Search for the word span only once, and within the context of the container, for better performance
         var word_span = $(word_selector, $this);
 
-        var width = word_span.width();
-        var height = word_span.height();
-        var left = options.center.x - width / 2.0;
-        var top = options.center.y - height / 2.0;
+        var width = word_span.width(),
+            height = word_span.height(),
+            left = options.center.x - width / 2.0,
+            top = options.center.y - height / 2.0;
 
         // Save a reference to the style property, for better performance
         var word_style = word_span[0].style;
@@ -134,7 +136,7 @@
           word_style.top = top + "px";
         }
         already_placed_words.push(document.getElementById(word_id));
-      }
+      };
 
       var drawOneWordDelayed = function(index) {
         index = index || 0;
@@ -146,7 +148,7 @@
             options.callback.call(this);
           }
         }
-      }
+      };
 
       // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayedMode is true or false)
       if (options.delayedMode || options.delayed_mode){
