@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.5
+ * Version 0.2.6
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Sat Nov 05 18:14:54 +0100 2011
+ * Date: Mon Nov 07 21:28:17 +0100 2011
 */ 
 
 (function( $ ) {
@@ -26,7 +26,8 @@
         y: $this.height() / 2.0
       },
       delayedMode: word_array.length > 50,
-      randomClasses: 0
+      randomClasses: 0,
+      nofollow: false
     };
 
     // Maintain backward compatibility with old API (pre 0.2.0), where the second argument of jQCloud was a callback function
@@ -94,25 +95,30 @@
             // Linearly map the original weight to a discrete scale from 1 to 10
             weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1,
 
-            outer_html = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || ''),
-            inner_html = "";
+            word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || ''),
+            inner_html;
+        
+        // 
+        if (!!word.url) {
+          inner_html = $('<a>').attr('href', encodeURI(word.url).replace(/'/g, "%27")).text(word.text);
+          if (!!options.nofollow) {
+            inner_html.attr("rel", "nofollow");
+          }
+        } else {
+          inner_html = word.text;
+        }
+        word_span.append(inner_html);
 
         // Bind handlers to words
         if (!!word.handlers) {
-          inner_html = $('<a>').attr('href','#').text(word.text);
           for (var prop in word.handlers) {
             if (word.handlers.hasOwnProperty(prop) && typeof word.handlers[prop] === 'function') {
-              $(inner_html).bind(prop, word.handlers[prop]);
+              $(word_span).bind(prop, word.handlers[prop]);
             }
           }
-        } else {
-          inner_html = word.url !== undefined ? "<a href='" + encodeURI(word.url).replace(/'/g, "%27") + "'>" + word.text + "</a>" : word.text;
         }
 
-        $this.append($(outer_html).append(inner_html));
-
-        // Search for the word span only once, and within the context of the container, for better performance
-        var word_span = $(word_selector, $this);
+        $this.append(word_span);
 
         var width = word_span.width(),
             height = word_span.height(),
@@ -136,6 +142,11 @@
           word_style.top = top + "px";
         }
         already_placed_words.push(document.getElementById(word_id));
+
+        // Invoke callback if existing
+        if (typeof word.callback === "function") {
+          word.callback.call(word_span);
+        }
       };
 
       var drawOneWordDelayed = function(index) {

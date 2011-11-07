@@ -2,11 +2,19 @@ var some_words = [
   {text: 'Zero', weight: 0},
   {text: 'Minus three', weight: -3},
   {text: 'Minus zero point fiftyfive', weight: -0.55},
-  {text: 'Two', weight: '2.0', url: '#', handlers: { click: function() { $(this).data("testHandler", "Handler works!"); } } }
+  {
+    text: 'Two', weight: '2.0', url: '#',
+    handlers: {
+      click: function() { $(this).data("testHandler", "Handler works!"); }
+    },
+    callback: function() {
+      this.data("testCallback", "Callback works!");
+    }
+  }
 ];
 
 var some_other_words = [
-  {text: 'Abc', weight: 1},
+  {text: 'Abc', weight: 1, callback: function() { this.data("testCallback", "Callback works!"); }},
   {text: 'Def', weight: 2},
   {text: 'Ghi', weight: 3}
 ];
@@ -42,8 +50,12 @@ $(document).ready(function() {
     });
     
     test('Event handlers for words', function() {
-      $("#container span:contains('Two') a").trigger("click");
-      equal($("#container span:contains('Two') a").data("testHandler"), "Handler works!", "Event handlers should be triggered.");
+      $("#container span:contains('Two')").trigger("click");
+      equal($("#container span:contains('Two')").data("testHandler"), "Handler works!", "Event handlers should be triggered.");
+    });
+    
+    test('Word callbacks', function() {
+      equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "Word callback should be called, and 'this' should be the word element.");
     });
     
   }});
