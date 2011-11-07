@@ -97,10 +97,11 @@
 
             word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || ''),
             inner_html;
-        
-        // 
+
+        // Append link if word.url attribute was set
         if (!!word.url) {
           inner_html = $('<a>').attr('href', encodeURI(word.url).replace(/'/g, "%27")).text(word.text);
+          // If nofollow: true set rel='nofollow'
           if (!!options.nofollow) {
             inner_html.attr("rel", "nofollow");
           }

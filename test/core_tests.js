@@ -15,7 +15,7 @@ var some_words = [
 
 var some_other_words = [
   {text: 'Abc', weight: 1, callback: function() { this.data("testCallback", "Callback works!"); }},
-  {text: 'Def', weight: 2},
+  {text: 'Def', weight: 2, url: "myurl.com"},
   {text: 'Ghi', weight: 3}
 ];
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
     
   }});
   
-  $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: 2, callback: function() {
+  $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: 2, nofollow: true, callback: function() {
     
     test('Multiple word clouds rendering, also with delayed_mode: true', function() {
       var text = $("#container2").text();
@@ -72,6 +72,10 @@ $(document).ready(function() {
     
     test("Option randomClasses", function() {
       ok($("#container2 span.w1").hasClass("r1") || $("#container2 span.w1").hasClass("r2"), "Since randomClasses = 2, each word should be assigned randomly either to class 'r1' or 'r2'");
+    });
+    
+    test("Option nofollow", function() {
+      equal($("#container2 span a").attr("rel"), "nofollow", "If option nofollow = true, rel='nofollow' should be set.");
     });
     
     $("#container2").html(""); // Clean container2
