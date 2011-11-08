@@ -16,9 +16,9 @@ task :compile do
     f.write ERB.new(File.new(File.join("src", "jqcloud", "jqcloud.js.erb"), "r").read).result(binding)
   end
   
-  puts "Compiling README.textile"
-  File.open("README.textile", "w") do |f|
-    f.write ERB.new(File.new(File.join("src", "README.textile.erb"), "r").read).result(binding)
+  puts "Compiling README.md"
+  File.open("README.md", "w") do |f|
+    f.write ERB.new(File.new(File.join("src", "README.md.erb"), "r").read).result(binding)
   end
   
   puts "Compiling examples"
