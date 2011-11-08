@@ -1,12 +1,10 @@
-jQCloud: beautiful word clouds with jQuery
-==========================================
+# jQCloud: beautiful word clouds with jQuery
 
 jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds and tag clouds that are actually shaped like a cloud (otherwise, why should we call them 'word clouds'?).
 
-You can see a "demo here":http://www.lucaongaro.eu/demos/jqcloud/
+You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 
-Installation
-------------
+## Installation
 
 Installing jQCloud is extremely simple:
 
@@ -15,8 +13,7 @@ Installing jQCloud is extremely simple:
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
-Usage
------
+## Usage
 
 Once you imported the .js and .css files, drawing a cloud is as simple as this:
 
@@ -66,15 +63,16 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
 </html>
 ```
 
-Options:
---------
+### Options:
 
 Since version 0.2.0, jQCloud accepts an object containing configuration options as the second argument:
 
-bc. $("#example").jQCloud(word_list, {
+```javascript
+$("#example").jQCloud(word_list, {
   width: 300,
   height: 200
 });
+```
 
 The full list of available options is the following:
 
@@ -102,8 +100,7 @@ $("#example").jQCloud(word_list, {
 
 Before version 0.2.0 jQCloud used to accept a callback function as the second argument. This way of specifying the callback function is deprecated and, although version 0.2.0 maintains backward compatibility, it will be removed in newer versions. If you need a callback function, use the 'callback' configuration option instead.
 
-Custom CSS guidelines
----------------------
+## Custom CSS guidelines
 
 The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call `$("#example").jQCloud(...)`, the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file `jqcloud.css` is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
@@ -111,15 +108,13 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
-Examples
---------
+## Examples
 
 Just have a look at the examples directory provided in the project or see a [demo here](http://www.lucaongaro.eu/demos/jqcloud/).
 
 If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
 
-Contribute
-----------
+## Contribute
 
 Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake` and `erb` gems. Then, to build jQCloud, run:
 
@@ -131,8 +126,7 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
-Changelog
----------
+## Changelog
 
 0.2.6 Fix bug with handlers, add nofollow option (thanks to [strobotta](https://github.com/strobotta)) and word callbacks.
 
