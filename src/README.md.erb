@@ -20,7 +20,7 @@ Usage
 
 Once you imported the .js and .css files, drawing a cloud is as simple as this:
 
-```javascript
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -111,7 +111,8 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
-h2. Examples
+Examples
+--------
 
 Just have a look at the examples directory provided in the project or see a [demo here](http://www.lucaongaro.eu/demos/jqcloud/).
 
@@ -122,13 +123,16 @@ Contribute
 
 Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake` and `erb` gems. Then, to build jQCloud, run:
 
-bc. rake build
+```
+rake build
+```
 
 The newly-built distribution files will be put in the `jqcloud` subdirectory.
 
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
-h2. Changelog
+Changelog
+---------
 
 0.2.6 Fix bug with handlers, add nofollow option (thanks to [strobotta](https://github.com/strobotta)) and word callbacks.
 
