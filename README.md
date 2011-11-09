@@ -108,11 +108,18 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
+
 ## Examples
 
 Just have a look at the examples directory provided in the project or see a [demo here](http://www.lucaongaro.eu/demos/jqcloud/).
 
-If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)) and I can add a link to your website in a 'gallery' section, so that other people can take inspiration from it.
+
+## Gallery
+
+An example of a creative use of jQCloud is http://www.politickerusa.com/trends/ where it is used to show trends in US politicians' tweets.
+
+If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)): I'd be happy to add a link in the 'gallery', so that other people can take inspiration from it.
+
 
 ## Contribute
 
