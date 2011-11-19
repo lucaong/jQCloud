@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.6
+ * Version 0.2.7
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Nov 09 20:45:46 +0100 2011
+ * Date: Sat Nov 19 14:46:13 +0100 2011
 */ 
 
 (function( $ ) {
@@ -27,7 +27,8 @@
       },
       delayedMode: word_array.length > 50,
       randomClasses: 0,
-      nofollow: false
+      nofollow: false,
+      shape: false // It defaults to elliptic shape
     };
 
     // Maintain backward compatibility with old API (pre 0.2.0), where the second argument of jQCloud was a callback function
@@ -70,7 +71,7 @@
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
-      var step = 2.0;
+      var step = (options.shape === "rectangular") ? 18.0 : 2.0;
       var already_placed_words = [];
       var aspect_ratio = options.width / options.height;
 
@@ -91,6 +92,10 @@
 
             angle = 6.28 * Math.random(),
             radius = 0.0,
+
+            // Only used if option.shape == 'rectangular'
+            steps_in_direction = 0.0,
+            quarter_turns = 0.0,
 
             // Linearly map the original weight to a discrete scale from 1 to 10
             weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1,
@@ -133,12 +138,34 @@
         word_style.top = top + "px";
 
         while(hitTest(document.getElementById(word_id), already_placed_words)) {
-          radius += step;
-          angle += (index % 2 === 0 ? 1 : -1)*step;
+          // option shape is 'rectangular' so move the word in a rectangular spiral
+          if (options.shape === "rectangular") {
+            steps_in_direction++;
+            if (steps_in_direction * step > (1 + Math.floor(quarter_turns / 2.0)) * step * ((quarter_turns % 4 % 2) === 0 ? 1 : aspect_ratio)) {
+              steps_in_direction = 0.0;
+              quarter_turns++;
+            }
+            switch(quarter_turns % 4) {
+              case 1:
+                left += step * aspect_ratio + Math.random() * 2.0;
+                break;
+              case 2:
+                top -= step + Math.random() * 2.0;
+                break;
+              case 3:
+                left -= step * aspect_ratio + Math.random() * 2.0;
+                break;
+              case 0:
+                top += step + Math.random() * 2.0;
+                break;
+            }
+          } else { // Default settings: elliptic spiral shape
+            radius += step;
+            angle += (index % 2 === 0 ? 1 : -1)*step;
 
-          left = options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
-          top = options.center.y + radius*Math.sin(angle) - (height / 2.0);
-
+            left = options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * aspect_ratio;
+            top = options.center.y + radius*Math.sin(angle) - (height / 2.0);
+          }
           word_style.left = left + "px";
           word_style.top = top + "px";
         }

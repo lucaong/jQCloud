@@ -9,7 +9,7 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import the jQuery library in your project.
-2. Download the jQCloud files. Place [jqcloud-0.2.6.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.6.js) (or the minified version [jqcloud-0.2.6.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.6.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud-0.2.7.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.7.js) (or the minified version [jqcloud-0.2.7.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.7.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -24,7 +24,7 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.2.6.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.7.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
@@ -83,6 +83,7 @@ The full list of available options is the following:
 * **delayedMode** (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
 * **randomClasses** (number or array): If it's a number and higher than 0, each word will be assigned randomly to a class of kind `r1`, `r2`, ..., `rN` with N = randomClasses. If it is an array of classes, each word will be assigned randomly to one of the classes in the array. This random class can be used for random CSS styling of words, for example to set a random color or random orientation (see `examples/vertical_words.html`).
 * **nofollow** (boolean): if true, all words linked to a URL will have the `rel="nofollow"` attribute.
+* **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
 
 ### Note:
 
@@ -134,6 +135,8 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
+
+0.2.7 Add possibility to draw rectangular-shaped clouds (an idea by [nithin2e](https://github.com/nithin2e))
 
 0.2.6 Fix bug with handlers, add nofollow option (thanks to [strobotta](https://github.com/strobotta)) and word callbacks.
 
