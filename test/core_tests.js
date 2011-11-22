@@ -9,7 +9,8 @@ var some_words = [
     },
     callback: function() {
       this.data("testCallback", "Callback works!");
-    }
+    },
+    custom_class: "mycustomclass"
   }
 ];
 
@@ -56,6 +57,10 @@ $(document).ready(function() {
     
     test('Word callbacks', function() {
       equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "Word callback should be called, and 'this' should be the word element.");
+    });
+    
+    test('Custom classes', function() {
+      ok($("#container span:contains('Two')").hasClass("mycustomclass"), "Custom classes should be set via custom_class attribute");
     });
     
   }});

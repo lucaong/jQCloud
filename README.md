@@ -9,7 +9,7 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import the jQuery library in your project.
-2. Download the jQCloud files. Place [jqcloud-0.2.7.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.7.js) (or the minified version [jqcloud-0.2.7.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.7.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud-0.2.8.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.8.js) (or the minified version [jqcloud-0.2.8.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.8.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -24,7 +24,7 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.2.7.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.8.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
