@@ -139,6 +139,8 @@ If you make changes to the JavaScript source, to the README, to examples or to t
 
 ## Changelog
 
+0.2.8 Add possibility to specify custom classes for words with the custom_class attribute (thanks to [cham](https://github.com/cham))
+
 0.2.7 Add possibility to draw rectangular-shaped clouds (an idea by [nithin2e](https://github.com/nithin2e))
 
 0.2.6 Fix bug with handlers, add nofollow option (thanks to [strobotta](https://github.com/strobotta)) and word callbacks.
