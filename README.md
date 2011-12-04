@@ -117,7 +117,10 @@ Just have a look at the examples directory provided in the project or see a [dem
 
 ## Gallery
 
-An example of a creative use of jQCloud is http://www.politickerusa.com/trends/ where it is used to show trends in US politicians' tweets.
+Some creative examples of jQCloud use are:
+
+* http://www.politickerusa.com/trends/ uses jQCloud to show trends in US politicians' tweets.
+* http://www.turtledome.com/noisy shows you which of the people you follow on Twitter tweets the most.
 
 If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)): I'd be happy to add a link in the 'gallery', so that other people can take inspiration from it.
 
