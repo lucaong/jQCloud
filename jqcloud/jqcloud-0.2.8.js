@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Sun Dec 04 21:10:20 +0100 2011
+ * Date: Wed Dec 21 23:31:45 +0100 2011
 */ 
 
 (function( $ ) {
@@ -102,6 +102,11 @@
 
             word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).addClass(word.custom_class||null).attr('title', word.title || word.text || ''),
             inner_html;
+
+	// set data-X attributes if passed
+        if(word.data_attributes){
+ 	    $.each( word.data_attributes , function(i,v){ word_span.attr('data-'+i,v); } );
+	}
 
         // Append link if word.url attribute was set
         if (!!word.url) {

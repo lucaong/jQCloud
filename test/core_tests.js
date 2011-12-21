@@ -1,5 +1,5 @@
 var some_words = [
-  {text: 'Zero', weight: 0},
+  {text: 'Zero', weight: 0, data_attributes: {'test': 'just testing'}},
   {text: 'Minus three', weight: -3},
   {text: 'Minus zero point fiftyfive', weight: -0.55},
   {
@@ -61,6 +61,10 @@ $(document).ready(function() {
     
     test('Custom classes', function() {
       ok($("#container span:contains('Two')").hasClass("mycustomclass"), "Custom classes should be set via custom_class attribute");
+    });
+    
+    test('Data attributes', function() {
+      equals($("#container span:contains('Zero')").data("test"), "just testing", "Data attributes should be set via the data_attributes attribute");
     });
     
   }});
