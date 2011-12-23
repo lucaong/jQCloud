@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Fri Dec 23 23:38:26 +0100 2011
+ * Date: Fri Dec 23 23:54:49 +0100 2011
 */
 
 (function( $ ) {

@@ -31,10 +31,10 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
        */
       var word_list = [
           {text: "Lorem", weight: 15},
-          {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "jQuery Rocks!"},
+          {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "I can haz URL"},
           {text: "Dolor", weight: 6},
           {text: "Sit", weight: 7},
-          {text: "Amet", weight: 5, callback: function() { this.addClass("foo"); }}
+          {text: "Amet", weight: 5}
           // ...other words
       ];
       $(document).ready(function() {
