@@ -96,12 +96,9 @@
             // Only used if option.shape == 'rectangular'
             steps_in_direction = 0.0,
             quarter_turns = 0.0,
-
-            // Linearly map the original weight to a discrete scale from 1 to 10
             weight = 5,
-
-            word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).addClass(word.custom_class||null).attr('title', word.title || word.text || ''),
-            inner_html;
+            inner_html,
+            word_span;
 
         // Check is min(weight) < max(weight) otherwise use default
         if (word_array[0].weight < word_array[word_array.length - 1].weight) {
@@ -109,6 +106,7 @@
           weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
                               (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1
         }
+        word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).addClass(word.custom_class||null).attr('title', word.title || word.text || ''),
 
         // Append link if word.url attribute was set
         if (!!word.url) {
