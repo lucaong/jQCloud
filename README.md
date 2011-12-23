@@ -59,9 +59,9 @@ For each word, you need to specify the following mandatory attributes:
 
 You can also specify the following optional attributes for each word:
 
- * **url** (string): if specifyed, the word will be wrapped in a HTML link (`<a>` tag) and the URL used as its href attribute.
+ * **url** (string): if specifyed, the word will be wrapped in a HTML link (`<a>` tag) and the URL used as its `href` attribute.
  * **title** (string): an HTML title for the `<span>` that will contain the word(s)
- * **callback** (callable): a function to be called after this word is rendered. Within the function, 'this' is the word element.
+ * **callback** (callable): a function to be called after this word is rendered. Within the function, `this` refers to the jQuery object for the `<span>` containing the word.
  * **customClass** (string): an additional HTML class for the word
  * **dataAttributes** (object): keys and values to be used as HTML5 data attributes for the word (e.g. {confirm: "Are you sure?", remote: true})
  * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
