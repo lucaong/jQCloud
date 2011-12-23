@@ -27,20 +27,7 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
     <script type="text/javascript" src="jqcloud-<%= version %>.js"></script>
     <script type="text/javascript">
       /*!
-       * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
-       * the following mandatory attributes:
-       *
-       * text: a string containing the word(s)
-       * weight: a number (integer or float) defining the relative importance of the word
-       *         (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will
-       *         be linearly mapped to a discrete scale from 1 to 10.
-       *
-       * You can also specify the following optional attributes:
-       *
-       * url: a URL to which the word will be linked. It will be used as the href attribute of an HTML anchor.
-       * title: an HTML title for the <span> that will contain the word(s)
-       * callback: a function to be called after this word is rendered. Within the function, 'this' is the word element.
-       * handlers: an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
+       * Create an array of objects to be passed to jQCloud, each representing a word in the cloud
        */
       var word_list = [
           {text: "Lorem", weight: 15},
@@ -62,6 +49,22 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
   </body>
 </html>
 ```
+
+### Word Attributes
+
+For each word, you need to specify the following mandatory attributes:
+ 
+ * **text** (string): the word(s) text
+ * **weight** (number): a number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will be linearly mapped to a discrete scale from 1 to 10.
+
+You can also specify the following optional attributes for each word:
+
+ * **url** (string): if specifyed, the word will be wrapped in a HTML link (`<a>` tag) and the URL used as its href attribute.
+ * **title** (string): an HTML title for the `<span>` that will contain the word(s)
+ * **callback** (callable): a function to be called after this word is rendered. Within the function, 'this' is the word element.
+ * **customClass** (string): an additional HTML class for the word
+ * **dataAttributes** (object): keys and values to be used as HTML5 data attributes for the word (e.g. {confirm: "Are you sure?", remote: true})
+ * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
 
 ### Options:
 
@@ -138,6 +141,8 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
+
+0.2.9 Add dataAttributes option (thanks again to [cham](https://github.com/cham)) and fix bug when weights are all equal (thanks to [Grepsy](https://github.com/Grepsy))
 
 0.2.8 Add possibility to specify custom classes for words with the custom_class attribute (thanks to [cham](https://github.com/cham))
 

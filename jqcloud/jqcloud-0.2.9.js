@@ -1,13 +1,13 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.8
+ * Version 0.2.9
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Wed Dec 21 23:31:45 +0100 2011
-*/ 
+ * Date: Fri Dec 23 23:26:22 +0100 2011
+*/
 
 (function( $ ) {
   "use strict";
@@ -67,7 +67,7 @@
       for (var i = 0; i < word_array.length; i++) {
         word_array[i].weight = parseFloat(word_array[i].weight, 10);
       }
-      
+
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
@@ -96,17 +96,22 @@
             // Only used if option.shape == 'rectangular'
             steps_in_direction = 0.0,
             quarter_turns = 0.0,
+            weight = 5,
+            inner_html,
+            word_span;
 
-            // Linearly map the original weight to a discrete scale from 1 to 10
-            weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1,
+        // Check is min(weight) > max(weight) otherwise use default
+        if (word_array[0].weight > word_array[word_array.length - 1].weight) {
+          // Linearly map the original weight to a discrete scale from 1 to 10
+          weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
+                              (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1
+        }
+        word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).addClass(word.customClass||null).attr('title', word.title || word.text || '');
 
-            word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).addClass(word.custom_class||null).attr('title', word.title || word.text || ''),
-            inner_html;
-
-	// set data-X attributes if passed
-        if(word.data_attributes){
- 	    $.each( word.data_attributes , function(i,v){ word_span.attr('data-'+i,v); } );
-	}
+        // set data-X attributes if passed
+        if(word.dataAttributes){
+          $.each( word.dataAttributes , function(i,v){ word_span.attr('data-'+i,v); } );
+        }
 
         // Append link if word.url attribute was set
         if (!!word.url) {
