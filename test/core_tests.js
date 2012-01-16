@@ -105,10 +105,10 @@ $(document).ready(function() {
 
   }});
 
-  $("#container3").jQCloud(some_words_with_same_weight, {callback: function() {
+  $(".container3").jQCloud(some_words_with_same_weight, {callback: function() {
 
     test('Words with equal weight', function() {
-      ok($("#container3 span.w5").length == 3, "There should be three words with equal weight.");
+      ok($(".container3 span.w5").length == 3, "There should be three words with equal weight.");
     });
 
   }});

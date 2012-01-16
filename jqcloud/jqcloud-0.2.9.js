@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Fri Dec 23 23:54:49 +0100 2011
+ * Date: Mon Jan 16 16:40:44 +0100 2012
 */
 
 (function( $ ) {
@@ -14,8 +14,8 @@
   $.fn.jQCloud = function(word_array, options) {
     // Reference to the container element
     var $this = this;
-    // Reference to the ID of the container element
-    var container_id = $this.attr('id');
+    // Namespace word ids to avoid collisions between multiple clouds
+    var cloud_namespace = $this.attr('id') || Math.floor((Math.random()*1000000)).toString(36);
 
     // Default options value
     var default_options = {
@@ -78,7 +78,7 @@
       // Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
       var drawOneWord = function(index, word) {
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
-        var word_id = container_id + "_word_" + index,
+        var word_id = cloud_namespace + "_word_" + index,
             word_selector = "#" + word_id,
 
             // If the option randomClasses is a number, and higher than 0, assign this word randomly to a class
