@@ -9,7 +9,7 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import the jQuery library in your project.
-2. Download the jQCloud files. Place [jqcloud-0.2.9.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.9.js) (or the minified version [jqcloud-0.2.9.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.9.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud-0.2.10.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.10.js) (or the minified version [jqcloud-0.2.10.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.10.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -24,7 +24,7 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.2.9.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.10.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud
@@ -123,7 +123,7 @@ Just have a look at the examples directory provided in the project or see a [dem
 Some creative examples of jQCloud use are:
 
 * http://www.politickerusa.com/trends/ uses jQCloud to show trends in US politicians' tweets.
-* http://www.turtledome.com/noisy shows you which of the people you follow on Twitter tweets the most.
+* http://www.turtledome.com/noisy/ shows you which of the people you follow on Twitter tweets the most.
 
 If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)): I'd be happy to add a link in the 'gallery', so that other people can take inspiration from it.
 
@@ -142,6 +142,8 @@ If you make changes to the JavaScript source, to the README, to examples or to t
 
 ## Changelog
 
+0.2.10 Fix bug occurring when the container element has no id
+
 0.2.9 Add dataAttributes option (thanks again to [cham](https://github.com/cham)) and fix bug when weights are all equal (thanks to [Grepsy](https://github.com/Grepsy))
 
 0.2.8 Add possibility to specify custom classes for words with the custom_class attribute (thanks to [cham](https://github.com/cham))
@@ -150,7 +152,7 @@ If you make changes to the JavaScript source, to the README, to examples or to t
 
 0.2.6 Fix bug with handlers, add nofollow option (thanks to [strobotta](https://github.com/strobotta)) and word callbacks.
 
-0.2.5 Add possiblity to bind event handlers to words (thanks to [astintzing](https://github.com/astintzing))
+0.2.5 Add possibility to bind event handlers to words (thanks to [astintzing](https://github.com/astintzing))
 
 0.2.4 Option randomClasses can be an array of classes among which a random class is selected for each word
 
