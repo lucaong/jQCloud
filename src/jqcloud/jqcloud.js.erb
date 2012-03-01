@@ -194,6 +194,10 @@
 
       var drawOneWordDelayed = function(index) {
         index = index || 0;
+	if (!$this.is(':visible')) { // if not visible then do not attempt to draw
+	  setTimeout(function(){drawOneWordDelayed(index);},10);
+	  return;
+	}
         if (index < word_array.length) {
           drawOneWord(index, word_array[index]);
           setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);

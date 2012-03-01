@@ -72,7 +72,7 @@ $(document).ready(function() {
     test('Data attributes', function() {
       equals($("#container span:contains('Zero')").data("test"), "just testing", "Data attributes should be set via the dataAttributes option");
     });
-    
+
   }});
 
   $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: 2, nofollow: true, callback: function() {
@@ -112,4 +112,22 @@ $(document).ready(function() {
     });
 
   }});
+
+  $(".container4").jQCloud(some_words,{
+    delayedMode: true,
+    callback: function(){
+      test('Words render when delayedMode true and container is visible', function() {
+        ok($(".container4").is(':visible'), "Container is visible");
+        ok($(".container4 span").size(), "Words render");
+      });
+    }
+  });
+  setTimeout(function(){
+    test('Words do not render when delayedMode true and container is not visible',function(){
+      ok(!$(".container4").is(':visible'), "Container is not visible");
+      ok($(".container4 span").size()===0, "There should be no spans in the container");
+      // now set container4 to visible so that the corresponding visibility test executes
+      $(".container4").show();
+    });
+  },20);
 });
