@@ -1,21 +1,21 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.7
+ * Version 0.2.10
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Sat Nov 19 14:46:13 +0100 2011
-*/ 
+ * Date: Mon Jan 16 23:31:12 +0100 2012
+*/
 
 (function( $ ) {
   "use strict";
   $.fn.jQCloud = function(word_array, options) {
     // Reference to the container element
     var $this = this;
-    // Reference to the ID of the container element
-    var container_id = $this.attr('id');
+    // Namespace word ids to avoid collisions between multiple clouds
+    var cloud_namespace = $this.attr('id') || Math.floor((Math.random()*1000000)).toString(36);
 
     // Default options value
     var default_options = {
@@ -67,7 +67,7 @@
       for (var i = 0; i < word_array.length; i++) {
         word_array[i].weight = parseFloat(word_array[i].weight, 10);
       }
-      
+
       // Sort word_array from the word with the highest weight to the one with the lowest
       word_array.sort(function(a, b) { if (a.weight < b.weight) {return 1;} else if (a.weight > b.weight) {return -1;} else {return 0;} });
 
@@ -78,7 +78,7 @@
       // Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
       var drawOneWord = function(index, word) {
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
-        var word_id = container_id + "_word_" + index,
+        var word_id = cloud_namespace + "_word_" + index,
             word_selector = "#" + word_id,
 
             // If the option randomClasses is a number, and higher than 0, assign this word randomly to a class
@@ -96,12 +96,22 @@
             // Only used if option.shape == 'rectangular'
             steps_in_direction = 0.0,
             quarter_turns = 0.0,
+            weight = 5,
+            inner_html,
+            word_span;
 
-            // Linearly map the original weight to a discrete scale from 1 to 10
-            weight = Math.round((word.weight - word_array[word_array.length - 1].weight)/(word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1,
+        // Check is min(weight) > max(weight) otherwise use default
+        if (word_array[0].weight > word_array[word_array.length - 1].weight) {
+          // Linearly map the original weight to a discrete scale from 1 to 10
+          weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
+                              (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1
+        }
+        word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).addClass(word.customClass||null).attr('title', word.title || word.text || '');
 
-            word_span = $('<span>').attr('id',word_id).attr('class','w' + weight).addClass(random_class).attr('title', word.title || word.text || ''),
-            inner_html;
+        // set data-X attributes if passed
+        if(word.dataAttributes){
+          $.each( word.dataAttributes , function(i,v){ word_span.attr('data-'+i,v); } );
+        }
 
         // Append link if word.url attribute was set
         if (!!word.url) {

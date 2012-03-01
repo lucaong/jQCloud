@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version <%= version %>
+ * Version 0.2.9
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: <%= Time.new.to_s %>
+ * Date: Mon Jan 16 16:40:44 +0100 2012
 */
 
 (function( $ ) {
@@ -112,11 +112,6 @@
         if(word.dataAttributes){
           $.each( word.dataAttributes , function(i,v){ word_span.attr('data-'+i,v); } );
         }
-
-	// set data-X attributes if passed
-        if(word.data_attributes){
- 	    $.each( word.data_attributes , function(i,v){ word_span.attr('data-'+i,v); } );
-	}
 
         // Append link if word.url attribute was set
         if (!!word.url) {

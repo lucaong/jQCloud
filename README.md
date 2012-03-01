@@ -9,7 +9,7 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import the jQuery library in your project.
-2. Download the jQCloud files. Place [jqcloud-0.2.7.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.7.js) (or the minified version [jqcloud-0.2.7.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.7.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud-0.2.10.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.10.js) (or the minified version [jqcloud-0.2.10.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-0.2.10.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -24,30 +24,17 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-0.2.7.js"></script>
+    <script type="text/javascript" src="jqcloud-0.2.10.js"></script>
     <script type="text/javascript">
       /*!
-       * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
-       * the following mandatory attributes:
-       *
-       * text: a string containing the word(s)
-       * weight: a number (integer or float) defining the relative importance of the word
-       *         (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will
-       *         be linearly mapped to a discrete scale from 1 to 10.
-       *
-       * You can also specify the following optional attributes:
-       *
-       * url: a URL to which the word will be linked. It will be used as the href attribute of an HTML anchor.
-       * title: an HTML title for the <span> that will contain the word(s)
-       * callback: a function to be called after this word is rendered. Within the function, 'this' is the word element.
-       * handlers: an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
+       * Create an array of objects to be passed to jQCloud, each representing a word in the cloud
        */
       var word_list = [
           {text: "Lorem", weight: 15},
-          {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "jQuery Rocks!"},
+          {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "I can haz URL"},
           {text: "Dolor", weight: 6},
           {text: "Sit", weight: 7},
-          {text: "Amet", weight: 5, callback: function() { this.addClass("foo"); }}
+          {text: "Amet", weight: 5}
           // ...other words
       ];
       $(document).ready(function() {
@@ -62,6 +49,22 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
   </body>
 </html>
 ```
+
+### Word Attributes
+
+For each word, you need to specify the following mandatory attributes:
+ 
+ * **text** (string): the word(s) text
+ * **weight** (number): a number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will be linearly mapped to a discrete scale from 1 to 10.
+
+You can also specify the following optional attributes for each word:
+
+ * **url** (string): if specifyed, the word will be wrapped in a HTML link (`<a>` tag) and the URL used as its `href` attribute.
+ * **title** (string): an HTML title for the `<span>` that will contain the word(s)
+ * **callback** (callable): a function to be called after this word is rendered. Within the function, `this` refers to the jQuery object for the `<span>` containing the word.
+ * **customClass** (string): an additional HTML class for the word
+ * **dataAttributes** (object): keys and values to be used as HTML5 data attributes for the word (e.g. {confirm: "Are you sure?", remote: true})
+ * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
 
 ### Options:
 
@@ -117,7 +120,10 @@ Just have a look at the examples directory provided in the project or see a [dem
 
 ## Gallery
 
-An example of a creative use of jQCloud is http://www.politickerusa.com/trends/ where it is used to show trends in US politicians' tweets.
+Some creative examples of jQCloud use are:
+
+* http://www.politickerusa.com/trends/ uses jQCloud to show trends in US politicians' tweets.
+* http://www.turtledome.com/noisy/ shows you which of the people you follow on Twitter tweets the most.
 
 If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)): I'd be happy to add a link in the 'gallery', so that other people can take inspiration from it.
 
@@ -136,11 +142,17 @@ If you make changes to the JavaScript source, to the README, to examples or to t
 
 ## Changelog
 
+0.2.10 Fix bug occurring when the container element has no id
+
+0.2.9 Add dataAttributes option (thanks again to [cham](https://github.com/cham)) and fix bug when weights are all equal (thanks to [Grepsy](https://github.com/Grepsy))
+
+0.2.8 Add possibility to specify custom classes for words with the custom_class attribute (thanks to [cham](https://github.com/cham))
+
 0.2.7 Add possibility to draw rectangular-shaped clouds (an idea by [nithin2e](https://github.com/nithin2e))
 
 0.2.6 Fix bug with handlers, add nofollow option (thanks to [strobotta](https://github.com/strobotta)) and word callbacks.
 
-0.2.5 Add possiblity to bind event handlers to words (thanks to [astintzing](https://github.com/astintzing))
+0.2.5 Add possibility to bind event handlers to words (thanks to [astintzing](https://github.com/astintzing))
 
 0.2.4 Option randomClasses can be an array of classes among which a random class is selected for each word
 
