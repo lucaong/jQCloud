@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Apr 17 15:06:02 +0200 2012
+ * Date: Tue Apr 17 15:24:53 +0200 2012
 */
 
 (function( $ ) {
@@ -91,33 +91,33 @@
             word_span = "";
 
         // Extend word html options with defaults
-        word["html"] = $.extend(word["html"], {id: word_id});
+        word.html = $.extend(word.html, {id: word_id});
 
         // If custom class was specified, put them into a variable and remove it from html attrs, to avoid overwriting classes set by jQCloud
-        if(word["html"] && word["html"]["class"]) {
-          custom_class = word["html"]["class"];
-          delete word["html"]["class"];
+        if(word.html && word.html["class"]) {
+          custom_class = word.html["class"];
+          delete word.html["class"];
         }
 
         // Check is min(weight) > max(weight) otherwise use default
         if (word_array[0].weight > word_array[word_array.length - 1].weight) {
           // Linearly map the original weight to a discrete scale from 1 to 10
           weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
-                              (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1
+                              (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
         }
-        word_span = $('<span>').attr(word["html"]).addClass('w' + weight + " " + custom_class);
+        word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class);
 
         // Append link if word.url attribute was set
-        if (word["link"]) {
+        if (word.link) {
           // If link is a string, then use it as the link href
-          if(typeof word["link"] === "string") {
-            word["link"] = {href: word["link"]}
+          if(typeof word.link === "string") {
+            word.link = {href: word.link};
           }
 
           // Extend link html options with defaults
-          word["link"] = $.extend(word["link"], {href: encodeURI(word["link"]["href"]).replace(/'/g, "%27")});
+          word.link = $.extend(word.link, {href: encodeURI(word.link.href).replace(/'/g, "%27")});
 
-          inner_html = $('<a>').attr(word["link"]).text(word.text);
+          inner_html = $('<a>').attr(word.link).text(word.text);
         } else {
           inner_html = word.text;
         }
