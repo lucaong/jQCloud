@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Apr 17 15:56:12 +0200 2012
+ * Date: Tue Apr 17 16:03:49 +0200 2012
 */
 
 (function( $ ) {
@@ -187,10 +187,10 @@
 
       var drawOneWordDelayed = function(index) {
         index = index || 0;
-      	if (!$this.is(':visible')) { // if not visible then do not attempt to draw
-      	  setTimeout(function(){drawOneWordDelayed(index);},10);
-      	  return;
-      	}
+        if (!$this.is(':visible')) { // if not visible then do not attempt to draw
+          setTimeout(function(){drawOneWordDelayed(index);},10);
+          return;
+        }
         if (index < word_array.length) {
           drawOneWord(index, word_array[index]);
           setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);
