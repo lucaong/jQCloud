@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Apr 17 12:56:31 +0200 2012
+ * Date: Tue Apr 17 14:41:02 +0200 2012
 */
 
 (function( $ ) {
@@ -33,6 +33,11 @@
 
     // Add the "jqcloud" class to the container for easy CSS styling, set container width/height
     $this.addClass("jqcloud").width(options.width).height(options.height);
+
+    // Container's CSS position cannot be 'static'
+    if ($this.css("position") === "static") {
+      $this.css("position", "relative");
+    }
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
@@ -175,8 +180,8 @@
         already_placed_words.push(document.getElementById(word_id));
 
         // Invoke callback if existing
-        if ($.isFunction(word.callback)) {
-          word.callback.call(word_span);
+        if ($.isFunction(word.afterWordRender)) {
+          word.afterWordRender.call(word_span);
         }
       };
 
@@ -186,20 +191,20 @@
           drawOneWord(index, word_array[index]);
           setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);
         } else {
-          if ($.isFunction(options.callback)) {
-            options.callback.call(this);
+          if ($.isFunction(options.afterCloudRender)) {
+            options.afterCloudRender.call(this);
           }
         }
       };
 
       // Iterate drawOneWord on every word. The way the iteration is done depends on the drawing mode (delayedMode is true or false)
-      if (options.delayedMode || options.delayed_mode){
+      if (options.delayedMode){
         drawOneWordDelayed();
       }
       else {
         $.each(word_array, drawOneWord);
-        if ($.isFunction(options.callback)) {
-          options.callback.call(this);
+        if ($.isFunction(options.afterCloudRender)) {
+          options.afterCloudRender.call(this);
         }
       }
     };

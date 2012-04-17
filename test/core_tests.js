@@ -7,7 +7,7 @@ var some_words = [
     handlers: {
       click: function() { $(this).data("testHandler", "Handler works!"); }
     },
-    callback: function() {
+    afterWordRender: function() {
       this.data("testCallback", "Callback works!");
     },
     html: {"class": "mycustomclass"}
@@ -15,7 +15,7 @@ var some_words = [
 ];
 
 var some_other_words = [
-  {text: 'Abc', weight: 1, callback: function() { this.data("testCallback", "Callback works!"); }},
+  {text: 'Abc', weight: 1},
   {text: 'Def', weight: 2, link: "myurl.com"},
   {text: 'Ghi', weight: 3}
 ];
@@ -27,7 +27,7 @@ var some_words_with_same_weight = [
 ]
 
 $(document).ready(function() {
-  $("#container").jQCloud(some_words, {callback: function() {
+  $("#container").jQCloud(some_words, {afterCloudRender: function() {
 
     test('Basic plugin functionality', function() {
       var text = $("#container").text();
@@ -63,8 +63,8 @@ $(document).ready(function() {
       equal($("#container span:contains('Two')").data("testHandler"), "Handler works!", "Event handlers should be triggered.");
     });
 
-    test('Word callbacks', function() {
-      equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "Word callback should be called, and 'this' should be the word element.");
+    test('afterWordRender callback', function() {
+      equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "afterWordRender callback should be called, and 'this' should be the word element.");
     });
 
     test('Custom classes', function() {
@@ -77,7 +77,7 @@ $(document).ready(function() {
     
   }});
 
-  $("#container2").jQCloud(some_other_words, {width: 400, height: 200, delayed_mode: true, callback: function() {
+  $("#container2").jQCloud(some_other_words, {width: 400, height: 200, delayed_mode: true, afterCloudRender: function() {
 
     test('Multiple word clouds rendering, also with delayed_mode: true', function() {
       var text = $("#container2").text();
@@ -89,7 +89,7 @@ $(document).ready(function() {
 
   }});
 
-  $(".container3").jQCloud(some_words_with_same_weight, {callback: function() {
+  $(".container3").jQCloud(some_words_with_same_weight, {afterCloudRender: function() {
 
     test('Words with equal weight', function() {
       ok($(".container3 span.w5").length == 3, "There should be three words with equal weight.");
