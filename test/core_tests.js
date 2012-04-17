@@ -1,22 +1,22 @@
 var some_words = [
-  {text: 'Zero', weight: 0, dataAttributes: {'test': 'just testing'}},
-  {text: 'Minus three', weight: -3},
+  {text: 'Zero', weight: 0, html: {'test': 'just testing'}},
+  {text: 'Minus three', weight: -3, link: '#'},
   {text: 'Minus zero point fiftyfive', weight: -0.55},
   {
-    text: 'Two', weight: '2.0', url: '#',
+    text: 'Two', weight: '2.0', link: {href: '#', test: "testing"},
     handlers: {
       click: function() { $(this).data("testHandler", "Handler works!"); }
     },
-    callback: function() {
+    afterWordRender: function() {
       this.data("testCallback", "Callback works!");
     },
-    customClass: "mycustomclass"
+    html: {"class": "mycustomclass"}
   }
 ];
 
 var some_other_words = [
-  {text: 'Abc', weight: 1, callback: function() { this.data("testCallback", "Callback works!"); }},
-  {text: 'Def', weight: 2, url: "myurl.com"},
+  {text: 'Abc', weight: 1},
+  {text: 'Def', weight: 2, link: "myurl.com"},
   {text: 'Ghi', weight: 3}
 ];
 
@@ -27,7 +27,7 @@ var some_words_with_same_weight = [
 ]
 
 $(document).ready(function() {
-  $("#container").jQCloud(some_words, {callback: function() {
+  $("#container").jQCloud(some_words, {afterCloudRender: function() {
 
     test('Basic plugin functionality', function() {
       var text = $("#container").text();
@@ -53,7 +53,9 @@ $(document).ready(function() {
     });
 
     test('links into word cloud', function() {
-      ok($("#container span:contains('Two') a[href=#]").length == 1, "If 'url' parameter is specified, an html anchor pointing to that URL is created.");
+      ok($("#container span:contains('Minus three') a[href=#]").length == 1, "If 'link' option is specified and is a string, an html anchor pointing to that URL is created.");
+      ok($("#container span:contains('Two') a[href=#]").length == 1, "If 'link' option is specified and is an object, an html anchor pointing to link.href is created.");
+      equal($("#container span:contains('Two') a").attr("test"), "testing", "If 'link' option is specified and is an object, custom attributes should be set.");
     });
 
     test('Event handlers for words', function() {
@@ -61,21 +63,21 @@ $(document).ready(function() {
       equal($("#container span:contains('Two')").data("testHandler"), "Handler works!", "Event handlers should be triggered.");
     });
 
-    test('Word callbacks', function() {
-      equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "Word callback should be called, and 'this' should be the word element.");
+    test('afterWordRender callback', function() {
+      equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "afterWordRender callback should be called, and 'this' should be the word element.");
     });
 
     test('Custom classes', function() {
-      ok($("#container span:contains('Two')").hasClass("mycustomclass"), "Custom classes should be set via customClass attribute");
+      ok($("#container span:contains('Two')").hasClass("mycustomclass"), "Custom classes should be set via html.class attribute");
     });
 
-    test('Data attributes', function() {
-      equal($("#container span:contains('Zero')").data("test"), "just testing", "Data attributes should be set via the dataAttributes option");
+    test('Custom attributes', function() {
+      equal($("#container span:contains('Zero')").attr("test"), "just testing", "Custom attributes should be set via the html option");
     });
     
   }});
 
-  $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: 2, nofollow: true, callback: function() {
+  $("#container2").jQCloud(some_other_words, {width: 400, height: 200, delayed_mode: true, afterCloudRender: function() {
 
     test('Multiple word clouds rendering, also with delayed_mode: true', function() {
       var text = $("#container2").text();
@@ -85,27 +87,9 @@ $(document).ready(function() {
       ok(text.search(/Zero/) < 0, "'Zero' is not in the second cloud");
     });
 
-    test("Option randomClasses", function() {
-      ok($("#container2 span.w1").hasClass("r1") || $("#container2 span.w1").hasClass("r2"), "Since randomClasses = 2, each word should be assigned randomly either to class 'r1' or 'r2'");
-    });
-
-    test("Option nofollow", function() {
-      equal($("#container2 span a").attr("rel"), "nofollow", "If option nofollow = true, rel='nofollow' should be set.");
-    });
-
-    $("#container2").html(""); // Clean container2
-
-    $("#container2").jQCloud(some_other_words, {width: 200, height: 100, delayed_mode: true, randomClasses: [true, false], callback: function() {
-
-      test("Option randomClasses with array", function() {
-        ok($("#container2 span.w1").hasClass("true") || $("#container2 span.w1").hasClass("false"), "Since randomClasses = [true, false], each word should be assigned randomly either to class 'true' or 'false'");
-      });
-
-    }});
-
   }});
 
-  $(".container3").jQCloud(some_words_with_same_weight, {callback: function() {
+  $(".container3").jQCloud(some_words_with_same_weight, {afterCloudRender: function() {
 
     test('Words with equal weight', function() {
       ok($(".container3 span.w5").length == 3, "There should be three words with equal weight.");
