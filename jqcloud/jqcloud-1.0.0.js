@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 0.2.10
+ * Version 1.0.0
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Apr 17 11:13:19 +0200 2012
+ * Date: Tue Apr 17 12:56:31 +0200 2012
 */
 
 (function( $ ) {
@@ -79,6 +79,7 @@
             // Only used if option.shape == 'rectangular'
             steps_in_direction = 0.0,
             quarter_turns = 0.0,
+
             weight = 5,
             custom_class = "",
             inner_html = "",
@@ -174,7 +175,7 @@
         already_placed_words.push(document.getElementById(word_id));
 
         // Invoke callback if existing
-        if (typeof word.callback === "function") {
+        if ($.isFunction(word.callback)) {
           word.callback.call(word_span);
         }
       };
@@ -185,7 +186,7 @@
           drawOneWord(index, word_array[index]);
           setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);
         } else {
-          if (typeof options.callback === 'function') {
+          if ($.isFunction(options.callback)) {
             options.callback.call(this);
           }
         }
@@ -197,7 +198,7 @@
       }
       else {
         $.each(word_array, drawOneWord);
-        if (typeof options.callback === 'function') {
+        if ($.isFunction(options.callback)) {
           options.callback.call(this);
         }
       }

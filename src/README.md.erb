@@ -1,6 +1,6 @@
 # jQCloud: beautiful word clouds with jQuery
 
-jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds and tag clouds that are actually shaped like a cloud (otherwise, why should we call them 'word clouds'?).
+jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds and tag clouds that are actually shaped like a cloud (otherwise, why would we call them 'word clouds'?).
 
 You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 
@@ -8,14 +8,16 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 
 Installing jQCloud is extremely simple:
 
-1. Make sure to import the jQuery library in your project.
+1. Make sure to import jQuery in your project.
 2. Download the jQCloud files. Place [jqcloud-<%= version %>.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-<%= version %>.js) (or the minified version [jqcloud-<%= version %>.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-<%= version %>.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
 ## Usage
 
-Once you imported the .js and .css files, drawing a cloud is as simple as this:
+Drawing a cloud is as simple as selecting the container element with `jQuery` and then calling the `jQCloud(wordsArray)` method on it.
+
+Here is more detailed example:
 
 ```html
 <!DOCTYPE html>
@@ -29,17 +31,18 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
       /*!
        * Create an array of objects to be passed to jQCloud, each representing a word in the cloud
        */
-      var word_list = [
+      var word_array = [
           {text: "Lorem", weight: 15},
-          {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "I can haz URL"},
-          {text: "Dolor", weight: 6},
+          {text: "Ipsum", weight: 9, link: "http://jquery.com/"},
+          {text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
           {text: "Sit", weight: 7},
           {text: "Amet", weight: 5}
           // ...other words
       ];
-      $(document).ready(function() {
-        // Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
-        $("#example").jQCloud(word_list);
+
+      $(function() {
+        // When DOM is ready, select the container element with jQuery and call the jQCloud method, passing the word list as the first argument. Chainability of methods is maintained.
+        $("#example").jQCloud(word_array);
       });
     </script>
   </head>
@@ -50,25 +53,23 @@ Once you imported the .js and .css files, drawing a cloud is as simple as this:
 </html>
 ```
 
-### Word Attributes
+### Word Options
 
-For each word, you need to specify the following mandatory attributes:
+For each word object in your word array, you need to specify the following mandatory members:
  
  * **text** (string): the word(s) text
- * **weight** (number): a number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will be linearly mapped to a discrete scale from 1 to 10.
+ * **weight** (number): a number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary, and they will be linearly mapped to a discrete scale from 1 to 10.
 
-You can also specify the following optional attributes for each word:
+You can also specify the following options for each word:
 
- * **url** (string): if specifyed, the word will be wrapped in a HTML link (`<a>` tag) and the URL used as its `href` attribute.
- * **title** (string): an HTML title for the `<span>` that will contain the word(s)
- * **callback** (callable): a function to be called after this word is rendered. Within the function, `this` refers to the jQuery object for the `<span>` containing the word.
- * **customClass** (string): an additional HTML class for the word
- * **dataAttributes** (object): keys and values to be used as HTML5 data attributes for the word (e.g. {confirm: "Are you sure?", remote: true})
- * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
+  * **html** (object): an object specifying html attributes to be set on the word (e.g.: `{class: "customclass", title: "A title"}`). Any attribute can be set, except from "id", which is set by jQCloud.
+  * **link** (string or object): if specifyed, the word will be wrapped in a HTML link (`<a>` tag). If `link` is a string, it is expected to be the URL to which the link will point, and will be used as the link's `href` attribute. Alternatively, `link` can be an object specifying html attributes for the `<a>` tag, like `{href: "http://myurl.com", title: "A link"}`
+  * **callback** (function): a function to be called after this word is rendered. Within the function, `this` refers to the jQuery object for the `<span>` containing the word.
+  * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: {click: function() { alert("it works!"); } })
 
-### Options:
+### Cloud Options:
 
-Since version 0.2.0, jQCloud accepts an object containing configuration options as the second argument:
+jQCloud accepts an object containing configuration options global to the cloud as the second argument:
 
 ```javascript
 $("#example").jQCloud(word_list, {
@@ -79,18 +80,16 @@ $("#example").jQCloud(word_list, {
 
 The full list of available options is the following:
 
-* **width** (number): The width of the word cloud. Defaults to the width of the container element.
-* **height** (number): The height of the word cloud. Defaults to the height of the container element.
+* **width** (number): The width of the word cloud container element. Defaults to the original width.
+* **height** (number): The height of the word cloud container element. Defaults to the original height.
 * **center** (object): The x and y coordinates of the center of the word cloud (e.g.: {x: 300, y: 150}). Defaults to the center of the container element.
 * **callback** (function): A callback function to be called after the cloud is fully rendered. This is different from the callbacks defined for each word in which this one is called after the whole cloud is rendered.
 * **delayedMode** (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
-* **randomClasses** (number or array): If it's a number and higher than 0, each word will be assigned randomly to a class of kind `r1`, `r2`, ..., `rN` with N = randomClasses. If it is an array of classes, each word will be assigned randomly to one of the classes in the array. This random class can be used for random CSS styling of words, for example to set a random color or random orientation (see `examples/vertical_words.html`).
-* **nofollow** (boolean): if true, all words linked to a URL will have the `rel="nofollow"` attribute.
 * **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
 
 ### Note:
 
-Since drawing the cloud is rather computationally intensive, cloud rendering isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, you can specify in the options a callback function:
+Since drawing the cloud is rather computationally intensive, cloud rendering isn't instantaneous. If you want to make sure that some code executes after the cloud is rendered, put it in the callback:
 
 ```javascript
 $("#example").jQCloud(word_list, {
@@ -100,10 +99,6 @@ $("#example").jQCloud(word_list, {
 });
 ```
 
-#### Deprecation warning:
-
-Before version 0.2.0 jQCloud used to accept a callback function as the second argument. This way of specifying the callback function is deprecated and, although version 0.2.0 maintains backward compatibility, it will be removed in newer versions. If you need a callback function, use the 'callback' configuration option instead.
-
 ## Custom CSS guidelines
 
 The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call `$("#example").jQCloud(...)`, the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file `jqcloud.css` is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
@@ -111,6 +106,20 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 * Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static'.
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
+
+
+## v1.0 and backward compatibility
+
+Please note that version 1.0 is a redesign of the API that does not maintain backward compatibility. Version 1.0 simplifies the API while enabling more control, but pay attention because simply upgrading jQCloud from 0.x to 1.0 in an existing project would probably break it.
+
+### Changes from v0.2 to v1.0
+
+This is a quick list of what changed in the new 1.0 API:
+
+  * in the word object, you can now specify any html attribute for the word <span> using the `html` option (e.g.: {title: "A Title", "class": "custom-class", data-custom: "custom data attribute"}). Since this allows for more flexibility, `title`, `customClass` and `dataAttributes` options are superfluous and dropped in v1.0.
+  * the `url` option was renamed `link` in v1.0, and can now be a URL string or an object. In the latter case, any html attribute for the <a> tag can be specified (e.g.: {href: "http://myurl.com", title: "A Title"}).
+  * the cloud options `randomClasses` and `nofollow` are dropped in v1.0. They were indended for purposes which are better achieved using the new `html` and `link` word options.
+  * `width` and `height` cloud options now set the width and height of the cloud container element, other than determining the aspect ratio of the cloud.
 
 
 ## Examples
@@ -141,6 +150,8 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
+
+1.0.0 API redesign (warning: backward compatibility is broken)
 
 0.2.10 Fix bug occurring when the container element has no id
 
