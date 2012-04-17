@@ -7,9 +7,9 @@
     <script type="text/javascript" src="../jqcloud/jqcloud-<%= version %>.js"></script>
     <script type="text/javascript">
       var word_list = [
-        {text: "Lorem", weight: 13, url: "https://github.com/DukeLeNoir/jQCloud"},
-        {text: "Ipsum", weight: 10.5, url: "http://jquery.com/", title: "My Title"},
-        {text: "Dolor", weight: 9.4, url: "javascript:alert('JavaScript in URL is OK!');"},
+        {text: "Lorem", weight: 13},
+        {text: "Ipsum", weight: 10.5},
+        {text: "Dolor", weight: 9.4},
         {text: "Sit", weight: 8},
         {text: "Amet", weight: 6.2},
         {text: "Consectetur", weight: 5},
@@ -50,7 +50,7 @@
         {text: "et nulla", weight: 1},
         {text: "Sed", weight: 1}
       ];
-      $(document).ready(function() {
+      $(function() {
         $("#my_favorite_latin_words").jQCloud(word_list, {shape: "rectangular"});
       });
     </script>

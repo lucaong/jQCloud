@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Apr 17 14:41:02 +0200 2012
+ * Date: Tue Apr 17 15:06:02 +0200 2012
 */
 
 (function( $ ) {
@@ -192,7 +192,7 @@
           setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);
         } else {
           if ($.isFunction(options.afterCloudRender)) {
-            options.afterCloudRender.call(this);
+            options.afterCloudRender.call($this);
           }
         }
       };
@@ -204,13 +204,13 @@
       else {
         $.each(word_array, drawOneWord);
         if ($.isFunction(options.afterCloudRender)) {
-          options.afterCloudRender.call(this);
+          options.afterCloudRender.call($this);
         }
       }
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
     setTimeout(function(){drawWordCloud();}, 10);
-    return this;
+    return $this;
   };
 })(jQuery);

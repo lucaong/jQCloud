@@ -109,8 +109,8 @@ Please note that version 1.0 is a redesign of the API that does not maintain bac
 
 This is a quick list of what changed in the new 1.0 API:
 
-  * in the word object, you can now specify any html attribute for the word <span> using the `html` option (e.g.: {title: "A Title", "class": "custom-class", data-custom: "custom data attribute"}). Since this allows for more flexibility, `title`, `customClass` and `dataAttributes` options are superfluous and dropped in v1.0.
-  * the `url` option was renamed `link` in v1.0, and can now be a URL string or an object. In the latter case, any html attribute for the <a> tag can be specified (e.g.: {href: "http://myurl.com", title: "A Title"}).
+  * in the word object, you can now specify any html attribute for the word <span> using the `html` option (e.g.: `{title: "A Title", "class": "custom-class", data-custom: "custom data attribute"}`). Since this allows for more flexibility, `title`, `customClass` and `dataAttributes` options are superfluous and dropped in v1.0.
+  * the `url` option was renamed `link` in v1.0, and can now be a URL string or an object. In the latter case, any html attribute for the `<a>` tag can be specified (e.g.: `{href: "http://myurl.com", title: "A Title"}`).
   * the cloud options `randomClasses` and `nofollow` are dropped in v1.0. They were indended for purposes which are better achieved using the new `html` and `link` word options.
   * `width` and `height` cloud options now set the width and height of the cloud container element, other than determining the aspect ratio of the cloud.
   * the `callback` options for the whole cloud is now called `afterCloudRender`, and the `callback` option for each word is now called `afterWordRender`.
