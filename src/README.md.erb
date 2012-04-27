@@ -13,6 +13,11 @@ Installing jQCloud is extremely simple:
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
+### Rails gem
+
+Using Ruby on Rails? There's a gem for it! Check out archit's [jqcloud-rails](https://github.com/archit/jqcloud-rails).
+
+
 ## Usage
 
 Drawing a cloud is as simple as selecting the container element with `jQuery` and then calling the `jQCloud(wordsArray)` method on it.
