@@ -3,6 +3,7 @@ div.jqcloud {
   color: #09f;
   overflow: hidden;
   position: relative;
+  line-height: normal;
 }
 div.jqcloud a {
   color: inherit;
