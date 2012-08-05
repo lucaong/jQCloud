@@ -26,7 +26,8 @@
         y: ((options && options.height) ? options.height : $this.height()) / 2.0
       },
       delayedMode: word_array.length > 50,
-      shape: false // It defaults to elliptic shape
+      shape: false, // It defaults to elliptic shape
+      encodeURI: true
     };
 
     options = $.extend(default_options, options || {});
@@ -115,7 +116,9 @@
           }
 
           // Extend link html options with defaults
-          word.link = $.extend(word.link, {href: encodeURI(word.link.href).replace(/'/g, "%27")});
+	  if (options.encodeURI){
+            word.link = $.extend(word.link, {href: encodeURI(word.link.href).replace(/'/g, "%27")});
+	  }
 
           inner_html = $('<a>').attr(word.link).text(word.text);
         } else {
