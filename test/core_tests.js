@@ -26,7 +26,29 @@ var some_words_with_same_weight = [
   {text: 'Ghi', weight: 1}
 ]
 
+$(function(){
+  var encoded_words = [
+    {text: "John's Bday", weight: 1, link: "/posts?tag=John%27s+Bday"}
+  ];
+  $("#container5").jQCloud(encoded_words, {
+    encodeURI: false,
+    afterCloudRender: function(){
+      test('Links render without encoding', function(){
+        equal($("#container5 span a").attr('href'),'/posts?tag=John%27s+Bday', 'If encodeURI is turned off');
+      });
+    }
+  });
+  $("#container6").jQCloud(encoded_words, {
+    afterCloudRender: function(){
+      test('Links render with encoding', function(){
+        equal($("#container6 span a").attr('href'),'/posts?tag=John%2527s+Bday', 'If encodeURI is turned off');
+      });
+    }
+  });
+});
+
 $(document).ready(function() {
+
   $("#container").jQCloud(some_words, {afterCloudRender: function() {
 
     test('Basic plugin functionality', function() {
@@ -106,6 +128,7 @@ $(document).ready(function() {
       });
     }
   });
+
   setTimeout(function(){
     test('Words do not render when delayedMode true and container is not visible',function(){
       ok(!$(".container4").is(':visible'), "Container is not visible");
