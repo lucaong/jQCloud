@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 1.0.0
+ * Version 1.0.1
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Fri Apr 27 09:56:40 +0200 2012
+ * Date: Mon Aug 06 14:42:40 +0200 2012
 */
 
 (function( $ ) {
@@ -95,7 +95,7 @@
         word.html = $.extend(word.html, {id: word_id});
 
         // If custom class was specified, put them into a variable and remove it from html attrs, to avoid overwriting classes set by jQCloud
-        if(word.html && word.html["class"]) {
+        if (word.html && word.html["class"]) {
           custom_class = word.html["class"];
           delete word.html["class"];
         }
@@ -111,14 +111,14 @@
         // Append link if word.url attribute was set
         if (word.link) {
           // If link is a string, then use it as the link href
-          if(typeof word.link === "string") {
+          if (typeof word.link === "string") {
             word.link = {href: word.link};
           }
 
           // Extend link html options with defaults
-	  if (options.encodeURI){
-            word.link = $.extend(word.link, {href: encodeURI(word.link.href).replace(/'/g, "%27")});
-	  }
+          if ( options.encodeURI ) {
+            word.link = $.extend(word.link, { href: encodeURI(word.link.href).replace(/'/g, "%27") });
+          }
 
           inner_html = $('<a>').attr(word.link).text(word.text);
         } else {

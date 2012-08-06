@@ -9,7 +9,7 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import jQuery in your project.
-2. Download the jQCloud files. Place [jqcloud-1.0.0.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-1.0.0.js) (or the minified version [jqcloud-1.0.0.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-1.0.0.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud-1.0.1.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-1.0.1.js) (or the minified version [jqcloud-1.0.1.min.js](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud-1.0.1.min.js)) and [jqcloud.css](https://raw.github.com/DukeLeNoir/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -31,7 +31,7 @@ Here is more detailed example:
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-1.0.0.js"></script>
+    <script type="text/javascript" src="jqcloud-1.0.1.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of word objects, each representing a word in the cloud
@@ -149,6 +149,8 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
+
+1.0.1 Option to turn off URL encoding for links (thanks to [bboughton](https://github.com/bboughton))
 
 1.0.0 API redesign (warning: this is a major update, and background compatibility is not maintained)
 

@@ -34,14 +34,14 @@ $(function(){
     encodeURI: false,
     afterCloudRender: function(){
       test('Links render without encoding', function(){
-        equal($("#container5 span a").attr('href'),'/posts?tag=John%27s+Bday', 'If encodeURI is turned off');
+        equal($("#container5 span a").attr('href'), '/posts?tag=John%27s+Bday', 'If encodeURI is turned off');
       });
     }
   });
   $("#container6").jQCloud(encoded_words, {
     afterCloudRender: function(){
       test('Links render with encoding', function(){
-        equal($("#container6 span a").attr('href'),'/posts?tag=John%2527s+Bday', 'If encodeURI is turned off');
+        equal($("#container6 span a").attr('href'), '/posts?tag=John%2527s+Bday', 'If encodeURI is turned on');
       });
     }
   });
