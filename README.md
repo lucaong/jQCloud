@@ -96,6 +96,7 @@ All cloud-wide configurations are optional, and the full list of available optio
 * **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
 * **delayedMode** (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
 * **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
+* **customClass** (string): custom CSS class to be added to all words.
 
 ## Custom CSS guidelines
 
@@ -114,7 +115,7 @@ Please note that version 1.0 is a redesign of the API that does not maintain bac
 
 This is a quick list of what changed in the new 1.0 API:
 
-  * in the word object, you can now specify any html attribute for the word <span> using the `html` option (e.g.: `{title: "A Title", "class": "custom-class", data-custom: "custom data attribute"}`). Since this allows for more flexibility, `title`, `customClass` and `dataAttributes` options are superfluous and dropped in v1.0.
+  * in the word object, you can now specify any html attribute for the word <span> using the `html` option (e.g.: `{title: "A Title", "class": "custom-class", data-custom: "custom data attribute"}`). Since this allows for more flexibility, `title` and `dataAttributes` options are superfluous and dropped in v1.0.
   * the `url` option was renamed `link` in v1.0, and can now be a URL string or an object. In the latter case, any html attribute for the `<a>` tag can be specified (e.g.: `{href: "http://myurl.com", title: "A Title"}`).
   * the cloud options `randomClasses` and `nofollow` are dropped in v1.0. They were indended for purposes which are better achieved using the new `html` and `link` word options.
   * `width` and `height` cloud options now set the width and height of the cloud container element, other than determining the aspect ratio of the cloud.

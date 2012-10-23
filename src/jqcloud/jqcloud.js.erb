@@ -27,7 +27,8 @@
       },
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
-      encodeURI: true
+      encodeURI: true,
+      customClass: ''
     };
 
     options = $.extend(default_options, options || {});
@@ -87,7 +88,7 @@
             quarter_turns = 0.0,
 
             weight = 5,
-            custom_class = "",
+            custom_class = options.customClass,
             inner_html = "",
             word_span = "";
 

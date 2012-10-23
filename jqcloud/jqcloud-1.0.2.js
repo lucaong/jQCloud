@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Oct 09 22:08:53 +0200 2012
+ * Date: 2012-10-23 16:47:45 -0400
 */
 
 (function( $ ) {
@@ -27,7 +27,8 @@
       },
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
-      encodeURI: true
+      encodeURI: true,
+      customClass: ''
     };
 
     options = $.extend(default_options, options || {});
@@ -87,7 +88,7 @@
             quarter_turns = 0.0,
 
             weight = 5,
-            custom_class = "",
+            custom_class = options.customClass,
             inner_html = "",
             word_span = "";
 
