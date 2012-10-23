@@ -151,6 +151,8 @@ If you make changes to the JavaScript source, to the README, to examples or to t
 
 ## Changelog
 
+1.0.3 Brought back the `customClass` convenience option ([fzero](https://github.com/fzero))
+
 1.0.2 Relative font sizes and easier to customize CSS (kudos to [daniel-toman](https://github.com/daniel-toman))
 
 1.0.1 Option to turn off URL encoding for links (thanks to [bboughton](https://github.com/bboughton))
