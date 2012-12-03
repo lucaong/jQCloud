@@ -3,12 +3,11 @@
  *
  * Version 1.0.2
  *
- * Copyright 2011, Luca Ongaro
+ * Copyright 2012, Luca Ongaro, Fabio Neves
  * Licensed under the MIT license.
  *
- * Date: 2012-10-23 16:53:11 -0400
+ * Date: Mon Dec 03 14:55:56 -0500 2012
 */
-
 (function( $ ) {
   "use strict";
   $.fn.jQCloud = function(word_array, options) {
@@ -22,13 +21,16 @@
       width: $this.width(),
       height: $this.height(),
       center: {
-        x: ((options && options.width) ? options.width : $this.width()) / 2.0,
-        y: ((options && options.height) ? options.height : $this.height()) / 2.0
+        x: ((options && options.width) ? options.width : $this.width() / 2.0),
+        y: ((options && options.height) ? options.height : $this.height() / 2.0)
       },
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
       encodeURI: true,
-      customClass: ''
+      customClass: '',
+      toggleClasses: false,
+      overlapFactor: 0,
+      testBoundaries: false
     };
 
     options = $.extend(default_options, options || {});
@@ -46,10 +48,19 @@
       var hitTest = function(elem, other_elems){
         // Pairwise overlap detection
         var overlapping = function(a, b){
-          if (Math.abs(2.0*a.offsetLeft + a.offsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth) {
-            if (Math.abs(2.0*a.offsetTop + a.offsetHeight - 2.0*b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) {
+          // First test against canvas boundaries (depending on options)
+          if (options.testBoundaries) {
+            if (a.offsetLeft < 0 || a.offsetTop < 0 ||
+                a.offsetTop + a.offsetHeight > options.height ||
+                a.offsetLeft + a.offsetWidth > options.width) {
               return true;
             }
+          }
+          // Then test a/b overlap
+          var ov = 2.0 + Math.abs(options.overlapFactor / 10);
+          if ( (Math.abs(ov * a.offsetLeft + a.offsetWidth - ov * b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth) &&
+              (Math.abs(ov * a.offsetTop + a.offsetHeight - ov * b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) ) {
+            return true;
           }
           return false;
         };
@@ -74,6 +85,9 @@
       var step = (options.shape === "rectangular") ? 18.0 : 2.0,
           already_placed_words = [],
           aspect_ratio = options.width / options.height;
+
+      // Toggles between 'wa' and 'wb' classes for color variation.
+      var color_toggle = 'a';
 
       // Function to draw a word, by moving it in spiral until it finds a suitable empty place. This will be iterated on each word.
       var drawOneWord = function(index, word) {
@@ -107,7 +121,15 @@
           weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
                               (word_array[0].weight - word_array[word_array.length - 1].weight) * 9.0) + 1;
         }
-        word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class);
+
+        var class_prefix = 'w'
+
+        if (options.toggleClasses) {
+          class_prefix = 'w' + color_toggle;
+          color_toggle = (color_toggle === 'a') ? 'b' : 'a';
+        }
+
+        word_span = $('<span>').attr(word.html).addClass(class_prefix + weight + " " + custom_class);
 
         // Append link if word.url attribute was set
         if (word.link) {

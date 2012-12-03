@@ -66,7 +66,7 @@ The container element must be visible and have non-zero dimensions when you call
 ### Word Options
 
 For each word object in your word array, you need to specify the following mandatory attributes:
- 
+
  * **text** (string): the word(s) text
  * **weight** (number): a number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary, and they will be linearly mapped to a discrete scale from 1 to 10.
 
@@ -95,8 +95,12 @@ All cloud-wide configurations are optional, and the full list of available optio
 * **center** (object): The x and y coordinates of the center of the word cloud, relative to the container element (e.g.: {x: 300, y: 150}). Defaults to the center of the container element.
 * **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
 * **delayedMode** (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
-* **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
-* **customClass** (string): custom CSS class to be added to all words.
+* **shape** (string): The shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
+* **customClass** (string): Custom CSS class to be added to all words.
+* **toggleClass** (string): Option to have more than one CSS class for each word weight (i.e. alternates between `wa1` and `wb1` instead of using just `w1`).
+* **overlapFactor** (integer): How much the words can overlap each other (default: 0).
+* **testBoundaries** (boolean): If true, jQCloud will make sure the words don't go past the container's boundaries (useful for long words).
+
 
 ## Custom CSS guidelines
 
@@ -104,7 +108,7 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 
 * Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'statis', jQCloud overwrites it to 'relative').
-* Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
+* Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1 (or wa/wb + number if using toggleClasses).
 
 
 ## v1.0 and backward compatibility
@@ -150,6 +154,8 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
+
+1.0.4 Added `toggleClass`, `overlapFactor` and `testBoundaries` ([fzero](https://github.com/fzero))
 
 1.0.3 Brought back the `customClass` convenience option ([fzero](https://github.com/fzero))
 
