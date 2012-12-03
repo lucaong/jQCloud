@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 1.0.2
+ * Version 1.0.4
  *
  * Copyright 2012, Luca Ongaro, Fabio Neves
  * Licensed under the MIT license.
  *
- * Date: Mon Dec 03 14:55:56 -0500 2012
+ * Date: 2012-12-03 15:01:12 -0500
 */
 (function( $ ) {
   "use strict";
