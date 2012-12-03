@@ -6,7 +6,7 @@
  * Copyright 2012, Luca Ongaro, Fabio Neves
  * Licensed under the MIT license.
  *
- * Date: 2012-12-03 15:01:12 -0500
+ * Date: 2012-12-03 15:04:52 -0500
 */
 (function( $ ) {
   "use strict";
