@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 1.0.2
+ * Version 1.0.3
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: Tue Oct 09 22:08:53 +0200 2012
+ * Date: 2013-02-17 17:57:00 +0100
 */
 
 (function( $ ) {
@@ -42,9 +42,9 @@
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
-      var hitTest = function(elem, other_elems){
+      var hitTest = function(elem, other_elems) {
         // Pairwise overlap detection
-        var overlapping = function(a, b){
+        var overlapping = function(a, b) {
           if (Math.abs(2.0*a.offsetLeft + a.offsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth) {
             if (Math.abs(2.0*a.offsetTop + a.offsetHeight - 2.0*b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) {
               return true;
@@ -89,7 +89,7 @@
             weight = 5,
             custom_class = "",
             inner_html = "",
-            word_span = "";
+            word_span;
 
         // Extend word html options with defaults
         word.html = $.extend(word.html, {id: word_id});
@@ -100,7 +100,7 @@
           delete word.html["class"];
         }
 
-        // Check is min(weight) > max(weight) otherwise use default
+        // Check if min(weight) > max(weight) otherwise use default
         if (word_array[0].weight > word_array[word_array.length - 1].weight) {
           // Linearly map the original weight to a discrete scale from 1 to 10
           weight = Math.round((word.weight - word_array[word_array.length - 1].weight) /
@@ -148,7 +148,7 @@
         word_style.left = left + "px";
         word_style.top = top + "px";
 
-        while(hitTest(document.getElementById(word_id), already_placed_words)) {
+        while(hitTest(word_span[0], already_placed_words)) {
           // option shape is 'rectangular' so move the word in a rectangular spiral
           if (options.shape === "rectangular") {
             steps_in_direction++;
@@ -180,7 +180,7 @@
           word_style.left = left + "px";
           word_style.top = top + "px";
         }
-        already_placed_words.push(document.getElementById(word_id));
+        already_placed_words.push(word_span[0]);
 
         // Invoke callback if existing
         if ($.isFunction(word.afterWordRender)) {
