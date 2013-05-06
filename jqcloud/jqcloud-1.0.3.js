@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: 2013-02-17 17:57:00 +0100
+ * Date: 2013-05-06 15:03:15 -0700
 */
 
 (function( $ ) {
@@ -27,7 +27,8 @@
       },
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
-      encodeURI: true
+      encodeURI: true,
+      doNotDrawOutsideContainer: true
     };
 
     options = $.extend(default_options, options || {});
@@ -180,6 +181,14 @@
           word_style.left = left + "px";
           word_style.top = top + "px";
         }
+
+        //don't render word if part of it would be outside the container
+        if (options.doNotDrawOutsideContainer && (left < 0 || top < 0 || (left + width) > options.width || (top + height) > options.height)) {
+          word_span.remove()
+          return;
+        }
+
+
         already_placed_words.push(word_span[0]);
 
         // Invoke callback if existing
