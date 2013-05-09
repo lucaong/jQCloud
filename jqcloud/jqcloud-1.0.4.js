@@ -1,12 +1,12 @@
 /*!
  * jQCloud Plugin for jQuery
  *
- * Version 1.0.3
+ * Version 1.0.4
  *
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: 2013-05-06 15:03:15 -0700
+ * Date: 2013-05-09 18:54:22 +0200
 */
 
 (function( $ ) {
@@ -28,7 +28,7 @@
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
       encodeURI: true,
-      doNotDrawOutsideContainer: true
+      removeOverflowing: true
     };
 
     options = $.extend(default_options, options || {});
@@ -182,8 +182,8 @@
           word_style.top = top + "px";
         }
 
-        //don't render word if part of it would be outside the container
-        if (options.doNotDrawOutsideContainer && (left < 0 || top < 0 || (left + width) > options.width || (top + height) > options.height)) {
+        // Don't render word if part of it would be outside the container
+        if (options.removeOverflowing && (left < 0 || top < 0 || (left + width) > options.width || (top + height) > options.height)) {
           word_span.remove()
           return;
         }

@@ -9,7 +9,7 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import jQuery in your project.
-2. Download the jQCloud files. Place [jqcloud-1.0.3.js](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud-1.0.3.js) (or the minified version [jqcloud-1.0.3.min.js](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud-1.0.3.min.js)) and [jqcloud.css](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud-1.0.4.js](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud-1.0.4.js) (or the minified version [jqcloud-1.0.4.min.js](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud-1.0.4.min.js)) and [jqcloud.css](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
 
@@ -31,7 +31,7 @@ Here is more detailed example:
     <title>jQCloud Example</title>
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-1.0.3.js"></script>
+    <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
     <script type="text/javascript">
       /*!
        * Create an array of word objects, each representing a word in the cloud
