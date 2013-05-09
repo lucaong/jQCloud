@@ -28,7 +28,7 @@
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
       encodeURI: true,
-      doNotDrawOutsideContainer: true
+      removeOverflowing: true
     };
 
     options = $.extend(default_options, options || {});
@@ -182,8 +182,8 @@
           word_style.top = top + "px";
         }
 
-        //don't render word if part of it would be outside the container
-        if (options.doNotDrawOutsideContainer && (left < 0 || top < 0 || (left + width) > options.width || (top + height) > options.height)) {
+        // Don't render word if part of it would be outside the container
+        if (options.removeOverflowing && (left < 0 || top < 0 || (left + width) > options.width || (top + height) > options.height)) {
           word_span.remove()
           return;
         }
