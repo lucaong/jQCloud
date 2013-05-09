@@ -96,6 +96,7 @@ All cloud-wide configurations are optional, and the full list of available optio
 * **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
 * **delayedMode** (boolean): If true, words are rendered one after another with a tiny delay between each one. This prevents freezing of the browser when there are many words to be rendered. If false, the cloud will be rendered in one single shot. By default, delayedMode is true when there are more than 50 words.
 * **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
+* **removeOverflowing** (boolean): If true, it removes words that would overflow the container. Defaults to true.
 
 ## Custom CSS guidelines
 
@@ -149,6 +150,9 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
+
+
+1.0.4 Add option to remove overflowing words (thanks to [drewB](https://github.com/drewB))
 
 1.0.3 Fix bug when providing a context to jQuery
 
