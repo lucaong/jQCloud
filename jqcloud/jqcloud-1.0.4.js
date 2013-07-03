@@ -14,6 +14,7 @@
   $.fn.jQCloud = function(word_array, options) {
     // Reference to the container element
     var $this = this;
+    var wc_start_time = new Date().getTime();
     // Namespace word ids to avoid collisions between multiple clouds
     var cloud_namespace = $this.attr('id') || Math.floor((Math.random()*1000000)).toString(36);
 
@@ -43,11 +44,16 @@
 
     var drawWordCloud = function() {
       // Helper function to test if an element overlaps others
-      var hitTest = function(elem, other_elems) {
+      /*
+       * Getting offsetLeft, offsetRight, offsetWidth, offsetHeight from DOM element slows down. 
+       * Instead we pass it as an argument for the upcoming word
+       * Push an object which has height, width, left and right positions into already_placed_words array, which makes easier to calculte in the hit test.
+      */
+      var hitTest = function(aoffsetWidth,aoffsetHeight,aoffsetLeft,aoffsetTop){
         // Pairwise overlap detection
-        var overlapping = function(a, b) {
-          if (Math.abs(2.0*a.offsetLeft + a.offsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth) {
-            if (Math.abs(2.0*a.offsetTop + a.offsetHeight - 2.0*b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) {
+        var overlapping = function(aoffsetWidth,aoffsetHeight,aoffsetLeft,aoffsetTop, b){
+          if (Math.abs(2.0*aoffsetLeft + aoffsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < aoffsetWidth + b.offsetWidth) {
+            if (Math.abs(2.0*aoffsetTop + aoffsetHeight - 2.0*b.offsetTop - b.offsetHeight) < aoffsetHeight + b.offsetHeight) {
               return true;
             }
           }
@@ -55,8 +61,8 @@
         };
         var i = 0;
         // Check elements for overlap one by one, stop and return false as soon as an overlap is found
-        for(i = 0; i < other_elems.length; i++) {
-          if (overlapping(elem, other_elems[i])) {
+        for(i = 0; i < already_placed_words.length; i++) {
+          if (overlapping(aoffsetWidth,aoffsetHeight,aoffsetLeft,aoffsetTop, already_placed_words[i])) {
             return true;
           }
         }
@@ -149,7 +155,7 @@
         word_style.left = left + "px";
         word_style.top = top + "px";
 
-        while(hitTest(word_span[0], already_placed_words)) {
+        while(hitTest(width,height,left,top)) {
           // option shape is 'rectangular' so move the word in a rectangular spiral
           if (options.shape === "rectangular") {
             steps_in_direction++;
@@ -188,8 +194,13 @@
           return;
         }
 
-
-        already_placed_words.push(word_span[0]);
+        var obj = {}; // Pushing as an object, which makes easier to find the positions in hit test function.
+        obj.offsetHeight = height;
+        obj.offsetTop = top;
+        obj.offsetWidth = width;
+        obj.offsetLeft = left;
+        already_placed_words.push(obj);
+        console.log(new Date().getTime() - wc_start_time);
 
         // Invoke callback if existing
         if ($.isFunction(word.afterWordRender)) {
