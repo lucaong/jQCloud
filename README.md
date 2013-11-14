@@ -106,6 +106,9 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'statis', jQCloud overwrites it to 'relative').
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
+## Destroy
+
+To remove the word cloud, all of its event handlers, and any timeouts, call `destroy`: `$("#example").jQCloud('destroy');`
 
 ## v1.0 and backward compatibility
 
@@ -150,7 +153,6 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
-
 
 1.0.4 Add option to remove overflowing words (thanks to [drewB](https://github.com/drewB))
 
