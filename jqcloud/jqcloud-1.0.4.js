@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: 2013-05-09 18:54:22 +0200
+ * Date: Tue Jan 28 11:52:37 +0100 2014
 */
 
 (function( $ ) {
@@ -32,6 +32,12 @@
     };
 
     options = $.extend(default_options, options || {});
+
+    // Remove content of the element in case it was already loaded, in order to update it dinamically
+    if (this.hasClass("jqcloud")){
+        this.empty("");
+        this.removeClass("jqcloud");
+    }
 
     // Add the "jqcloud" class to the container for easy CSS styling, set container width/height
     $this.addClass("jqcloud").width(options.width).height(options.height);
