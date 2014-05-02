@@ -16,6 +16,11 @@
     var $this = this;
     // Namespace word ids to avoid collisions between multiple clouds
     var cloud_namespace = $this.attr('id') || Math.floor((Math.random()*1000000)).toString(36);
+	
+	// Clear previous timeout.
+	if ($this.data('jqcloud_timeout')) {
+		clearTimeout($this.data('jqcloud_timeout'));
+	}
 
     // Default options value
     var default_options = {
@@ -200,12 +205,12 @@
       var drawOneWordDelayed = function(index) {
         index = index || 0;
         if (!$this.is(':visible')) { // if not visible then do not attempt to draw
-          setTimeout(function(){drawOneWordDelayed(index);},10);
+          $this.data('jqcloud_timeout', setTimeout(function(){drawOneWordDelayed(index);},10));
           return;
         }
         if (index < word_array.length) {
           drawOneWord(index, word_array[index]);
-          setTimeout(function(){drawOneWordDelayed(index + 1);}, 10);
+          $this.data('jqcloud_timeout', setTimeout(function(){drawOneWordDelayed(index + 1);}, 10));
         } else {
           if ($.isFunction(options.afterCloudRender)) {
             options.afterCloudRender.call($this);
@@ -226,7 +231,7 @@
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
-    setTimeout(function(){drawWordCloud();}, 10);
+    $this.data('jqcloud_timeout', setTimeout(function(){drawWordCloud();}, 10));
     return $this;
   };
 })(jQuery);
