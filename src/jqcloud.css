@@ -1,5 +1,12 @@
+/*!
+ * jQCloud
+ * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)
+ * Copyright 2013 Daniel White (http://www.developerdan.com)
+ * Copyright 2014 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
+ * Licensed under MIT (http://opensource.org/licenses/MIT)
+ */
+ 
 /* fonts */
-
 div.jqcloud {
   font-family: "Helvetica", "Arial", sans-serif;
   font-size: 10px;
@@ -23,7 +30,6 @@ div.jqcloud span.w2 { font-size: 150%; }
 div.jqcloud span.w1 { font-size: 100%; }
 
 /* colors */
-
 div.jqcloud { color: #09f; }
 div.jqcloud a { color: inherit; }
 div.jqcloud a:hover { color: #0df; }
@@ -40,7 +46,6 @@ div.jqcloud span.w2 { color: #99ccee; }
 div.jqcloud span.w1 { color: #aab5f0; }
 
 /* layout */
-
 div.jqcloud {
   overflow: hidden;
   position: relative;

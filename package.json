@@ -1,10 +1,12 @@
 {
   "name": "jQCloud",
   "version": "2.0.0",
-  "homepage": "https://github.com/mistic100/jQCloud",
-  "authors": [{
+  "author": [{
     "name": "Luca Ongaro",
     "homepage": "http://www.lucaongaro.eu"
+  }, {
+    "name": "Daniel White",
+    "homepage": "http://www.developerdan.com"
   }, {
     "name": "Damien \"Mistic\" Sorel",
     "homepage": "http://www.strangeplanet.fr"
@@ -14,8 +16,12 @@
     "dist/jqcloud.js",
     "dist/jqcloud.css"
   ],
-  "dependencies" : {
-    "jquery": ">= 1.9.0"
+  "devDependencies": {
+    "qunitjs": "~1.14.0",
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-concat": "~0.4.0"
   },
   "keywords": [
     "cloud",
@@ -24,15 +30,15 @@
     "tag"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/mistic100/jQCloud",
   "repository": {
     "type": "git",
     "url": "git://github.com/mistic100/jQCloud.git"
   },
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "bugs": {
+    "url": "https://github.com/mistic100/jQCloud/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

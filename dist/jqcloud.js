@@ -1,14 +1,10 @@
 /*!
- * jQCloud Plugin for jQuery
- *
- * Version 1.0.4
- *
- * Copyright 2011, Luca Ongaro
- * Licensed under the MIT license.
- *
- * Date: 2013-11-13 20:30:34 -0500
-*/
-
+ * jQCloud 2.0.0
+ * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)
+ * Copyright 2013 Daniel White (http://www.developerdan.com)
+ * Copyright 2014 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
+ * Licensed under MIT (http://opensource.org/licenses/MIT)
+ */
 (function( $ ) {
   "use strict";
   

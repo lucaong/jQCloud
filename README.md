@@ -9,13 +9,9 @@ You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
 Installing jQCloud is extremely simple:
 
 1. Make sure to import jQuery in your project.
-2. Download the jQCloud files. Place [jqcloud-1.0.4.js](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud-1.0.4.js) (or the minified version [jqcloud-1.0.4.min.js](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud-1.0.4.min.js)) and [jqcloud.css](https://raw.github.com/lucaong/jQCloud/master/jqcloud/jqcloud.css) somewhere in your project and import both of them in your HTML code.
+2. Download the jQCloud files. Place [jqcloud.js](https://raw.github.com/mistic100/jQCloud/master/dist/jqcloud.min.js) and [jqcloud.css](https://raw.github.com/mistic100/jQCloud/master/dist/jqcloud.min.css) somewhere in your project and import both of them in your HTML code.
 
 You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
-
-### Rails gem
-
-Using Ruby on Rails? There's a gem for it! Check out archit's [jqcloud-rails](https://github.com/archit/jqcloud-rails).
 
 
 ## Usage
@@ -27,12 +23,14 @@ Here is more detailed example:
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>jQCloud Example</title>
-    <link rel="stylesheet" type="text/css" href="jqcloud.css" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
-    <script type="text/javascript">
+    
+    <link rel="stylesheet" href="bower_components/jqcloud/dist/jqcloud.min.css">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jqcloud/dist/jqcloud.min.js"></script>
+    
+    <script>
       /*!
        * Create an array of word objects, each representing a word in the cloud
        */
@@ -44,17 +42,19 @@ Here is more detailed example:
           {text: "Amet", weight: 5}
           // ...as many words as you want
       ];
-
+    
       $(function() {
         // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
         $("#example").jQCloud(word_array);
       });
     </script>
-  </head>
-  <body>
-    <!-- You should explicitly specify the dimensions of the container element -->
-    <div id="example" style="width: 550px; height: 350px;"></div>
-  </body>
+</head>
+<body>
+
+<!-- You should explicitly specify the dimensions of the container element -->
+<div id="example" style="width: 550px; height: 350px;"></div>
+
+</body>
 </html>
 ```
 
@@ -110,49 +110,28 @@ The word cloud produced by jQCloud is made of pure HTML, so you can style it usi
 
 To remove the word cloud, all of its event handlers, and any timeouts, call `destroy`: `$("#example").jQCloud('destroy');`
 
-## v1.0 and backward compatibility
+## Update
 
-Please note that version 1.0 is a redesign of the API that does not maintain backward compatibility. Version 1.0 simplifies the API while enabling more control, but pay attention because simply upgrading jQCloud from 0.x to 1.0 in an existing project would probably break it.
-
-### Changes from v0.2 to v1.0
-
-This is a quick list of what changed in the new 1.0 API:
-
-  * in the word object, you can now specify any html attribute for the word <span> using the `html` option (e.g.: `{title: "A Title", "class": "custom-class", data-custom: "custom data attribute"}`). Since this allows for more flexibility, `title`, `customClass` and `dataAttributes` options are superfluous and dropped in v1.0.
-  * the `url` option was renamed `link` in v1.0, and can now be a URL string or an object. In the latter case, any html attribute for the `<a>` tag can be specified (e.g.: `{href: "http://myurl.com", title: "A Title"}`).
-  * the cloud options `randomClasses` and `nofollow` are dropped in v1.0. They were indended for purposes which are better achieved using the new `html` and `link` word options.
-  * `width` and `height` cloud options now set the width and height of the cloud container element, other than determining the aspect ratio of the cloud.
-  * the `callback` options for the whole cloud is now called `afterCloudRender`, and the `callback` option for each word is now called `afterWordRender`.
-
+To dynamically change the list of words, call `update`: `$("#example").jQCloud('update', new_wordarray);`
 
 ## Examples
 
 Just have a look at the examples directory provided in the project or see a [demo here](http://www.lucaongaro.eu/demos/jqcloud/).
 
-
-## Gallery
-
-Some creative examples of jQCloud use are:
-
-* http://www.politickerusa.com/trends/ uses jQCloud to show trends in US politicians' tweets.
-* http://www.turtledome.com/noisy/ shows you which of the people you follow on Twitter tweets the most.
-
-If you happen to use jQCloud in your projects, you can make me know (just contact me on [my website](http://www.lucaongaro.eu)): I'd be happy to add a link in the 'gallery', so that other people can take inspiration from it.
-
-
 ## Contribute
 
-Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake` and `erb` gems. Then, to build jQCloud, run:
+Contributes are welcome! To setup your build environment, make sure you have NodeJS installed, as well as `grunt-cli`. Then, to build jQCloud, run:
 
 ```
-rake build
+npm install
+grunt
 ```
 
-The newly-built distribution files will be put in the `jqcloud` subdirectory.
-
-If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
+The newly-built distribution files will be put in the `dist` subdirectory.
 
 ## Changelog
+
+2.0.0 Migrate to Grunt builder
 
 1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))
 
