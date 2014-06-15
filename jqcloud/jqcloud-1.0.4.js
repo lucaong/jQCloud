@@ -268,6 +268,15 @@
       this.$element.removeClass('jqcloud');
       this.$element.removeData('jqcloud');
       this.$element.children('[id^="' + this.cloud_namespace + '"]').remove();
+    },
+    
+    update: function(word_array) {
+      this.$element.empty();
+      
+      this.word_array = word_array;
+      this.already_placed_words = [];
+      
+      this.drawWordCloud();
     }
   };
   

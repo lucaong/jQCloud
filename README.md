@@ -154,6 +154,8 @@ If you make changes to the JavaScript source, to the README, to examples or to t
 
 ## Changelog
 
+1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))
+
 1.0.4 Add option to remove overflowing words (thanks to [drewB](https://github.com/drewB))
 
 1.0.3 Fix bug when providing a context to jQuery

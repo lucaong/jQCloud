@@ -65,8 +65,8 @@
     
     // Pairwise overlap detection
     overlapping: function(a, b) {
-      if (Math.abs(2.0*a.offsetLeft + a.offsetWidth - 2.0*b.offsetLeft - b.offsetWidth) < a.offsetWidth + b.offsetWidth) {
-        if (Math.abs(2.0*a.offsetTop + a.offsetHeight - 2.0*b.offsetTop - b.offsetHeight) < a.offsetHeight + b.offsetHeight) {
+      if (Math.abs(2.0*a.left + a.width - 2.0*b.left - b.width) < a.width + b.width) {
+        if (Math.abs(2.0*a.top + a.height - 2.0*b.top - b.height) < a.height + b.height) {
           return true;
         }
       }
@@ -83,10 +83,10 @@
     },
     
     // Helper function to test if an element overlaps others
-    hitTest: function(elem, other_elems) {
+    hitTest: function(elem) {
       // Check elements for overlap one by one, stop and return false as soon as an overlap is found
-      for(var i = 0; i < other_elems.length; i++) {
-        if (this.overlapping(elem, other_elems[i])) {
+      for(var i = 0; i < this.already_placed_words.length; i++) {
+        if (this.overlapping(elem, this.already_placed_words[i])) {
           return true;
         }
       }
@@ -183,19 +183,21 @@
       }
 
       this.$element.append(word_span);
-
-      var width = word_span.width(),
-          height = word_span.height(),
-          left = this.options.center.x - width / 2.0,
-          top = this.options.center.y - height / 2.0;
+      
+      var size = {
+        width: word_span.width(),
+        height: word_span.height()
+      };
+      size.left = this.options.center.x - size.width / 2.0;
+      size.top = this.options.center.y - size.height / 2.0;
 
       // Save a reference to the style property, for better performance
       var word_style = word_span[0].style;
       word_style.position = "absolute";
-      word_style.left = left + "px";
-      word_style.top = top + "px";
+      word_style.left = size.left + "px";
+      word_style.top = size.top + "px";
 
-      while(this.hitTest(word_span[0], this.already_placed_words)) {
+      while(this.hitTest(size)) {
         // option shape is 'rectangular' so move the word in a rectangular spiral
         if (this.options.shape === "rectangular") {
           steps_in_direction++;
@@ -205,37 +207,36 @@
           }
           switch(quarter_turns % 4) {
             case 1:
-              left += this.step * this.aspect_ratio + Math.random() * 2.0;
+              size.left += this.step * this.aspect_ratio + Math.random() * 2.0;
               break;
             case 2:
-              top -= this.step + Math.random() * 2.0;
+              size.top -= this.step + Math.random() * 2.0;
               break;
             case 3:
-              left -= this.step * this.aspect_ratio + Math.random() * 2.0;
+              size.left -= this.step * this.aspect_ratio + Math.random() * 2.0;
               break;
             case 0:
-              top += this.step + Math.random() * 2.0;
+              size.top += this.step + Math.random() * 2.0;
               break;
           }
         } else { // Default settings: elliptic spiral shape
           radius += this.step;
           angle += (index % 2 === 0 ? 1 : -1)*this.step;
 
-          left = this.options.center.x - (width / 2.0) + (radius*Math.cos(angle)) * this.aspect_ratio;
-          top = this.options.center.y + radius*Math.sin(angle) - (height / 2.0);
+          size.left = this.options.center.x - (size.width / 2.0) + (radius*Math.cos(angle)) * this.aspect_ratio;
+          size.top = this.options.center.y + radius*Math.sin(angle) - (size.height / 2.0);
         }
-        word_style.left = left + "px";
-        word_style.top = top + "px";
+        word_style.left = size.left + "px";
+        word_style.top = size.top + "px";
       }
 
       // Don't render word if part of it would be outside the container
-      if (this.options.removeOverflowing && (left < 0 || top < 0 || (left + width) > this.options.width || (top + height) > this.options.height)) {
+      if (this.options.removeOverflowing && (size.left < 0 || size.top < 0 || (size.left + size.width) > this.options.width || (size.top + size.height) > this.options.height)) {
         word_span.remove();
         return;
       }
 
-
-      this.already_placed_words.push(word_span[0]);
+      this.already_placed_words.push(size);
 
       // Invoke callback if existing
       if ($.isFunction(word.afterWordRender)) {
@@ -267,6 +268,15 @@
       this.$element.removeClass('jqcloud');
       this.$element.removeData('jqcloud');
       this.$element.children('[id^="' + this.cloud_namespace + '"]').remove();
+    },
+    
+    update: function(word_array) {
+      this.$element.empty();
+      
+      this.word_array = word_array;
+      this.already_placed_words = [];
+      
+      this.drawWordCloud();
     }
   };
   
