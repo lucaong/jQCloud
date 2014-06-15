@@ -82,6 +82,13 @@
       this.timeouts[timeout] = true;
     },
     
+    clearTimeouts: function() {
+      $.each(this.timeouts, function(key){
+        clearTimeout(key);
+      });
+      this.timeouts = {};
+    },
+    
     // Helper function to test if an element overlaps others
     hitTest: function(elem) {
       // Check elements for overlap one by one, stop and return false as soon as an overlap is found
@@ -262,9 +269,7 @@
     },
     
     destroy: function() {
-      $.each(this.timeouts, function(key){
-        clearTimeout(key);
-      });
+      this.clearTimeouts();
       this.$element.removeClass('jqcloud');
       this.$element.removeData('jqcloud');
       this.$element.children('[id^="' + this.cloud_namespace + '"]').remove();
@@ -276,6 +281,7 @@
       this.word_array = word_array;
       this.already_placed_words = [];
       
+      this.clearTimeouts();
       this.drawWordCloud();
     }
   };
