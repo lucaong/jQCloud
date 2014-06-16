@@ -51,7 +51,7 @@ Here is more detailed example:
 </head>
 <body>
 
-<!-- You should explicitly specify the dimensions of the container element -->
+<!-- You should explicitly specify the dimensions of the container element, in CSS or with the options -->
 <div id="example" style="width: 550px; height: 350px;"></div>
 
 </body>
@@ -94,20 +94,24 @@ All cloud-wide configurations are optional, and the full list of available optio
 * **height** (number): The height of the word cloud container element. Defaults to the original height.
 * **center** (object): The x and y coordinates of the center of the word cloud, relative to the container element (e.g.: {x: 0.4, y: 0.6}). Defaults to the center of the container element.
 * **autoResize** (boolean): Update the cloud on window resize. Default to false.
+* **steps** (integer): Number of steps (colors and sizes) to split the words on. Default is 10. (Make sure to update CSS accordingly if increasing the value, or use `colors` and `fontSize`).
 * **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
 * **delay** (integer): Number of milliseconds to wait between each word draw. Default to 10 if number of words is above 50 to avoid browser freezing during rendering.
 * **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
 * **removeOverflowing** (boolean): If true, it removes words that would overflow the container. Defaults to true.
 * **encodeURI** (boolean): encodes special chars in words link. Default to false.
-* **colors** (array): an array of 10 colors to use for words, if empty the CSS rules apply. Default to empty array.
+* **colors** (array|function): an array of `steps` colors to use for words, or a function taking a step number and returning a color, if empty the CSS rules apply. Default to empty array.
+* **fontSize** (array|object|function): If empty the CSS rules apply. Default to empty array.
+  - an array of `steps` font sizes
+  - on object with `from` and `to` values, expressed in fraction of container width (eg: `0.1`, `0.05`)
+  - a function taking the container width, the container height and a step number and returning a font size.
 
 ## Custom CSS guidelines
 
 The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call `$("#example").jQCloud(...)`, the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file `jqcloud.css` is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
-* Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
 * The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'static', jQCloud overwrites it to 'relative').
-* Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
+* Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with `steps` levels of importance corresponding to the following classes (in ascending order of importance): w1, w2, w3, ...
 
 ## Destroy
 
@@ -115,7 +119,7 @@ To remove the word cloud, all of its event handlers, and any timeouts, call `des
 
 ## Update
 
-To dynamically change the list of words, call `update`: `$("#example").jQCloud('update', new_wordarray);`
+To dynamically change the list of words, call `update`: `$("#example").jQCloud('update', new_word_array);`
 
 ## Examples
 
@@ -144,7 +148,7 @@ bower install
       Big performances improvement (thanks to [saravanan4514](https://github.com/saravanan4514))
       `delayedDraw` option replaced by `delay`
       `center` now takes relative float values and not absolute integers
-      add `autoResize`, `colors` options
+      add `steps`, `autoResize`, `colors` and `fontSize` options
       
 
 1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))

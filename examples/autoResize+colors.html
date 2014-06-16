@@ -56,7 +56,11 @@
     $(function() {
       $("#my_favorite_latin_words").jQCloud(word_list, {
         autoResize: true,
-        colors: ["#ffffcc","#ffeda0","#fed976","#feb24c","#fd8d3c","#fc4e2a","#e31a1c","#bd0026","#800026"]
+        colors: ["#ffffcc","#ffeda0","#fed976","#feb24c","#fd8d3c","#fc4e2a","#e31a1c","#bd0026","#800026"].reverse(),
+        fontSize: {
+          from: 0.1,
+          to: 0.02
+        }
       });
     });
   </script>
