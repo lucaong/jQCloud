@@ -144,11 +144,12 @@ bower install
 
 ## Changelog
 
-2.0.0 Migrate to Grunt builder
-      Big performances improvement (thanks to [saravanan4514](https://github.com/saravanan4514))
-      `delayedDraw` option replaced by `delay`
-      `center` now takes relative float values and not absolute integers
-      add `steps`, `autoResize`, `colors` and `fontSize` options
+2.0.0
+- Migrate to Grunt builder
+- Big performances improvement (thanks to [saravanan4514](https://github.com/saravanan4514))
+- `delayedDraw` option replaced by `delay`
+- `center` now takes relative float values and not absolute integers
+- add `steps`, `autoResize`, `colors` and `fontSize` options
       
 
 1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))
