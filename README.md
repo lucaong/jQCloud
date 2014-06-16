@@ -92,12 +92,14 @@ All cloud-wide configurations are optional, and the full list of available optio
 
 * **width** (number): The width of the word cloud container element. Defaults to the original width.
 * **height** (number): The height of the word cloud container element. Defaults to the original height.
-* **center** (object): The x and y coordinates of the center of the word cloud, relative to the container element (e.g.: {x: 300, y: 150}). Defaults to the center of the container element.
+* **center** (object): The x and y coordinates of the center of the word cloud, relative to the container element (e.g.: {x: 0.4, y: 0.6}). Defaults to the center of the container element.
+* **autoResize** (boolean): Update the cloud on window resize. Default to false.
 * **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
 * **delay** (integer): Number of milliseconds to wait between each word draw. Default to 10 if number of words is above 50 to avoid browser freezing during rendering.
 * **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
 * **removeOverflowing** (boolean): If true, it removes words that would overflow the container. Defaults to true.
 * **encodeURI** (boolean): encodes special chars in words link. Default to false.
+* **colors** (array): an array of 10 colors to use for words, if empty the CSS rules apply. Default to empty array.
 
 ## Custom CSS guidelines
 
@@ -130,9 +132,20 @@ grunt
 
 The newly-built distribution files will be put in the `dist` subdirectory.
 
+A Qunit test suite is available in the `test` directory. Install dependencies with:
+
+```
+bower install
+```
+
 ## Changelog
 
 2.0.0 Migrate to Grunt builder
+      Big performances improvement (thanks to [saravanan4514](https://github.com/saravanan4514))
+      `delayedDraw` option replaced by `delay`
+      `center` now takes relative float values and not absolute integers
+      add `autoResize`, `colors` options
+      
 
 1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))
 
