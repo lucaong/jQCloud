@@ -103,7 +103,7 @@ All cloud-wide configurations are optional, and the full list of available optio
 The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call `$("#example").jQCloud(...)`, the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file `jqcloud.css` is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
 * Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
-* The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'statis', jQCloud overwrites it to 'relative').
+* The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'static', jQCloud overwrites it to 'relative').
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
 
