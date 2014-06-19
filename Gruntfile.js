@@ -58,16 +58,26 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+        },
+        
+        // qunit test suite
+        qunit: {
+            all: ['test/*.html']
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
 
     grunt.registerTask('default', [
         'concat',
         'uglify',
         'cssmin'
+    ]);
+    
+    grunt.registerTask('test', [
+        'qunit'
     ]);
 };
