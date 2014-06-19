@@ -6,7 +6,7 @@
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
 
-(function( $ ) {
+(function($) {
   "use strict";
 
   /*
@@ -45,6 +45,7 @@
     steps: 10,
     delay: undefined,
     shape: 'elliptic',
+    classPattern: 'w{n}',
     encodeURI: true,
     removeOverflowing: true,
     afterCloudRender: null,
@@ -110,12 +111,12 @@
       if (typeof this.options.fontSize == 'function') {
         this.sizeGenerator = this.options.fontSize;
       }
-      // Object with "from" and "to"
+      // Object with 'from' and 'to'
       else if ($.isPlainObject(this.options.fontSize)) {
         this.sizeGenerator = function(width, height, weight) {
           var max = width * this.options.fontSize.from,
               min = width * this.options.fontSize.to;
-          return Math.round(min + (max - min) * 1.0 / (this.options.steps-1) * (weight - 1));
+          return Math.round(min + (max - min) * 1.0 / (this.options.steps-1) * (weight - 1)) + 'px';
         }
       }
       // Array of sizes
@@ -136,18 +137,18 @@
       }
 
       this.data.angle = Math.random() * 6.28;
-      this.data.step = (this.options.shape === "rectangular") ? 18.0 : 2.0;
+      this.data.step = (this.options.shape === 'rectangular') ? 18.0 : 2.0;
       this.data.aspect_ratio = this.options.width / this.options.height;
       this.clearTimeouts();
 
       // Namespace word ids to avoid collisions between multiple clouds
-      this.data.namespace = (this.$element.attr('id') || Math.floor((Math.random()*1000000)).toString(36)) + "_word_";
+      this.data.namespace = (this.$element.attr('id') || Math.floor((Math.random()*1000000)).toString(36)) + '_word_';
 
-      this.$element.addClass("jqcloud");
+      this.$element.addClass('jqcloud');
 
       // Container's CSS position cannot be 'static'
-      if (this.$element.css("position") === "static") {
-        this.$element.css("position", "relative");
+      if (this.$element.css('position') === 'static') {
+        this.$element.css('position', 'relative');
       }
 
       // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
@@ -256,7 +257,7 @@
         for (var i=0, l=this.word_array.length; i<l; i++) {
           this.drawOneWord(i, this.word_array[i]);
         }
-        
+
         if (typeof this.options.afterCloudRender === 'function') {
           this.options.afterCloudRender.call(this.$element);
         }
@@ -266,7 +267,7 @@
     // Function to draw a word, by moving it in spiral until it finds a suitable empty place
     drawOneWord: function(index, word) {
       var word_id = this.data.namespace + index,
-          word_selector = "#" + word_id,
+          word_selector = '#' + word_id,
 
           // option.shape == 'elliptic'
           angle = this.data.angle,
@@ -289,7 +290,12 @@
       if (this.data.max_weight != this.data.min_weight) {
         weight = Math.round((word.weight - this.data.min_weight) * 1.0 * (this.options.steps-1) / (this.data.max_weight - this.data.min_weight)) + 1;
       }
-      word_span = $('<span>').attr(word.attr).addClass('w' + weight);
+      word_span = $('<span>').attr(word.attr);
+
+      // Apply class
+      if (this.options.classPattern) {
+        word_span.addClass(this.options.classPattern.replace('{n}', weight));
+      }
 
       // Apply color
       if (this.data.colors.length) {
@@ -298,18 +304,18 @@
 
       // Apply size
       if (this.data.sizes.length) {
-        word_span.css('font-size', this.data.sizes[weight-1]+'px');
+        word_span.css('font-size', this.data.sizes[weight-1]);
       }
 
       // Append link if word.link attribute was set
       if (word.link) {
         // If link is a string, then use it as the link href
-        if (typeof word.link === "string") {
+        if (typeof word.link === 'string') {
           word.link = { href: word.link };
         }
 
         if (this.options.encodeURI) {
-          word.link.href = encodeURI(word.link.href).replace(/'/g, "%27");
+          word.link.href = encodeURI(word.link.href).replace(/'/g, '%27');
         }
 
         word_span.append($('<a>').attr(word.link).text(word.text));
@@ -338,13 +344,13 @@
 
       // Save a reference to the style property, for better performance
       word_style = word_span[0].style;
-      word_style.position = "absolute";
-      word_style.left = word_size.left + "px";
-      word_style.top = word_size.top + "px";
+      word_style.position = 'absolute';
+      word_style.left = word_size.left + 'px';
+      word_style.top = word_size.top + 'px';
 
       while(this.hitTest(word_size)) {
         // option shape is 'rectangular' so move the word in a rectangular spiral
-        if (this.options.shape === "rectangular") {
+        if (this.options.shape === 'rectangular') {
           steps_in_direction++;
 
           if (steps_in_direction * this.data.step > (1 + Math.floor(quarter_turns / 2.0)) * this.data.step * ((quarter_turns % 4 % 2) === 0 ? 1 : this.data.aspect_ratio)) {
@@ -375,8 +381,8 @@
           word_size.left = this.options.center.x*this.options.width - (word_size.width / 2.0) + (radius*Math.cos(angle)) * this.data.aspect_ratio;
           word_size.top = this.options.center.y*this.options.height + radius*Math.sin(angle) - (word_size.height / 2.0);
         }
-        word_style.left = word_size.left + "px";
-        word_style.top = word_size.top + "px";
+        word_style.left = word_size.left + 'px';
+        word_style.top = word_size.top + 'px';
       }
 
       // Don't render word if part of it would be outside the container

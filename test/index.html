@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>QUnit Test Suite</title>
+  <meta charset="utf-8">
   
   <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
   <link rel="stylesheet" href="../dist/jqcloud.min.css">
@@ -10,6 +11,15 @@
   <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
   <script src="../dist/jqcloud.min.js"></script>
   <script src="core_tests.js"></script>
+  
+  <style>
+    .container {
+      width: 400px;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -17,12 +27,13 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   
-  <div id="container1" style="width: 400px; height: 300px; border: 1px solid #ccc; margin: 20px;"></div>
-  <div id="container2" style="width: 400px; height: 300px; border: 1px solid #ccc; margin: 20px;"></div>
-  <div id="container3" style="width: 400px; height: 300px; border: 1px solid #ccc; margin: 20px;"></div>
-  <div id="container4" style="width: 400px; height: 300px; border: 1px solid #ccc; margin: 20px; display:none;"></div>
-  <div id="container5" style="width: 400px; height: 300px; border: 1px solid #ccc; margin: 20px;"></div>
-  <div id="container6" style="width: 400px; height: 300px; border: 1px solid #ccc; margin: 20px;"></div>
+  <div id="container1" class="container"></div>
+  <div id="container2" class="container"></div>
+  <div id="container3" class="container"></div>
+  <div id="container4" class="container" style="display:none;"></div>
+  <div id="container5" class="container"></div>
+  <div id="container6" class="container"></div>
+  <div id="container7" class="container"></div>
 
 </body>
 </html>

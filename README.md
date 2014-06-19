@@ -93,17 +93,20 @@ All cloud-wide configurations are optional, and the full list of available optio
 * **width** (number): The width of the word cloud container element. Defaults to the original width.
 * **height** (number): The height of the word cloud container element. Defaults to the original height.
 * **center** (object): The x and y coordinates of the center of the word cloud, relative to the container element (e.g.: {x: 0.4, y: 0.6}). Defaults to the center of the container element.
-* **autoResize** (boolean): Update the cloud on window resize. Default to false.
-* **steps** (integer): Number of steps (colors and sizes) to split the words on. Default is 10. (Make sure to update CSS accordingly if increasing the value, or use `colors` and `fontSize`).
+* **autoResize** (boolean): Update the cloud on window resize. Default to `false`.
+* **steps** (integer): Number of steps (colors and sizes) to split the words on. Default is `10`. (Make sure to update CSS accordingly if increasing the value, or use `colors` and `fontSize`).
+* **classPattern** (string|null): a pattern used to generate word CSS classes. `{n}` is replaced by the word weight. It can be `null` to don't add class at all (therefore you must use `colors`and `fontSize` options). Default to `'w{n}'`.
 * **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
-* **delay** (integer): Number of milliseconds to wait between each word draw. Default to 10 if number of words is above 50 to avoid browser freezing during rendering.
-* **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `"rectangular"` to draw a rectangular-shaped cloud.
-* **removeOverflowing** (boolean): If true, it removes words that would overflow the container. Defaults to true.
-* **encodeURI** (boolean): encodes special chars in words link. Default to false.
-* **colors** (array|function): an array of `steps` colors to use for words, or a function taking a step number and returning a color, if empty the CSS rules apply. Default to empty array.
+* **delay** (integer): Number of milliseconds to wait between each word draw. Default to `10` if number of words is above 50 to avoid browser freezing during rendering.
+* **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `'rectangular'` to draw a rectangular-shaped cloud.
+* **removeOverflowing** (boolean): If `true`, it removes words that would overflow the container. Defaults to `true`.
+* **encodeURI** (boolean): encodes special chars in words link. Default to `true`.
+* **colors** (array|function): If empty the CSS rules apply. Default to empty array.
+  - an array of `steps` colors from highest to lowest word
+  - a function taking a step number and returning a color.
 * **fontSize** (array|object|function): If empty the CSS rules apply. Default to empty array.
-  - an array of `steps` font sizes
-  - on object with `from` and `to` values, expressed in fraction of container width (eg: `0.1`, `0.05`)
+  - an array of `steps` font sizes from biggest to smallest
+  - zn object with `from` and `to` values, expressed in fraction of container width (eg: `0.1`, `0.05`)
   - a function taking the container width, the container height and a step number and returning a font size.
 
 ## Custom CSS guidelines
@@ -149,7 +152,7 @@ bower install
 - Big performances improvement (thanks to [saravanan4514](https://github.com/saravanan4514))
 - `delayedDraw` option replaced by `delay`
 - `center` now takes relative float values and not absolute integers
-- add `steps`, `autoResize`, `colors` and `fontSize` options
+- add `steps`, `autoResize`, `classPattern`, `colors` and `fontSize` options
       
 
 1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))

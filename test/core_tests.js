@@ -35,7 +35,6 @@ $(function() {
 
   $("#container1").jQCloud(some_words, {
     afterCloudRender: function() {
-      console.log('here');
       QUnit.test('Basic plugin functionality', function(assert) {
         var text = $("#container1").text();
         assert.ok(text.search(/Zero/) >= 0, "'Zero' is in the cloud");
@@ -85,11 +84,9 @@ $(function() {
   });
 
   $("#container2").jQCloud(some_other_words, {
-    width: 400,
-    height: 200,
     delay: 10,
     afterCloudRender: function() {
-      QUnit.test('Multiple word clouds rendering, also with delay > 0', function(assert) {
+      QUnit.test('Cloud rendering with with delay > 0', function(assert) {
         var text = $("#container2").text();
         assert.ok(text.search(/Abc/) >= 0, "'Abc' is in the second cloud");
         assert.ok(text.search(/Def/) >= 0, "'Def' is in the second cloud");
@@ -140,6 +137,20 @@ $(function() {
     afterCloudRender: function(){
       QUnit.test('Links render with encoding', function(assert){
         assert.equal($("#container6 span a").attr('href'), '/posts?tag=John%2527s+Bday', 'If encodeURI is turned on');
+      });
+    }
+  });
+  
+  $("#container7").jQCloud(some_words, {
+    classPattern: 'word-{n}',
+    colors: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"],
+    fontSize: ['50px', '40px', '20px'],
+    afterCloudRender: function(){
+      QUnit.test('Custom class, colors and fontSize', function(assert){
+        var first = $('#container7_word_0');
+        assert.ok(first.hasClass('word-10'));
+        assert.equal(first.css('color'), "rgb(128, 0, 38)");
+        assert.equal(first.css('font-size'), "50px");
       });
     }
   });
