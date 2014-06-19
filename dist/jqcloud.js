@@ -42,7 +42,7 @@
     height: 100,
     center: { x: 0.5, y: 0.5 },
     steps: 10,
-    delay: undefined,
+    delay: null,
     shape: 'elliptic',
     classPattern: 'w{n}',
     encodeURI: true,
@@ -73,7 +73,7 @@
       this.options = $.extend(true, {}, jQCloud.DEFAULTS, this.options);
 
       // Ensure delay
-      if (this.options.delay == undefined) {
+      if (this.options.delay === null) {
         this.options.delay = this.word_array.length > 50 ? 10 : 0;
       }
 
@@ -325,11 +325,7 @@
 
       // Bind handlers to words
       if (word.handlers) {
-        $.each(word.handlers, function(event, callback) {
-          if (typeof callback === 'function') {
-            $(word_span).on(event, callback);
-          }
-        });
+        word_span.on(word.handlers);
       }
 
       this.$element.append(word_span);

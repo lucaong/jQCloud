@@ -1,7 +1,7 @@
 var some_words = [
   {text: 'Zero', weight: 0, html: {'test': 'just testing'}},
   {text: 'Minus three', weight: -3, link: '#'},
-  {text: 'Minus zero point fiftyfive', weight: -0.55},
+  {text: 'Minus point fiftyfive', weight: -0.55},
   {
     text: 'Two', weight: '2.0', link: {href: '#', test: "testing"},
     handlers: {
@@ -39,7 +39,7 @@ $(function() {
         var text = $("#container1").text();
         assert.ok(text.search(/Zero/) >= 0, "'Zero' is in the cloud");
         assert.ok(text.search(/Minus three/) >= 0, "'Minus three' is in the cloud");
-        assert.ok(text.search(/Minus zero point fiftyfive/) >= 0, "'Minus zero point five' is in the cloud");
+        assert.ok(text.search(/Minus point fiftyfive/) >= 0, "'Minus point five' is in the cloud");
         assert.ok(text.search(/Two/) >= 0, "'Two' is in the cloud, even if the weight was a string");
 
         var biggest = $("#container1_word_0");
@@ -53,8 +53,8 @@ $(function() {
         assert.ok(smallest.hasClass("w1"), "the element with the smallest weight gets wrapped in an element of class w1");
 
         var middle = $("#container1_word_2");
-        assert.equal(middle.text(), "Minus zero point fiftyfive", "'Minus zero point fiftyfive' should get wrapped in an element of id container_word_2");
-        assert.ok(middle.hasClass("w5") && middle.text() == "Minus zero point fiftyfive", "'Minus zero point fiftyfive', having a weight in the middle of the range, should get wrapped in an element of class w5");
+        assert.equal(middle.text(), "Minus point fiftyfive", "'Minus point fiftyfive' should get wrapped in an element of id container_word_2");
+        assert.ok(middle.hasClass("w5") && middle.text() == "Minus point fiftyfive", "'Minus zero point fiftyfive', having a weight in the middle of the range, should get wrapped in an element of class w5");
 
       });
 
