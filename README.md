@@ -1,159 +1,23 @@
-# jQCloud: beautiful word clouds with jQuery
+jQCloud
+======
+
+## Beautiful word clouds with jQuery
 
 jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds and tag clouds that are actually shaped like a cloud (otherwise, why would we call them 'word clouds'?).
 
-You can see a demo here: http://www.lucaongaro.eu/demos/jqcloud/
+## Documentation
 
-## Installation
-
-Installing jQCloud is extremely simple:
-
-1. Make sure to import jQuery in your project.
-2. Download the jQCloud files. Place [jqcloud.js](https://raw.github.com/mistic100/jQCloud/master/dist/jqcloud.min.js) and [jqcloud.css](https://raw.github.com/mistic100/jQCloud/master/dist/jqcloud.min.css) somewhere in your project and import both of them in your HTML code.
-
-You can easily substitute jqcloud.css with a custom CSS stylesheet following the guidelines explained later.
-
-
-## Usage
-
-Drawing a cloud is as simple as selecting the container element with `jQuery` and then calling the `jQCloud(wordsArray)` method on it.
-
-Here is more detailed example:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>jQCloud Example</title>
-    
-    <link rel="stylesheet" href="bower_components/jqcloud/dist/jqcloud.min.css">
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/jqcloud/dist/jqcloud.min.js"></script>
-    
-    <script>
-      /*!
-       * Create an array of word objects, each representing a word in the cloud
-       */
-      var word_array = [
-          {text: "Lorem", weight: 15},
-          {text: "Ipsum", weight: 9, link: "http://jquery.com/"},
-          {text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
-          {text: "Sit", weight: 7},
-          {text: "Amet", weight: 5}
-          // ...as many words as you want
-      ];
-    
-      $(function() {
-        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-        $("#example").jQCloud(word_array);
-      });
-    </script>
-</head>
-<body>
-
-<!-- You should explicitly specify the dimensions of the container element, in CSS or with the options -->
-<div id="example" style="width: 550px; height: 350px;"></div>
-
-</body>
-</html>
-```
-
-### Gotcha
-
-The container element must be visible and have non-zero dimensions when you call the `jQCloud` method on it.
-
-
-### Word Options
-
-For each word object in your word array, you need to specify the following mandatory attributes:
- 
- * **text** (string): the word(s) text
- * **weight** (number): a number (integer or float) defining the relative importance of the word (such as the number of occurrencies, etc.). The range of values is arbitrary, and they will be linearly mapped to a discrete scale from 1 to 10.
-
-You can also specify the following options for each word:
-
-  * **html** (object): an object specifying html attributes to be set on the word (e.g.: `{class: "customclass", title: "A title"}`). Any attribute can be set, except from "id", which is set by jQCloud.
-  * **link** (string or object): if specified, the word will be wrapped in a HTML link (`<a>` tag). If `link` is a string, it is expected to be the URL to which the link will point, and will be used as the link's `href` attribute. Alternatively, `link` can be an object specifying html attributes for the `<a>` tag, like `{href: "http://myurl.com", title: "A link"}`
-  * **afterWordRender** (function): a function to be called after this word is rendered. Within the function, `this` refers to the jQuery object for the `<span>` containing the word.
-  * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: `{click: function() { alert("it works!"); } }`)
-
-### Cloud Options:
-
-jQCloud accepts an object containing configurations for the whole cloud as the second argument:
-
-```javascript
-$("#example").jQCloud(word_list, {
-  width: 300,
-  height: 200
-});
-```
-
-All cloud-wide configurations are optional, and the full list of available options is the following:
-
-* **width** (number): The width of the word cloud container element. Defaults to the original width.
-* **height** (number): The height of the word cloud container element. Defaults to the original height.
-* **center** (object): The x and y coordinates of the center of the word cloud, relative to the container element (e.g.: {x: 0.4, y: 0.6}). Defaults to the center of the container element.
-* **autoResize** (boolean): Update the cloud on window resize. Default to `false`.
-* **steps** (integer): Number of steps (colors and sizes) to split the words on. Default is `10`. (Make sure to update CSS accordingly if increasing the value, or use `colors` and `fontSize`).
-* **classPattern** (string|null): a pattern used to generate word CSS classes. `{n}` is replaced by the word weight. It can be `null` to don't add class at all (therefore you must use `colors`and `fontSize` options). Default to `'w{n}'`.
-* **afterCloudRender** (function): A callback function to be called after the whole cloud is fully rendered.
-* **delay** (integer): Number of milliseconds to wait between each word draw. Default to `10` if number of words is above 50 to avoid browser freezing during rendering.
-* **shape** (string): the shape of the cloud. By default it is elliptic, but it can be set to `'rectangular'` to draw a rectangular-shaped cloud.
-* **removeOverflowing** (boolean): If `true`, it removes words that would overflow the container. Defaults to `true`.
-* **encodeURI** (boolean): encodes special chars in words link. Default to `true`.
-* **colors** (array|function): If empty the CSS rules apply. Default to empty array.
-  - an array of `steps` colors from highest to lowest word
-  - a function taking a step number and returning a color.
-* **fontSize** (array|object|function): If empty the CSS rules apply. Default to empty array.
-  - an array of `steps` font sizes from biggest to smallest
-  - zn object with `from` and `to` values, expressed in fraction of container width (eg: `0.1`, `0.05`)
-  - a function taking the container width, the container height and a step number and returning a font size.
-
-## Custom CSS guidelines
-
-The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call `$("#example").jQCloud(...)`, the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file `jqcloud.css` is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
-
-* The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'static', jQCloud overwrites it to 'relative').
-* Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with `steps` levels of importance corresponding to the following classes (in ascending order of importance): w1, w2, w3, ...
-
-## Destroy
-
-To remove the word cloud, all of its event handlers, and any timeouts, call `destroy`: `$("#example").jQCloud('destroy');`
-
-## Update
-
-To dynamically change the list of words, call `update`: `$("#example").jQCloud('update', new_word_array);`
-
-## Examples
-
-Just have a look at the examples directory provided in the project or see a [demo here](http://www.lucaongaro.eu/demos/jqcloud/).
-
-## Contribute
-
-Contributes are welcome! To setup your build environment, make sure you have NodeJS installed, as well as `grunt-cli`. Then, to build jQCloud, run:
-
-```
-npm install
-grunt
-```
-
-The newly-built distribution files will be put in the `dist` subdirectory.
-
-A Qunit test suite is available in the `test` directory. Install dependencies with:
-
-```
-bower install
-```
+http://mistic100.github.io/jQCloud
 
 ## Changelog
 
 2.0.0
 - Migrate to Grunt builder
+- New documentation
 - Big performances improvement (thanks to [saravanan4514](https://github.com/saravanan4514))
 - `delayedDraw` option replaced by `delay`
 - `center` now takes relative float values and not absolute integers
 - add `steps`, `autoResize`, `classPattern`, `colors` and `fontSize` options
-      
 
 1.0.5 Added the capability to update dynamically the cloud, as well as an example (thanks to [acjzz](https://github.com/acjzz))
 
