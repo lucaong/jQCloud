@@ -500,4 +500,17 @@
       }
     });
   };
+
+  $.fn.jQCloud.defaults = {
+    set: function(options) {
+      $.extend(true, jQCloud.DEFAULTS, options);
+    },
+    get: function(key) {
+      var options = jQCloud.DEFAULTS;
+      if (key) {
+        options = options[key];
+      }
+      return $.extend(true, {}, options);
+    }
+  };
 })(jQuery);
