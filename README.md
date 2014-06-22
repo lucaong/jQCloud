@@ -1,5 +1,6 @@
-jQCloud
-======
+# jQCloud
+
+[![Bower version](https://badge.fury.io/bo/jqcloud2.svg)](http://badge.fury.io/bo/jqcloud2)
 
 ## Beautiful word clouds with jQuery
 
