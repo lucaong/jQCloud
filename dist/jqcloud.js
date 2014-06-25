@@ -5,6 +5,8 @@
  * Copyright 2014 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
+/*jshint -W055 *//* non standard constructor name */
+
 (function($) {
   "use strict";
 
@@ -17,8 +19,8 @@
     this.word_array = word_array || [];
     this.options = options;
 
-    this.sizeGenerator;
-    this.colorGenerator;
+    this.sizeGenerator = null;
+    this.colorGenerator = null;
 
     // Data used internally
     this.data = {
@@ -101,7 +103,7 @@
 
           this.colorGenerator = function(weight) {
             return this.options.colors[this.options.steps - weight];
-          }
+          };
         }
       }
 
@@ -116,7 +118,7 @@
           var max = width * this.options.fontSize.from,
               min = width * this.options.fontSize.to;
           return Math.round(min + (max - min) * 1.0 / (this.options.steps-1) * (weight - 1)) + 'px';
-        }
+        };
       }
       // Array of sizes
       else if ($.isArray(this.options.fontSize)) {
@@ -124,14 +126,14 @@
         if (sl > 0) {
           // Fill the sizes array to X items
           if (sl < this.options.steps) {
-            for (var i=sl; i<this.options.steps; i++) {
-              this.options.fontSize[i] = this.options.fontSize[sl-1];
+            for (var j=sl; j<this.options.steps; j++) {
+              this.options.fontSize[j] = this.options.fontSize[sl-1];
             }
           }
 
           this.sizeGenerator = function(width, height, weight) {
             return this.options.fontSize[this.options.steps - weight];
-          }
+          };
         }
       }
 
@@ -212,14 +214,16 @@
 
     // Initialize the drawing of the whole cloud
     drawWordCloud: function() {
+      var i, l;
+      
       this.$element.children('[id^="' + this.data.namespace + '"]').remove();
 
-      if (this.word_array.length == 0) {
+      if (this.word_array.length === 0) {
         return;
       }
 
       // Make sure every weight is a number before sorting
-      for (var i=0, l=this.word_array.length; i<l; i++) {
+      for (i=0, l=this.word_array.length; i<l; i++) {
         this.word_array[i].weight = parseFloat(this.word_array[i].weight, 10);
       }
 
@@ -235,7 +239,7 @@
       // Generate colors
       this.data.colors = [];
       if (this.colorGenerator) {
-        for (var i=0; i<this.options.steps; i++) {
+        for (i=0; i<this.options.steps; i++) {
           this.data.colors.push(this.colorGenerator(i+1));
         }
       }
@@ -243,7 +247,7 @@
       // Generate font sizes
       this.data.sizes = [];
       if (this.sizeGenerator) {
-        for (var i=0; i<this.options.steps; i++) {
+        for (i=0; i<this.options.steps; i++) {
           this.data.sizes.push(this.sizeGenerator(this.options.width, this.options.height, i+1));
         }
       }
@@ -253,7 +257,7 @@
         this.drawOneWordDelayed();
       }
       else {
-        for (var i=0, l=this.word_array.length; i<l; i++) {
+        for (i=0, l=this.word_array.length; i<l; i++) {
           this.drawOneWord(i, this.word_array[i]);
         }
 
@@ -475,7 +479,7 @@
         state.pid = setTimeout(exec, delay - elapsed);
       }
     };
-  };
+  }
 
   /*
    * jQuery plugin

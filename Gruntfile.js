@@ -59,6 +59,17 @@ module.exports = function(grunt) {
                 }
             }
         },
+
+        // jshint tests
+        jshint: {
+            lib: {
+                files: {
+                    src: [
+                        'src/jqcloud.js'
+                    ]
+                }
+            }
+        },
         
         // qunit test suite
         qunit: {
@@ -70,6 +81,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('default', [
         'concat',
@@ -78,6 +90,7 @@ module.exports = function(grunt) {
     ]);
     
     grunt.registerTask('test', [
-        'qunit'
+        'qunit',
+        'jshint'
     ]);
 };

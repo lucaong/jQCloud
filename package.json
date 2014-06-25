@@ -19,7 +19,8 @@
     "grunt-contrib-qunit": "~0.5.1",
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-cssmin": "~0.9.0",
-    "grunt-contrib-concat": "~0.4.0"
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-jshint": "~0.10.0"
   },
   "keywords": [
     "cloud",
@@ -37,6 +38,6 @@
     "url": "https://github.com/mistic100/jQCloud/issues"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test --force"
   }
 }
