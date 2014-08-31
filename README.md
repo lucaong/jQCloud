@@ -131,6 +131,7 @@ Just have a look at the examples directory provided in the project or see a [dem
 
 Some creative examples of jQCloud use are:
 
+* http://www.geekgrade.com/ uses jQCloud for its "Top Geeks Twitter Trends" feature
 * http://www.politickerusa.com/trends/ uses jQCloud to show trends in US politicians' tweets.
 * http://www.turtledome.com/noisy/ shows you which of the people you follow on Twitter tweets the most.
 
