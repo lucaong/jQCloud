@@ -132,6 +132,7 @@ Just have a look at the examples directory provided in the project or see a [dem
 Some creative examples of jQCloud use are:
 
 * http://www.geekgrade.com/ uses jQCloud for its "Top Geeks Twitter Trends" feature
+* [Google Docs Tag Cloud Generator](https://chrome.google.com/webstore/detail/tag-cloud-generator/alhnlhbhnklajhmccemipdbaifocepab?authuser=0) is a Google Docs plugin that generates clouds from your documents
 * http://www.politickerusa.com/trends/ uses jQCloud to show trends in US politicians' tweets.
 * http://www.turtledome.com/noisy/ shows you which of the people you follow on Twitter tweets the most.
 
