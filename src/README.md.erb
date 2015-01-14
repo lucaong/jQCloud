@@ -73,7 +73,7 @@ For each word object in your word array, you need to specify the following manda
 You can also specify the following options for each word:
 
   * **html** (object): an object specifying html attributes to be set on the word (e.g.: `{class: "customclass", title: "A title"}`). Any attribute can be set, except from "id", which is set by jQCloud.
-  * **link** (string or object): if specifyed, the word will be wrapped in a HTML link (`<a>` tag). If `link` is a string, it is expected to be the URL to which the link will point, and will be used as the link's `href` attribute. Alternatively, `link` can be an object specifying html attributes for the `<a>` tag, like `{href: "http://myurl.com", title: "A link"}`
+  * **link** (string or object): if specified, the word will be wrapped in a HTML link (`<a>` tag). If `link` is a string, it is expected to be the URL to which the link will point, and will be used as the link's `href` attribute. Alternatively, `link` can be an object specifying html attributes for the `<a>` tag, like `{href: "http://myurl.com", title: "A link"}`
   * **afterWordRender** (function): a function to be called after this word is rendered. Within the function, `this` refers to the jQuery object for the `<span>` containing the word.
   * **handlers** (object): an object specifying event handlers that will bind to the word (e.g.: `{click: function() { alert("it works!"); } }`)
 
@@ -103,7 +103,7 @@ All cloud-wide configurations are optional, and the full list of available optio
 The word cloud produced by jQCloud is made of pure HTML, so you can style it using CSS. When you call `$("#example").jQCloud(...)`, the containing element is given a CSS class of "jqcloud", allowing for easy CSS targeting. The included CSS file `jqcloud.css` is intended as an example and as a base on which to develop your own custom style, defining dimensions and appearance of words in the cloud. When writing your custom CSS, just follow these guidelines:
 
 * Always specify the dimensions of the container element (div.jqcloud in jqcloud.css).
-* The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'statis', jQCloud overwrites it to 'relative').
+* The CSS attribute 'position' of the container element must be explicitly declared and different from 'static' (if it is 'static', jQCloud overwrites it to 'relative').
 * Specifying the style of the words (color, font, dimension, etc.) is super easy: words are wrapped in `<span>` tags with ten levels of importance corresponding to the following classes (in descending order of importance): w10, w9, w8, w7, w6, w5, w4, w3, w2, w1. 
 
 
@@ -141,7 +141,7 @@ If you happen to use jQCloud in your projects, you can make me know (just contac
 
 ## Contribute
 
-Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake` and `erb` gems. Then, to build jQCloud, run:
+Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake`, `erb` and `uglifier` gems. Then, to build jQCloud, run:
 
 ```
 rake build
