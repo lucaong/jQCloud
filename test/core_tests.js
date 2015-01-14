@@ -33,14 +33,14 @@ $(function(){
   $("#container5").jQCloud(encoded_words, {
     encodeURI: false,
     afterCloudRender: function(){
-      test('Links render without encoding', function(){
+      QUnit.test('Links render without encoding', function(){
         equal($("#container5 span a").attr('href'), '/posts?tag=John%27s+Bday', 'If encodeURI is turned off');
       });
     }
   });
   $("#container6").jQCloud(encoded_words, {
     afterCloudRender: function(){
-      test('Links render with encoding', function(){
+      QUnit.test('Links render with encoding', function(){
         equal($("#container6 span a").attr('href'), '/posts?tag=John%2527s+Bday', 'If encodeURI is turned on');
       });
     }
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
   $("#container").jQCloud(some_words, {afterCloudRender: function() {
 
-    test('Basic plugin functionality', function() {
+    QUnit.test('Basic plugin functionality', function() {
       var text = $("#container").text();
       ok(text.search(/Zero/) >= 0, "'Zero' is in the cloud");
       ok(text.search(/Minus three/) >= 0, "'Minus three' is in the cloud");
@@ -74,26 +74,26 @@ $(document).ready(function() {
 
     });
 
-    test('links into word cloud', function() {
+    QUnit.test('links into word cloud', function() {
       ok($("#container span:contains('Minus three') a[href=#]").length == 1, "If 'link' option is specified and is a string, an html anchor pointing to that URL is created.");
       ok($("#container span:contains('Two') a[href=#]").length == 1, "If 'link' option is specified and is an object, an html anchor pointing to link.href is created.");
       equal($("#container span:contains('Two') a").attr("test"), "testing", "If 'link' option is specified and is an object, custom attributes should be set.");
     });
 
-    test('Event handlers for words', function() {
+    QUnit.test('Event handlers for words', function() {
       $("#container span:contains('Two')").trigger("click");
       equal($("#container span:contains('Two')").data("testHandler"), "Handler works!", "Event handlers should be triggered.");
     });
 
-    test('afterWordRender callback', function() {
+    QUnit.test('afterWordRender callback', function() {
       equal($("#container span:contains('Two')").data("testCallback"), "Callback works!", "afterWordRender callback should be called, and 'this' should be the word element.");
     });
 
-    test('Custom classes', function() {
+    QUnit.test('Custom classes', function() {
       ok($("#container span:contains('Two')").hasClass("mycustomclass"), "Custom classes should be set via html.class attribute");
     });
 
-    test('Custom attributes', function() {
+    QUnit.test('Custom attributes', function() {
       equal($("#container span:contains('Zero')").attr("test"), "just testing", "Custom attributes should be set via the html option");
     });
 
@@ -101,7 +101,7 @@ $(document).ready(function() {
 
   $("#container2").jQCloud(some_other_words, {width: 400, height: 200, delayed_mode: true, afterCloudRender: function() {
 
-    test('Multiple word clouds rendering, also with delayed_mode: true', function() {
+    QUnit.test('Multiple word clouds rendering, also with delayed_mode: true', function() {
       var text = $("#container2").text();
       ok(text.search(/Abc/) >= 0, "'Abc' is in the second cloud");
       ok(text.search(/Def/) >= 0, "'Def' is in the second cloud");
@@ -113,7 +113,7 @@ $(document).ready(function() {
 
   $(".container3").jQCloud(some_words_with_same_weight, {afterCloudRender: function() {
 
-    test('Words with equal weight', function() {
+    QUnit.test('Words with equal weight', function() {
       ok($(".container3 span.w5").length == 3, "There should be three words with equal weight.");
     });
 
@@ -122,7 +122,7 @@ $(document).ready(function() {
   $(".container4").jQCloud(some_words, {
     delayedMode: true,
     afterCloudRender: function(){
-      test('Words render when delayedMode true and container is visible', function() {
+      QUnit.test('Words render when delayedMode true and container is visible', function() {
         ok($(".container4").is(':visible'), "Container is visible");
         ok($(".container4 span").size(), "Words render");
       });
@@ -130,7 +130,7 @@ $(document).ready(function() {
   });
 
   setTimeout(function(){
-    test('Words do not render when delayedMode true and container is not visible',function(){
+    QUnit.test('Words do not render when delayedMode true and container is not visible',function(){
       ok(!$(".container4").is(':visible'), "Container is not visible");
       ok($(".container4 span").size()===0, "There should be no spans in the container");
       // now set container4 to visible so that the corresponding visibility test executes
