@@ -129,6 +129,14 @@ $(document).ready(function() {
     }
   });
 
+  $("#container7").jQCloud([], {
+    afterCloudRender: function () {
+      QUnit.test('Words read from list', function () {
+        ok($("#container7 span.w5").length == 3, "There should be three words with equal weight.");
+      });
+    }
+  });
+
   setTimeout(function(){
     QUnit.test('Words do not render when delayedMode true and container is not visible',function(){
       ok(!$(".container4").is(':visible'), "Container is not visible");
