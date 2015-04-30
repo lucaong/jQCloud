@@ -53,7 +53,8 @@
     afterCloudRender: null,
     autoResize: false,
     colors: null,
-    fontSize: null
+    fontSize: null,
+    template: null
   };
 
   jQCloud.prototype = {
@@ -216,7 +217,7 @@
     // Initialize the drawing of the whole cloud
     drawWordCloud: function() {
       var i, l;
-      
+
       this.$element.children('[id^="' + this.data.namespace + '"]').remove();
 
       if (this.word_array.length === 0) {
@@ -311,8 +312,11 @@
         word_span.css('font-size', this.data.sizes[weight-1]);
       }
 
-      // Append link if word.link attribute was set
-      if (word.link) {
+      //Render using template function if provided.
+      if (this.options.template) {
+        word_span.html(this.options.template(word));
+      } else if (word.link) {
+        // Append link if word.link attribute was set
         // If link is a string, then use it as the link href
         if (typeof word.link === 'string') {
           word.link = { href: word.link };
