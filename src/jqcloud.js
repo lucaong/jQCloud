@@ -440,7 +440,7 @@
       this.clearTimeouts();
       this.$element.removeClass('jqcloud');
       this.$element.removeData('jqcloud');
-      this.$element.children('[id^="' + this.namespace + '"]').remove();
+      this.$element.children('[id^="' + this.data.namespace + '"]').remove();
     },
 
     // Update the list of words
