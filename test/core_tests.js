@@ -59,8 +59,8 @@ $(function() {
       });
 
       QUnit.test('links into word cloud', function(assert) {
-        assert.ok($("#container1 span:contains('Minus three') a[href=#]").length == 1, "If 'link' option is specified and is a string, an html anchor pointing to that URL is created.");
-        assert.ok($("#container1 span:contains('Two') a[href=#]").length == 1, "If 'link' option is specified and is an object, an html anchor pointing to link.href is created.");
+        assert.ok($("#container1 span:contains('Minus three') a[href='#']").length == 1, "If 'link' option is specified and is a string, an html anchor pointing to that URL is created.");
+        assert.ok($("#container1 span:contains('Two') a[href='#']").length == 1, "If 'link' option is specified and is an object, an html anchor pointing to link.href is created.");
         assert.equal($("#container1 span:contains('Two') a").attr("test"), "testing", "If 'link' option is specified and is an object, custom attributes should be set.");
       });
 
