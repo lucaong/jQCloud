@@ -7,7 +7,7 @@ module.exports = function(grunt) {
             ' * jQCloud <%= pkg.version %>\n'+
             ' * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)\n'+
             ' * Copyright 2013 Daniel White (http://www.developerdan.com)\n'+
-            ' * Copyright <%= grunt.template.today("yyyy") %> Damien "Mistic" Sorel (http://www.strangeplanet.fr)\n'+
+            ' * Copyright 2014<%= grunt.template.today("yyyy") %> Damien "Mistic" Sorel (http://www.strangeplanet.fr)\n'+
             ' * Licensed under MIT (http://opensource.org/licenses/MIT)\n'+
             ' */',
         

@@ -1,14 +1,24 @@
 /*!
- * jQCloud 2.0.1
+ * jQCloud 2.0.2
  * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)
  * Copyright 2013 Daniel White (http://www.developerdan.com)
- * Copyright 2014 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
+ * Copyright 20142016 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
 /*jshint -W055 *//* non standard constructor name */
 
-(function($) {
-  "use strict";
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  }
+  else if (typeof module === 'object' && module.exports) {
+    module.exports = factory(require('jquery'));
+  }
+  else {
+    factory(root.jQuery);
+  }
+}(this, function($) {
+"use strict";
 
   /*
    * Plugin class
@@ -158,20 +168,7 @@
 
       // Attach window resize event
       if (this.options.autoResize) {
-        $(window).on('resize', throttle(function() {
-          var new_size = {
-            width: this.$element.width(),
-            height: this.$element.height()
-          };
-
-          if (new_size.width != this.options.width || new_size.height != this.options.height) {
-            this.options.width = new_size.width;
-            this.options.height = new_size.height;
-            this.data.aspect_ratio = this.options.width / this.options.height;
-
-            this.update(this.word_array);
-          }
-        }, 50, this));
+        $(window).on('resize', throttle(this.resize, 50, this));
       }
     },
 
@@ -216,7 +213,7 @@
     // Initialize the drawing of the whole cloud
     drawWordCloud: function() {
       var i, l;
-      
+
       this.$element.children('[id^="' + this.data.namespace + '"]').remove();
 
       if (this.word_array.length === 0) {
@@ -339,8 +336,8 @@
       this.$element.append(word_span);
 
       word_size = {
-        width: word_span.width(),
-        height: word_span.height()
+        width: word_span.outerWidth(),
+        height: word_span.outerHeight()
       };
       word_size.left = this.options.center.x*this.options.width - word_size.width / 2.0;
       word_size.top = this.options.center.y*this.options.height - word_size.height / 2.0;
@@ -439,7 +436,7 @@
       this.clearTimeouts();
       this.$element.removeClass('jqcloud');
       this.$element.removeData('jqcloud');
-      this.$element.children('[id^="' + this.namespace + '"]').remove();
+      this.$element.children('[id^="' + this.data.namespace + '"]').remove();
     },
 
     // Update the list of words
@@ -449,7 +446,22 @@
 
       this.clearTimeouts();
       this.drawWordCloud();
-    }
+    },
+    
+    resize: function() {
+      var new_size = {
+        width: this.$element.width(),
+        height: this.$element.height()
+      };
+
+      if (new_size.width != this.options.width || new_size.height != this.options.height) {
+        this.options.width = new_size.width;
+        this.options.height = new_size.height;
+        this.data.aspect_ratio = this.options.width / this.options.height;
+
+        this.update(this.word_array);
+      }
+    },
   };
 
   /*
@@ -521,4 +533,4 @@
       return $.extend(true, {}, options);
     }
   };
-})(jQuery);
+}));

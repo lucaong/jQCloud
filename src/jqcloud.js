@@ -2,14 +2,24 @@
  * jQCloud
  * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)
  * Copyright 2013 Daniel White (http://www.developerdan.com)
- * Copyright 2014 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
+ * Copyright 2014-2016 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
 
 /*jshint -W055 *//* non standard constructor name */
 
-(function($) {
-  "use strict";
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  }
+  else if (typeof module === 'object' && module.exports) {
+    module.exports = factory(require('jquery'));
+  }
+  else {
+    factory(root.jQuery);
+  }
+}(this, function($) {
+"use strict";
 
   /*
    * Plugin class
@@ -524,4 +534,4 @@
       return $.extend(true, {}, options);
     }
   };
-})(jQuery);
+}));

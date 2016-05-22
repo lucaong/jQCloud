@@ -1,7 +1,8 @@
 {
   "name": "jqcloud2",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/mistic100/jQCloud",
+  "description": "jQuery plugin for drawing neat word clouds that actually look like clouds",
   "authors": [{
     "name": "Luca Ongaro",
     "homepage": "http://www.lucaongaro.eu"
@@ -12,7 +13,6 @@
     "name": "Damien \"Mistic\" Sorel",
     "homepage": "http://www.strangeplanet.fr"
   }],
-  "description": "jQuery plugin for drawing neat word clouds that actually look like clouds",
   "main": [
     "dist/jqcloud.js",
     "dist/jqcloud.css"
