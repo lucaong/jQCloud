@@ -304,6 +304,11 @@
         word_span.css('color', this.data.colors[weight-1]);
       }
 
+      // Apply color from word property
+      if (word.color) {
+        word_span.css('color', word.color);
+      }
+
       // Apply size
       if (this.data.sizes.length) {
         word_span.css('font-size', this.data.sizes[weight-1]);
@@ -448,7 +453,7 @@
       this.clearTimeouts();
       this.drawWordCloud();
     },
-    
+
     resize: function() {
       var new_size = {
         width: this.$element.width(),
