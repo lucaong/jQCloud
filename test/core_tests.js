@@ -30,6 +30,12 @@ var encoded_words = [
   {text: "John's Bday", weight: 1, link: "/posts?tag=John%27s+Bday"}
 ];
 
+var words_with_color = [
+  {text: 'Abc', weight: 0, color: '#000'},
+  {text: 'Def', weight: 1, color: '#ccc'},
+  {text: 'Ghi', weight: 2, color: '#eee'}
+];
+
 
 $(function() {
 
@@ -122,7 +128,7 @@ $(function() {
       $("#container4").show();
     });
   }, 20);
-  
+
   $("#container5").jQCloud($.extend(true, [], encoded_words), {
     encodeURI: false,
     afterCloudRender: function(){
@@ -131,7 +137,7 @@ $(function() {
       });
     }
   });
-  
+
   $("#container6").jQCloud($.extend(true, [], encoded_words), {
     encodeURI: true,
     afterCloudRender: function(){
@@ -140,7 +146,7 @@ $(function() {
       });
     }
   });
-  
+
   $("#container7").jQCloud(some_words, {
     classPattern: 'word-{n}',
     colors: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"],
@@ -154,4 +160,17 @@ $(function() {
       });
     }
   });
+
+  $("#container8").jQCloud(words_with_color , {
+    classPattern: 'word-{n}',
+    colors: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"],
+    fontSize: ['50px', '40px', '20px'],
+    afterCloudRender: function(){
+      QUnit.test('Word specific color', function(assert){
+        var first = $('#container8_word_2');
+        assert.equal(first.css('color'), "rgb(0, 0, 0)");
+      });
+    }
+  });
+
 });
