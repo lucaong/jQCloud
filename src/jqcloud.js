@@ -169,7 +169,7 @@
 
       // Attach window resize event
       if (this.options.autoResize) {
-        $(window).on('resize', throttle(this.resize, 50, this));
+        $(window).on('resize.' + this.data.namespace, throttle(this.resize, 50, this));
       }
     },
 
@@ -439,6 +439,10 @@
 
     // Destroy any data and objects added by the plugin
     destroy: function() {
+      if (this.options.autoResize) {
+        $(window).off('resize.' + this.data.namespace);
+      }
+
       this.clearTimeouts();
       this.$element.removeClass('jqcloud');
       this.$element.removeData('jqcloud');
