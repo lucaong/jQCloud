@@ -1,0 +1,6 @@
+linters:
+  ColorVariable:
+    enabled: false
+
+  HexLength:
+    enabled: false

@@ -1,6 +1,6 @@
 {
   "name": "jqcloud2",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "homepage": "https://github.com/mistic100/jQCloud",
   "description": "jQuery plugin for drawing neat word clouds that actually look like clouds",
   "authors": [{
@@ -11,6 +11,7 @@
     "homepage": "http://www.developerdan.com"
   }, {
     "name": "Damien \"Mistic\" Sorel",
+    "email": "contact@git.strangeplanet.fr",
     "homepage": "http://www.strangeplanet.fr"
   }],
   "main": [
@@ -36,6 +37,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "package.json",
+    "Gruntfile.js"
   ]
 }

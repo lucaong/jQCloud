@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>QUnit Test Suite</title>
+  <title>jQCloud</title>
   <meta charset="utf-8">
   
   <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
-  <link rel="stylesheet" href="../dist/jqcloud.min.css">
+  <link rel="stylesheet" href="../dist/jqcloud.css">
   
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
   <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
-  <script src="../src/jqcloud.js"></script>
+  <script src="../dist/jqcloud.js"></script>
+
   <script src="core_tests.js"></script>
   
   <style>
-    .container {
+    #cloud {
       width: 400px;
       height: 300px;
-      border: 1px solid #ccc;
-      margin: 20px;
     }
   </style>
 </head>
@@ -26,15 +25,8 @@
   
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
-  
-  <div id="container1" class="container"></div>
-  <div id="container2" class="container"></div>
-  <div id="container3" class="container"></div>
-  <div id="container4" class="container" style="display:none;"></div>
-  <div id="container5" class="container"></div>
-  <div id="container6" class="container"></div>
-  <div id="container7" class="container"></div>
-  <div id="container8" class="container"></div>
+
+  <div id="cloud"></div>
 
 </body>
 </html>

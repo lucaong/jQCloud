@@ -1,33 +1,85 @@
+'use strict';
+
 module.exports = function(grunt) {
+    require('time-grunt')(grunt);
+    require('jit-grunt')(grunt, {
+        scsslint: 'grunt-scss-lint'
+    });
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        banner:
-            '/*!\n'+
-            ' * jQCloud <%= pkg.version %>\n'+
-            ' * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)\n'+
-            ' * Copyright 2013 Daniel White (http://www.developerdan.com)\n'+
-            ' * Copyright 2014<%= grunt.template.today("yyyy") %> Damien "Mistic" Sorel (http://www.strangeplanet.fr)\n'+
-            ' * Licensed under MIT (http://opensource.org/licenses/MIT)\n'+
-            ' */',
-        
-        // copy src
+        banner: '/*!\n' +
+        ' * jQCloud <%= pkg.version %>\n' +
+        ' * Copyright 2011 Luca Ongaro (http://www.lucaongaro.eu)\n' +
+        ' * Copyright 2013 Daniel White (http://www.developerdan.com)\n' +
+        ' * Copyright 2014-<%= grunt.template.today("yyyy") %> Damien "Mistic" Sorel (http://www.strangeplanet.fr)\n' +
+        ' * Licensed under MIT (http://opensource.org/licenses/MIT)\n' +
+        ' */',
+
+        // serve folder content
+        connect: {
+            dev: {
+                options: {
+                    port: 9000,
+                    livereload: true
+                }
+            }
+        },
+
+        // watchers
+        watch: {
+            options: {
+                livereload: true
+            },
+            js: {
+                files: ['src/*.js'],
+                tasks: ['build_js']
+            },
+            css: {
+                files: ['src/*.scss'],
+                tasks: ['build_css']
+            },
+            example: {
+                files: ['example/**', 'test/**'],
+                tasks: []
+            }
+        },
+
+        // open example
+        open: {
+            dev: {
+                path: 'http://localhost:<%= connect.dev.options.port%>/example/index.html'
+            }
+        },
+
+        // add UMD
+        wrap: {
+            js: {
+                src: 'src/jqcloud.js',
+                dest: 'dist/jqcloud.js',
+                options: {
+                    separator: '',
+                    wrapper: function() {
+                        return grunt.file.read('src/.wrapper.js').replace(/\r\n/g, '\n').split(/@@js\n/);
+                    }
+                }
+            }
+        },
+
+        // add banner
         concat: {
             options: {
                 banner: '<%= banner %>\n',
-                stripBanners: {
-                    block: true
-                }
+                stripBanners: false
             },
-            src: {
-                files: {
-                    'dist/jqcloud.css': [
-                        'src/jqcloud.css'
-                    ],
-                    'dist/jqcloud.js': [
-                        'src/jqcloud.js'
-                    ]
-                }
+            js: {
+                src: 'dist/jqcloud.js',
+                dest: 'dist/jqcloud.js'
+            },
+            css: {
+                src: 'dist/jqcloud.css',
+                dest: 'dist/jqcloud.css'
             }
         },
 
@@ -37,11 +89,20 @@ module.exports = function(grunt) {
                 banner: '<%= banner %>\n'
             },
             dist: {
-                files: {
-                    'dist/jqcloud.min.js': [
-                        'dist/jqcloud.js'
-                    ]
-                }
+                src: 'dist/jqcloud.js',
+                dest: 'dist/jqcloud.min.js'
+            }
+        },
+
+        // parse scss
+        sass: {
+            options: {
+                sourcemap: 'none',
+                style: 'expanded'
+            },
+            dist: {
+                src: 'src/jqcloud.scss',
+                dest: 'dist/jqcloud.css'
             }
         },
 
@@ -52,45 +113,71 @@ module.exports = function(grunt) {
                 keepSpecialComments: 0
             },
             dist: {
-                files: {
-                    'dist/jqcloud.min.css': [
-                        'dist/jqcloud.css'
-                    ]
-                }
+                src: 'dist/jqcloud.css',
+                dest: 'dist/jqcloud.min.css'
             }
         },
 
         // jshint tests
         jshint: {
             lib: {
-                files: {
-                    src: [
-                        'src/jqcloud.js'
-                    ]
-                }
+                options: {
+                    jshintrc: '.jshintrc'
+                },
+                src: 'src/jqcloud.js'
             }
         },
-        
+
+        // scss tests
+        scsslint: {
+            lib: {
+                options: {
+                    config: '.scss-lint.yml'
+                },
+                src: 'src/jqcloud.scss'
+            }
+        },
+
         // qunit test suite
         qunit: {
-            all: ['test/*.html']
+            all: {
+                options: {
+                    urls: ['test/index.html'],
+                    noGlobals: true
+                }
+            }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('default', [
-        'concat',
-        'uglify',
+    grunt.registerTask('build_js', [
+        'wrap',
+        'concat:js',
+        'uglify'
+    ]);
+
+    grunt.registerTask('build_css', [
+        'sass',
+        'concat:css',
         'cssmin'
     ]);
-    
+
+    grunt.registerTask('default', [
+        'build_js',
+        'build_css'
+    ]);
+
     grunt.registerTask('test', [
-        'qunit',
-        'jshint'
+        'jshint',
+        'scsslint',
+        'default',
+        'qunit'
+    ]);
+
+    grunt.registerTask('serve', [
+        'default',
+        'open',
+        'connect',
+        'watch'
     ]);
 };
