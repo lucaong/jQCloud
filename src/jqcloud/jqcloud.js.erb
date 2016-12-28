@@ -109,6 +109,11 @@
         }
         word_span = $('<span>').attr(word.html).addClass('w' + weight + " " + custom_class);
 
+	// set data-X attributes if passed
+        if(word.data_attributes){
+ 	    $.each( word.data_attributes , function(i,v){ word_span.attr('data-'+i,v); } );
+	}
+
         // Append link if word.url attribute was set
         if (word.link) {
           // If link is a string, then use it as the link href
