@@ -17,42 +17,6 @@ module.exports = function(grunt) {
         ' * Licensed under MIT (http://opensource.org/licenses/MIT)\n' +
         ' */',
 
-        // serve folder content
-        connect: {
-            dev: {
-                options: {
-                    port: 9000,
-                    livereload: true
-                }
-            }
-        },
-
-        // watchers
-        watch: {
-            options: {
-                livereload: true
-            },
-            js: {
-                files: ['src/*.js'],
-                tasks: ['build_js']
-            },
-            css: {
-                files: ['src/*.scss'],
-                tasks: ['build_css']
-            },
-            example: {
-                files: ['example/**', 'test/**'],
-                tasks: []
-            }
-        },
-
-        // open example
-        open: {
-            dev: {
-                path: 'http://localhost:<%= connect.dev.options.port%>/example/index.html'
-            }
-        },
-
         // add UMD
         wrap: {
             js: {
@@ -172,12 +136,5 @@ module.exports = function(grunt) {
         'scsslint',
         'default',
         'qunit'
-    ]);
-
-    grunt.registerTask('serve', [
-        'default',
-        'open',
-        'connect',
-        'watch'
     ]);
 };

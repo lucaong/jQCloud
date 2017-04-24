@@ -1,6 +1,5 @@
 {
   "name": "jqcloud2",
-  "version": "2.0.3",
   "homepage": "https://github.com/mistic100/jQCloud",
   "description": "jQuery plugin for drawing neat word clouds that actually look like clouds",
   "authors": [{
