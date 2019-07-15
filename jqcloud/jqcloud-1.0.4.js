@@ -6,7 +6,7 @@
  * Copyright 2011, Luca Ongaro
  * Licensed under the MIT license.
  *
- * Date: 2013-05-09 18:54:22 +0200
+ * Date: 2015-01-20 20:16:32 +0000
 */
 
 (function( $ ) {
@@ -62,6 +62,16 @@
         }
         return false;
       };
+
+      // if word array has not been passed in, look for list within container
+      if (word_array.length === 0) {
+        if ($('ul', $this).length) {
+          $('ul li', $this).each(function () {
+            word_array.push({text: $(this).text(), weight: $(this).data('weight')});
+          });
+          $('ul', $this).hide();
+        }
+      }
 
       // Make sure every weight is a number before sorting
       for (var i = 0; i < word_array.length; i++) {

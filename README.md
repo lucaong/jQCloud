@@ -142,7 +142,7 @@ If you happen to use jQCloud in your projects, you can make me know (just contac
 
 ## Contribute
 
-Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake` and `erb` gems. Then, to build jQCloud, run:
+Contributes are welcome! To setup your build environment, make sure you have Ruby installed, as well as the `rake`, `erb` and `uglifier` gems. Then, to build jQCloud, run:
 
 ```
 rake build
@@ -153,7 +153,6 @@ The newly-built distribution files will be put in the `jqcloud` subdirectory.
 If you make changes to the JavaScript source, to the README, to examples or to tests, make them to .erb files in the `src` subdirectory: changes will be reflected in the distribution files as soon as you build jQCloud. Also, if you send me a pull request, please don't change the version.txt file.
 
 ## Changelog
-
 
 1.0.4 Add option to remove overflowing words (thanks to [drewB](https://github.com/drewB))
 
