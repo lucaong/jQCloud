@@ -1,4 +1,5 @@
 # jQCloud: beautiful word clouds with jQuery
+[![CDNJS version](https://img.shields.io/cdnjs/v/jqcloud.svg)](https://cdnjs.com/libraries/jqcloud)
 
 jQCloud is a jQuery plugin that builds neat and pure HTML + CSS word clouds and tag clouds that are actually shaped like a cloud (otherwise, why would we call them 'word clouds'?).
 
