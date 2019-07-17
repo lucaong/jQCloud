@@ -28,7 +28,8 @@
       delayedMode: word_array.length > 50,
       shape: false, // It defaults to elliptic shape
       encodeURI: true,
-      removeOverflowing: true
+      removeOverflowing: true,
+      fly : true
     };
 
     options = $.extend(default_options, options || {});
@@ -136,6 +137,13 @@
           }
         }
 
+        if (options.fly && !options.delayedMode) {
+          $(word_span).css({
+            'white-space' : 'nowrap',
+            'opacity' : 0
+          });
+        }
+
         $this.append(word_span);
 
         var width = word_span.width(),
@@ -226,7 +234,38 @@
     };
 
     // Delay execution so that the browser can render the page before the computatively intensive word cloud drawing
-    setTimeout(function(){drawWordCloud();}, 10);
+    setTimeout(function(){drawWordCloud();
+      if (options.fly && !options.delayedMode) {
+        var getRandomInt = function(min, max) {
+          return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        var getOuter = function() {
+          var left = 0, top = 0;
+          //first get left or get top
+          if (getRandomInt(0, 1) == 1) {
+            left = getRandomInt(0, options.width);
+            top = (getRandomInt(0, 1) == 1 ? 0 : options.height);
+          } else {
+            top = getRandomInt(0, options.height);
+            left = (getRandomInt(0, 1) == 1 ? 0 : options.top);
+          }
+          return {
+            left : left,
+            top : top
+          }
+        };
+        $this.find('span').each(function(){
+          $(this).attr({
+            'data-left' : $(this).css('left'),
+            'data-top' : $(this).css('top')
+          }).css(getOuter()).animate({
+            opacity : 1,
+            left : $(this).attr('data-left'),
+            top : $(this).attr('data-top')
+          }, 1500);
+        });
+      }
+    }, 10);
     return $this;
   };
 })(jQuery);
